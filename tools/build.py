@@ -298,21 +298,22 @@ def fragment(theme_key):
 
 
 # ---------------------------------------------------------------- 案D（採用サイト型・文字だけ）
-D_FONTS = "Noto+Sans+JP:wght@400;500;700"
+# 書体: 見出し・本文とも Zen Kaku Gothic New。ロゴ（Condorcet）だけ英字の Manrope
+D_FONTS = "Zen+Kaku+Gothic+New:wght@400;500;700&family=Manrope:wght@600;700"
 D_CSS = """
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:light}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 :root{--bg:#f3f3f1;--paper:#ffffff;--ink:#1a1a1a;--ink2:#4a4a4a;--muted:#8a8a86;--accent:#1b57d6;--line:#d8d8d4;
---font:'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:2;overflow-wrap:anywhere}
-.w{max-width:600px;margin:0 auto;padding-inline:24px}
+--font:'Zen Kaku Gothic New','Hiragino Sans','Yu Gothic',sans-serif;--latin:'Manrope','Helvetica Neue',Arial,sans-serif}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:2;overflow-wrap:anywhere;font-feature-settings:"palt"}
+.w{max-width:640px;margin:0 auto;padding-inline:24px}
 .hd{position:fixed;top:0;left:0;right:0;z-index:30;padding-top:env(safe-area-inset-top,0px);background:transparent;transition:background .3s,box-shadow .3s}
 .hd.on{background:rgba(243,243,241,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 1px 0 var(--line)}
 .hd .bar{display:flex;align-items:center;justify-content:space-between;height:60px}
-.hd .logo{font-weight:700;font-size:1.05rem;letter-spacing:.12em;color:var(--ink);text-decoration:none}
+.logo{font-family:var(--latin);font-weight:700;font-size:1.25rem;letter-spacing:-.02em;color:var(--ink);text-decoration:none}
 .hd .rt{display:flex;align-items:center;gap:16px}
-.hd .cta{font-size:.8rem;font-weight:500;color:var(--ink);text-decoration:none;border:1px solid var(--ink);border-radius:999px;padding:.35em 1em}
+.hd .cta{font-size:.8rem;font-weight:500;color:var(--ink);text-decoration:none;border:1px solid var(--ink);border-radius:999px;padding:.35em 1em;white-space:nowrap}
 .mn{position:relative}
 .mn summary{list-style:none;cursor:pointer;width:34px;height:24px;position:relative;display:block}
 .mn summary::-webkit-details-marker{display:none}
@@ -325,7 +326,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 .hero{padding:calc(60px + env(safe-area-inset-top,0px) + 96px) 0 72px}
 .hero .catch{font-size:2.15rem;font-weight:700;line-height:1.45;letter-spacing:.01em;margin:0;text-wrap:pretty}
 .hero .catch em{font-style:normal;color:var(--accent)}
-.hero .sub{margin:2em 0 0;font-size:1rem;color:var(--ink2);line-height:2}
+.hero .sub{margin:2em 0 0;font-size:1rem;color:var(--ink2);line-height:2;max-width:34em}
 .cue{margin-top:72px;font-size:.75rem;letter-spacing:.2em;color:var(--muted);display:flex;align-items:center;gap:12px}
 .cue::after{content:"";width:1px;height:40px;background:var(--muted);animation:cue 1.8s ease-in-out infinite;transform-origin:top}
 @keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}
@@ -342,11 +343,11 @@ p:last-child{margin-bottom:0}
 .facts li:last-child{border-bottom:1px solid var(--line)}
 .facts .k{font-size:.85rem;font-weight:700;color:var(--accent);letter-spacing:.1em;padding-top:.35em}
 .facts p{margin:0;font-size:.98rem;line-height:1.95}
-.essay p{font-size:1.02rem;line-height:2.15;margin-bottom:1.8em}
+.essay .sb p{font-size:1.02rem;line-height:2.15;margin-bottom:1.8em}
 .essay .closing{margin-top:3em;padding-left:18px;border-left:2px solid var(--accent)}
 .essay .closing p{color:var(--ink);font-weight:500}
 .blk{padding:26px 0;border-top:1px solid var(--line)}
-.blk:last-of-type{border-bottom:1px solid var(--line)}
+.blks .blk:last-child{border-bottom:1px solid var(--line)}
 .blk p{font-size:.98rem}
 .more{display:inline-block;margin-top:2em;color:var(--accent);font-weight:500;text-decoration:none;font-size:.95rem}
 .note{color:var(--muted);font-size:.9rem}
@@ -359,6 +360,7 @@ p:last-child{margin-bottom:0}
 .price .cond{display:block;font-size:.85rem;color:var(--muted)}
 .big{font-size:1.25rem;font-weight:500;line-height:1.9}
 footer{padding:64px 0 72px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
+footer .logo{display:inline-block;margin-bottom:.6em}
 footer .co{color:var(--ink);font-weight:700;font-size:1rem;margin-bottom:.3em}
 footer nav{margin-top:2em;display:flex;flex-wrap:wrap;gap:.2em 1.4em}
 footer nav a{color:var(--muted);text-decoration:none}
@@ -366,6 +368,34 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .js .rv{opacity:0;transform:translateY(16px);transition:opacity .8s cubic-bezier(.2,.6,.2,1),transform .8s cubic-bezier(.2,.6,.2,1)}
 .js .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}}
+
+/* ---- 画面が広いとき（PC・タブレット横）: 横幅を使う ---- */
+@media (min-width:860px){
+  .w{max-width:1160px;padding-inline:48px}
+  .hd .bar{height:72px}
+  .logo{font-size:1.4rem}
+  .mn nav{left:auto;right:48px;top:calc(72px + env(safe-area-inset-top,0px));width:280px;border:1px solid var(--line);padding:10px 24px 16px}
+  .hero{padding:calc(72px + env(safe-area-inset-top,0px) + 120px) 0 96px}
+  .hero .w{display:grid;grid-template-columns:7fr 5fr;gap:48px;align-items:end}
+  .hero .catch{font-size:clamp(2.6rem,4.6vw,4.4rem);line-height:1.3;letter-spacing:0}
+  .hero .sub{margin:0;font-size:1.05rem}
+  .hero .cue{grid-column:1/-1;margin-top:64px}
+  section{padding:120px 0}
+  .sec{display:grid;grid-template-columns:minmax(220px,3fr) 8fr;gap:64px;align-items:start}
+  .sh{position:sticky;top:calc(72px + 40px)}
+  .sh h2{font-size:2rem;line-height:1.4;margin-bottom:0}
+  .sb{max-width:680px}
+  .facts li{grid-template-columns:6em 1fr;gap:0 24px;padding:26px 0}
+  .facts p{font-size:1.02rem}
+  .blks{display:grid;grid-template-columns:repeat(3,1fr);gap:0 40px}
+  .blks .blk{border-top:1px solid var(--line);border-bottom:0!important;padding:28px 0 0}
+  .blks.two{grid-template-columns:repeat(2,1fr)}
+  .price{display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
+  .price .row{border-bottom:1px solid var(--line)}
+  .price .amt{font-size:2.4rem}
+  footer .w{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  footer nav{margin-top:0;flex-direction:column;gap:.3em}
+}
 """
 
 D_JS = """
@@ -401,7 +431,7 @@ def d_catch():
 def render_body_d():
     P = []
     P.append('<header class="hd"><div class="w bar">'
-             f'<a class="logo" href="#top">{C.SITE_KANA}</a>'
+             f'<a class="logo" href="#top">{C.SITE_NAME}</a>'
              '<div class="rt"><a class="cta" href="#toiawase">お問い合わせ</a>'
              '<details class="mn"><summary aria-label="メニュー"></summary><nav>')
     for href, label in menu_items():
@@ -414,28 +444,37 @@ def render_body_d():
              f'<p class="sub">{esc(C.SUMMARY[0][1])}</p>'
              '<div class="cue">スクロール</div>'
              '</div></div>')
-    P.append('<section id="service" class="paper"><div class="w rv">'
-             '<p class="lbl">コンドルセとは</p><ul class="facts">')
+    # ③
+    P.append('<section id="service" class="paper"><div class="w sec rv">'
+             '<div class="sh"><p class="lbl">コンドルセとは</p><h2>一日で整えて、七日でご自身の手に。</h2></div>'
+             '<div class="sb"><ul class="facts">')
     for k, v in C.SUMMARY:
         P.append(f'<li><span class="k">{esc(k)}</span><p>{esc(v)}</p></li>')
-    P.append('</ul></div></section>')
-    P.append('<section id="essay" class="essay"><div class="w rv">'
-             '<p class="lbl">コンドルセの考え</p>'
-             f'<h2>{esc(C.ESSAY_TITLE)}</h2>')
+    P.append('</ul></div></div></section>')
+    # ④
+    P.append('<section id="essay" class="essay"><div class="w sec rv">'
+             f'<div class="sh"><p class="lbl">コンドルセの考え</p><h2>{esc(C.ESSAY_TITLE)}</h2></div><div class="sb">')
     for p in C.ESSAY:
         P.append(f'<p>{esc(p)}</p>')
     P.append('<div class="closing">')
     for p in C.ESSAY_CLOSING:
         P.append(f'<p>{esc(p)}</p>')
-    P.append('</div></div></section>')
+    P.append('</div></div></div></section>')
+    # ⑤〜
     for i, s in enumerate(C.SECTIONS):
         cls = "paper" if i % 2 == 0 else ""
-        P.append(f'<section id="{s["id"]}" class="{cls}"><div class="w rv">')
-        P.append(f'<h2>{esc(s["title"])}</h2>')
+        P.append(f'<section id="{s["id"]}" class="{cls}"><div class="w sec rv">')
+        P.append(f'<div class="sh"><h2>{esc(s["title"])}</h2>')
         if s.get("note"):
-            P.append(f'<p class="note">{esc(s["note"])}</p>')
-        for h, body in s.get("blocks", []):
-            P.append(f'<div class="blk"><h3>{esc(h)}</h3><p>{esc(body)}</p></div>')
+            P.append(f'<p class="note" style="margin-top:1em">{esc(s["note"])}</p>')
+        P.append('</div><div class="sb">')
+        blocks = s.get("blocks", [])
+        if blocks:
+            two = " two" if len(blocks) <= 2 else ""
+            P.append(f'<div class="blks{two}">')
+            for h, body in blocks:
+                P.append(f'<div class="blk"><h3>{esc(h)}</h3><p>{esc(body)}</p></div>')
+            P.append('</div>')
         if s.get("price"):
             P.append('<div class="price">')
             for item, amt, cond in s["price"]:
@@ -449,22 +488,23 @@ def render_body_d():
             P.append(f'<div class="fig">{esc(s["figure"])}</div>')
         if s.get("more"):
             P.append(f'<span class="more">{esc(s["more"])} →（別ページ・準備中）</span>')
-        P.append('</div></section>')
+        P.append('</div></div></section>')
     P.append('</main>')
 
-    P.append('<footer><div class="w">'
-             f'<div class="co">{esc(C.COMPANY)}</div><div>所在地（準備中）</div><nav>')
+    P.append('<footer><div class="w"><div>'
+             f'<a class="logo" href="#top">{C.SITE_NAME}</a>'
+             f'<div class="co">{esc(C.COMPANY)}</div><div>所在地（準備中）</div>'
+             f'<p class="note" style="margin-top:2em">{esc(C.FOOTER_NOTE)}<br>この案：D 文字と余白　'
+             '<a href="../" style="color:inherit">ほかの案を見る</a></p></div><nav>')
     for href, label in menu_items():
         P.append(f'<a href="{href}">{esc(label)}</a>')
-    P.append('</nav>'
-             f'<p class="note" style="margin-top:2em">{esc(C.FOOTER_NOTE)}<br>この案：D 文字と余白　'
-             '<a href="../" style="color:inherit">ほかの案を見る</a></p></div></footer>')
+    P.append('</nav></div></footer>')
     P.append(f'<script>{D_JS}</script>')
     return "\n".join(P)
 
 
 def d_head():
-    title = f"<title>{C.SITE_KANA} — {esc(C.CATCH)}</title>"
+    title = f"<title>{C.SITE_NAME}（{C.SITE_KANA}）— {esc(C.CATCH)}</title>"
     link = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
             '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
             f'<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={D_FONTS}&display=swap">')
@@ -481,7 +521,6 @@ def full_page_d():
 def fragment_d():
     title, link, style = d_head()
     return f"{title}\n{link}\n{style}\n{render_body_d()}\n"
-
 
 INDEX_CSS = """
 *{box-sizing:border-box}html{color-scheme:light}
@@ -504,7 +543,7 @@ def index_page(fragment_mode=False):
             '<p class="sub">同じ文章で、雰囲気の違う3案。スマホで開いて比べてください。</p>']
     for k, t in THEMES.items():
         body.append(f'<a class="card" href="{k}/"><b>{esc(t["name"])}</b><span>{esc(t["mood"])}</span></a>')
-    body.append('<a class="card" href="d/"><b>D 文字と余白</b><span>採用サイトの型。薄い灰の地に文字だけ、青は強調したい語にだけ。スクロールで文字がふわっと出る。英語なし</span></a>')
+    body.append('<a class="card" href="d/"><b>D 文字と余白</b><span>採用サイトの型。薄い灰の地に文字だけ、青は強調したい語にだけ。PCでは見出しを左、本文を右の二段に。ロゴだけ英字</span></a>')
     body.append("<h2>この素案で確定しているもの</h2><ul>"
                 "<li>事業名・キャッチコピー・事業情報の表（内容／対象／日数／料金／誰が）</li>"
                 "<li>長文（博彰の清書。一字も変えていません）</li></ul>")
