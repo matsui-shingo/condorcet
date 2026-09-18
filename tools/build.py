@@ -22,20 +22,52 @@ def esc(s):
 # ---------------------------------------------------------------- themes
 THEMES = {
     "a": {
-        "name": "A 白と紺",
-        "mood": "誠実・堅実。白地に紺、見出しは明朝。支援機関の人に見せても落ち着いて見える",
-        "fonts": "Shippori+Mincho:wght@500;700&family=Noto+Sans+JP:wght@400;700",
+        "name": "A 白と青",
+        "mood": "AI・SaaS の会社の作り。白地に鮮やかな青の面、太いゴシックの見出し、白い角丸カード。写真や絵は使わず文字だけで組む",
+        "fonts": "Noto+Sans+JP:wght@400;500;700;900",
         "css": """
-:root{--bg:#ffffff;--fg:#1c2331;--accent:#1f3a5f;--line:#d9dde3;--muted:#5b6472;--soft:#f3f5f8;
---display:'Shippori Mincho','Noto Serif JP','Hiragino Mincho ProN',serif;--body:'Noto Sans JP','Hiragino Sans',sans-serif;--fs:17px}
-.hero .name{font-family:var(--display);font-weight:700;font-size:2.6rem;letter-spacing:.02em;color:var(--accent)}
-.hero .kana{color:var(--muted);letter-spacing:.3em;font-size:.9rem;margin-top:.2em}
-.hero .catch{font-family:var(--display);font-size:1.55rem;line-height:1.6;color:var(--fg);margin-top:1.4em;border-top:1px solid var(--accent);padding-top:1em}
-h2{font-family:var(--display);font-weight:700;color:var(--accent)}
-dl.summary dt{color:var(--accent);font-size:.8rem;letter-spacing:.15em;border-bottom:1px solid var(--line);padding-bottom:.2em}
-.essay p{font-family:var(--display);font-size:1.02rem;line-height:2.05}
-.block h3{border-left:3px solid var(--accent);padding-left:.6em}
-.price .amt{color:var(--accent);font-family:var(--display)}
+:root{--bg:#ffffff;--fg:#0f1b33;--accent:#1e40c8;--deep:#0b2a6b;--line:#dbe1ee;--muted:#5b6780;--soft:#eef2fb;
+--display:'Noto Sans JP','Hiragino Sans',sans-serif;--body:'Noto Sans JP','Hiragino Sans',sans-serif;--fs:17px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .brand{font-weight:900;font-size:1.3rem;color:var(--accent);letter-spacing:-.01em}
+header.top .right{display:flex;align-items:center;gap:14px}
+.cta{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;font-size:.85rem;padding:.45em 1.1em;border-radius:999px}
+.menu summary{border:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--fg)}
+.menu summary .ico{display:block;width:26px;height:18px;position:relative}
+.menu summary .ico::before,.menu summary .ico::after,.menu summary .ico i{content:"";position:absolute;left:0;right:0;height:2px;background:var(--fg);border-radius:2px}
+.menu summary .ico::before{top:0}.menu summary .ico i{top:8px}.menu summary .ico::after{bottom:0}
+.menu summary .lbl{font-size:.62rem;letter-spacing:.05em}
+.menu nav{border-radius:14px;border:0;box-shadow:0 12px 32px rgba(11,42,107,.18);padding:.6em 0;min-width:240px}
+.menu nav a{font-weight:500;padding:.65em 1.4em}
+.hero{background:var(--deep);color:#fff;padding-block:64px 96px}
+.hero .name{font-weight:900;font-size:2.9rem;letter-spacing:-.02em;line-height:1.1}
+.hero .kana{font-size:.9rem;letter-spacing:.35em;opacity:.8;margin-top:.5em}
+.hero .catch{font-weight:900;font-size:1.7rem;line-height:1.45;margin-top:1.6em;text-wrap:pretty}
+#service{border-top:0;padding-top:0;background:linear-gradient(var(--deep) 0,var(--deep) 56px,var(--bg) 56px)}
+#service dl.summary{background:#fff;border-radius:18px;padding:28px 22px;box-shadow:0 18px 44px rgba(11,42,107,.14)}
+dl.summary dt{color:var(--accent);font-weight:900;font-size:.9rem;display:flex;align-items:center;gap:.5em}
+dl.summary dt::before{content:"";width:10px;height:10px;background:var(--accent);border-radius:2px}
+dl.summary dd{padding-left:1.35em}
+section{border-top:0;padding-block:56px}
+main > section:nth-of-type(odd):not(#service){background:var(--soft)}
+h2{font-weight:900;font-size:1.5rem;letter-spacing:-.01em}
+h2::before{content:"";display:block;width:32px;height:5px;background:var(--accent);border-radius:3px;margin-bottom:.8em}
+.essay p{line-height:2}
+.essay .closing{border-top:0;background:var(--soft);border-radius:14px;padding:20px 18px;margin-top:2em}
+main > section:nth-of-type(odd) .essay .closing{background:#fff}
+.block{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px}
+main > section:nth-of-type(even) .block{background:var(--soft);border:0}
+.block h3{color:var(--accent);font-weight:900;font-size:1rem}
+.more{color:var(--accent);border-bottom:0;font-weight:700}
+.figure{border:2px dashed var(--line);border-radius:14px;background:#fff}
+.price .row{border-bottom:1px solid var(--line)}
+.price .row:first-child{border-top:0}
+.price .amt{color:var(--accent);font-weight:900;font-size:1.6rem}
+footer{background:var(--deep);color:rgba(255,255,255,.75);border-top:0;padding-block:40px 56px}
+footer .co{color:#fff}
+footer nav a{color:rgba(255,255,255,.75)}
+footer .note{color:rgba(255,255,255,.6)}
+footer a{color:#fff}
 """,
     },
     "b": {
@@ -98,6 +130,9 @@ header.top .brand{font-family:var(--display);font-weight:700;font-size:1.15rem;c
 .menu{position:relative}
 .menu summary{list-style:none;cursor:pointer;border:1px solid var(--accent);color:var(--accent);padding:.25em .8em;font-size:.85rem;border-radius:3px;user-select:none}
 .menu summary::-webkit-details-marker{display:none}
+.menu summary .ico{display:none}
+.cta{display:none}
+header.top .right{display:flex;align-items:center;gap:12px}
 .menu nav{position:absolute;right:0;top:calc(100% + 10px);background:var(--bg);border:1px solid var(--line);min-width:220px;
 box-shadow:0 8px 24px rgba(0,0,0,.12);padding:.4em 0;border-radius:4px}
 .menu nav a{display:block;padding:.55em 1.2em;color:var(--fg);text-decoration:none;font-size:.95rem}
@@ -179,16 +214,17 @@ def render_body(theme_key):
     parts = []
     parts.append('<header class="top"><div class="wrap bar">'
                  f'<a class="brand" href="#top">{C.SITE_NAME}</a>'
-                 '<details class="menu"><summary>メニュー</summary><nav>')
+                 '<div class="right"><a class="cta" href="#toiawase">お問い合わせ</a>'
+                 '<details class="menu"><summary><span class="ico"><i></i></span><span class="lbl">メニュー</span></summary><nav>')
     for href, label in menu_items():
         parts.append(f'<a href="{href}">{esc(label)}</a>')
-    parts.append("</nav></details></div></header>")
+    parts.append("</nav></details></div></div></header>")
 
     parts.append('<main id="top">')
     # ① ②
     parts.append('<div class="hero"><div class="wrap">'
                  f'<div class="name">{C.SITE_NAME}</div><span class="kana">{C.SITE_KANA}</span>'
-                 f'<div class="catchwrap"><h1 class="catch">{esc(C.CATCH).replace("、", "、<br>")}</h1></div></div></div>')
+                 f'<div class="catchwrap"><h1 class="catch">{esc(C.CATCH)}</h1></div></div></div>')
     # ③
     parts.append('<section id="service"><div class="wrap"><dl class="summary">')
     for k, v in C.SUMMARY:
@@ -228,7 +264,7 @@ def head_parts(theme_key):
     link = (f'<link rel="preconnect" href="https://fonts.googleapis.com">'
             f'<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
             f'<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={t["fonts"]}&display=swap">')
-    style = f"<style>{t['css']}{BASE_CSS}</style>"
+    style = f"<style>{BASE_CSS}{t['css']}</style>"
     return title, link, style
 
 
