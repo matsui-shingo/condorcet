@@ -48,7 +48,7 @@ p:last-child{margin-bottom:0}
 .facts li:last-child{border-bottom:1px solid var(--line)}
 .facts .k{font-size:.85rem;font-weight:700;color:var(--accent);letter-spacing:.1em;padding-top:.35em}
 .facts p{margin:0;font-size:.98rem;line-height:1.95}
-.essay .sb p{font-size:1.02rem;line-height:2.15;margin-bottom:1.8em}
+.essay .body p{font-size:1.02rem;line-height:2.15;margin-bottom:1.8em}
 .essay .closing{margin-top:3em;padding-left:18px;border-left:2px solid var(--accent)}
 .essay .closing p{color:var(--ink);font-weight:500}
 .blk{padding:26px 0;border-top:1px solid var(--line)}
@@ -74,30 +74,39 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .js .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}}
 
-/* ---- 画面が広いとき（PC・タブレット横）: 横幅を使う ---- */
+/* ---- 画面が広いとき（PC・タブレット横）: 節ごとに横幅の使い方を決める ---- */
 @media (min-width:860px){
-  .w{max-width:1160px;padding-inline:48px}
+  .w{max-width:1120px;padding-inline:48px}
   .hd .bar{height:72px}
   .logo{font-size:1.4rem}
   .mn nav{left:auto;right:48px;top:calc(72px + env(safe-area-inset-top,0px));width:280px;border:1px solid var(--line);padding:10px 24px 16px}
-  .hero{padding:calc(72px + env(safe-area-inset-top,0px) + 120px) 0 96px}
-  .hero .w{display:grid;grid-template-columns:7fr 5fr;gap:48px;align-items:end}
-  .hero .catch{font-size:clamp(2.6rem,4.6vw,4.4rem);line-height:1.3;letter-spacing:0}
-  .hero .sub{margin:0;font-size:1.05rem}
-  .hero .cue{grid-column:1/-1;margin-top:64px}
-  section{padding:120px 0}
-  .sec{display:grid;grid-template-columns:minmax(220px,3fr) 8fr;gap:64px;align-items:start}
-  .sh{position:sticky;top:calc(72px + 40px)}
-  .sh h2{font-size:2rem;line-height:1.4;margin-bottom:0}
-  .sb{max-width:680px}
-  .facts li{grid-template-columns:6em 1fr;gap:0 24px;padding:26px 0}
+  .hero{padding:calc(72px + env(safe-area-inset-top,0px) + 128px) 0 104px}
+  .hero .catch{font-size:clamp(2.6rem,4.4vw,4rem);line-height:1.3;letter-spacing:0;max-width:20em}
+  .hero .sub{font-size:1.05rem;max-width:40em}
+  section{padding:112px 0}
+  h2{font-size:2rem;line-height:1.4}
+  .in.narrow{max-width:720px}
+  /* 表: 内容は全幅、残りは2×2 */
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:0 56px}
+  .facts li{grid-template-columns:5em 1fr;gap:0 20px;padding:26px 0}
+  .facts li.full{grid-column:1/-1}
+  .facts li:nth-last-child(-n+2){border-bottom:1px solid var(--line)}
   .facts p{font-size:1.02rem}
-  .blks{display:grid;grid-template-columns:repeat(3,1fr);gap:0 40px}
-  .blks .blk{border-top:1px solid var(--line);border-bottom:0!important;padding:28px 0 0}
-  .blks.two{grid-template-columns:repeat(2,1fr)}
-  .price{display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
+  /* 横3列 */
+  .cols3 .blks,.cols3 .paras{display:grid;grid-template-columns:repeat(3,1fr);gap:0 48px;align-items:start}
+  .cols3 .blks .blk{border-top:1px solid var(--line);border-bottom:0;padding:28px 0 0}
+  .cols3 .paras p{border-top:1px solid var(--line);padding-top:28px;margin:0}
+  /* 左に文章、右に見本 */
+  .split .body{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+  .split .fig{margin:0;min-height:260px;display:flex;align-items:center;justify-content:center}
+  /* 料金: 2列 */
+  .price{display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
   .price .row{border-bottom:1px solid var(--line)}
   .price .amt{font-size:2.4rem}
+  .pricenote{max-width:720px}
+  /* お問い合わせ: 2列 */
+  .cols2 .paras{display:grid;grid-template-columns:1fr 1fr;gap:0 56px;align-items:start}
+  .cols2 .paras p{margin:0}
   footer .w{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
   footer nav{margin-top:0;flex-direction:column;gap:.3em}
 }
@@ -116,14 +125,14 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 </nav></details></div></div></header>
 <main id="top">
 <div class="hero"><div class="w"><h1 class="catch">面倒な事務を任せられるAIを、<em>一日で。</em></h1><p class="sub">コンドルセは、御社にうかがい、AIに御社の仕事を覚えさせます。その日のうちに、いま一番手間のかかっている仕事を一つ、現場からスマホで済ませられるようにします。</p><div class="cue">スクロール</div></div></div>
-<section id="service" class="paper"><div class="w sec rv"><div class="sh"><p class="lbl">コンドルセとは</p><h2>一日で整えて、七日でご自身の手に。</h2></div><div class="sb"><ul class="facts">
-<li><span class="k">内容</span><p>コンドルセは、御社にうかがい、AIに御社の仕事を覚えさせます。その日のうちに、いま一番手間のかかっている仕事を一つ、現場からスマホで済ませられるようにします。</p></li>
+<section id="service" class="paper"><div class="w"><div class="in rv"><p class="lbl">コンドルセとは</p><ul class="facts">
+<li class="full"><span class="k">内容</span><p>コンドルセは、御社にうかがい、AIに御社の仕事を覚えさせます。その日のうちに、いま一番手間のかかっている仕事を一つ、現場からスマホで済ませられるようにします。</p></li>
 <li><span class="k">対象</span><p>従業員1〜数名の現場の会社（建設・農業・運輸・卸・製造など）。PCが苦手でかまいません。ご自身でできるようになりたい方のためのものです。</p></li>
 <li><span class="k">日数</span><p>訪問1日＋フォロー7日。合わせて8日間。</p></li>
 <li><span class="k">料金</span><p>20万円・都度払い（交通費・宿泊費は別途実費）。別に、AIなどの月額 約2.3万円を、社長ご自身で直接ご契約いただきます。</p></li>
 <li><span class="k">誰が</span><p>AIに頼むのは、社長ご本人です。コンドルセは横で、AIへの頼み方を見せます。AIも、作ったものも、すべて社長の名義です。</p></li>
 </ul></div></div></section>
-<section id="essay" class="essay"><div class="w sec rv"><div class="sh"><p class="lbl">コンドルセの考え</p><h2>社長の手がないと回らない仕事、ありますよね。</h2></div><div class="sb">
+<section id="essay" class="essay"><div class="w"><div class="in narrow rv"><p class="lbl">コンドルセの考え</p><h2>社長の手がないと回らない仕事、ありますよね。</h2><div class="body">
 <p>我々、コンドルセがさせていただくサービスは、社長が毎日やらなくてはいけない事務の負担を軽くするために、AIの導入をサポートし、より現場や営業に集中する時間を作るお手伝いをさせていただくことです。</p>
 <p>たしかに、Excelや会計アプリのおかげで、注文の集計や請求書、商品の値段の管理は、ある程度楽になったと思います。しかし、業界ごと、会社ごとの商慣習や、決まりどおりにいかない帳簿のつけ方には、アプリは合わせきれていないはずです。</p>
 <p>結果、社長の手と経験、頭の中にしかない価格や決まりごとが、どうしても要る。その仕事の量と負担は、無視できないものだと思います。</p>
@@ -133,76 +142,101 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 <p>すべて社長の名義で、AIに指示を出すのも社長ご本人です。専門家にしか触れないものは、一つもありません。</p>
 <div class="closing">
 <p>売上をつくるのは、現場と営業です。それなのに、見積書の作成や請求書の下書き、日報の転記などのただ時間のかかる入力に手を取られ、本業にかける時間が削られていく。その歯がゆさは、御社の仕事を覚えたAIを使えばなくせます。残るのは、社長にしかできない核となる仕事だけ。最初に申し上げた「現場や営業に集中する時間」は、そうやってつくります。</p>
-</div></div></div></section>
-<section id="hachinichi" class="paper"><div class="w sec rv">
-<div class="sh"><h2>8日間で何が起きるか</h2>
-</div><div class="sb">
+</div></div></div></div></section>
+<section id="hachinichi" class="paper"><div class="w"><div class="in cols3 rv">
+<h2>8日間で何が起きるか</h2>
+<div class="body">
 <div class="blks">
 <div class="blk"><h3>1日目 — 御社にうかがいます</h3><p>机の上のノート・伝票・Excelを一緒に見ます。会社のメール・AI・保管場所を、全部社長の名義でつくります。AIが社長に会社のことを聞き取って、覚えます。その日のうちに、困っている業務を一つ、社長が自分の言葉で頼んで、スマホで開けるものにします。</p></div>
 <div class="blk"><h3>2〜8日目 — 翌日から7日間</h3><p>チャットと電話で返します。社長がご自身でAIに頼んで動かし、「使い物になる」と思えるところまで。</p></div>
 <div class="blk"><h3>そのあと</h3><p>作ったものを直すのも、変えるのも、社長がAIに頼んでやります。それができるようになるのが、この8日間です。困ったときだけ、1時間からの相談。月々の契約はありません。</p></div>
 </div>
+</div>
 <span class="more">進め方をくわしく →（別ページ・準備中）</span>
 </div></div></section>
-<section id="tsukureru" class=""><div class="w sec rv">
-<div class="sh"><h2>たとえば、こんなものが作れます</h2>
-</div><div class="sb">
+<section id="tsukureru" class=""><div class="w"><div class="in split rv">
+<h2>たとえば、こんなものが作れます</h2>
+<div class="body">
+<div>
+<div class="paras">
 <p>見積書・日報・在庫表・請求書の下書き・お客さんごとの単価表。</p>
 <p>訪問日に作るのは一つ。二つ目からは、社長が自分でAIに頼みます。</p>
+</div>
+</div>
 <div class="fig">見本の画面（仮名の見積書アプリ）を、ここに1枚入れる予定</div>
+</div>
 </div></div></section>
-<section id="junbi" class="paper"><div class="w sec rv">
-<div class="sh"><h2>社長側でしていただくこと</h2>
-</div><div class="sb">
+<section id="junbi" class="paper"><div class="w"><div class="in narrow rv">
+<h2>社長側でしていただくこと</h2>
+<div class="body">
+<div class="paras">
 <p class="big">訪問日は、一日空けてください。</p>
 <p>いま手間のかかっている事務で使っているもの（ノート・伝票・Excel）を、机に出しておいてください。きれいにしなくて大丈夫です。</p>
 <p>準備は、それだけです。</p>
+</div>
+</div>
 </div></div></section>
-<section id="ai" class=""><div class="w sec rv">
-<div class="sh"><h2>AIとの付き合い方</h2>
-</div><div class="sb">
+<section id="ai" class=""><div class="w"><div class="in cols3 rv">
+<h2>AIとの付き合い方</h2>
+<div class="body">
+<div class="paras">
 <p>AIは、間違えます。だから、間違えても戻せる形で始めます。</p>
 <p>元の帳簿やExcelには触らせません。お金が動くこと、外に出ることは、勝手にやらない設定にします。戻し方は紙でお渡しします。</p>
 <p>おかしくなったら、新しいチャットを始めればいい。それでも困ったら、画面を撮って送ってください。</p>
+</div>
+</div>
 <span class="more">AIとの付き合い方をくわしく →（別ページ・準備中）</span>
 </div></div></section>
-<section id="jirei" class="paper"><div class="w sec rv">
-<div class="sh"><h2>事例</h2>
-<p class="note" style="margin-top:1em">当面は、社名を伏せて紹介しています。</p>
-</div><div class="sb">
-<div class="blks two">
+<section id="jirei" class="paper"><div class="w"><div class="in narrow rv">
+<h2>事例</h2>
+<p class="note">当面は、社名を伏せて紹介しています。</p>
+<div class="body">
+<div class="blks">
 <div class="blk"><h3>北陸の肥料販売業（従業員数名）</h3><p>手書きだった見積書を、訪問日の一日で、スマホから作れるようにしました。その後、同業の方をご紹介いただきました。</p></div>
+</div>
 </div>
 <span class="more">事例を読む →（別ページ・準備中）</span>
 </div></div></section>
-<section id="ryokin" class=""><div class="w sec rv">
-<div class="sh"><h2>料金</h2>
-</div><div class="sb">
+<section id="ryokin" class=""><div class="w"><div class="in price rv">
+<h2>料金</h2>
+<div class="body">
 <div class="price">
 <div class="row"><span class="item">訪問日（8時間）＋フォロー（7日間）</span><span class="amt">20万円</span><span class="cond">交通費・宿泊費は別途実費</span></div>
 <div class="row"><span class="item">スポット相談</span><span class="amt">1時間1万円から</span><span class="cond">オンライン可。設定を元に戻す相談は無料</span></div>
 </div>
+<div class="paras pricenote">
 <p>都度払いです。月々いただくお金はありません。</p>
 <p>別に、AIなどの月額（目安 約2.3万円）を、社長ご自身で直接ご契約いただきます。当社が受け取るお金ではありません。</p>
+</div>
+</div>
 <span class="more">料金のくわしい説明（事務員を雇う場合との比較） →（別ページ・準備中）</span>
 </div></div></section>
-<section id="okotowari" class="paper"><div class="w sec rv">
-<div class="sh"><h2>お断りしていること</h2>
-</div><div class="sb">
+<section id="okotowari" class="paper"><div class="w"><div class="in narrow rv">
+<h2>お断りしていること</h2>
+<div class="body">
+<div class="paras">
 <p class="big">代わりに作ること。アカウントやパスワードをお預かりすること。「全部お任せ」。</p>
 <p>ご自身でできるようになりたい方のためのものです。</p>
+</div>
+</div>
 </div></div></section>
-<section id="shokai" class=""><div class="w sec rv">
-<div class="sh"><h2>ご紹介いただく方へ</h2>
-</div><div class="sb">
+<section id="shokai" class=""><div class="w"><div class="in narrow rv">
+<h2>ご紹介いただく方へ</h2>
+<div class="body">
+<div class="paras">
 <p>広告は出していません。ご紹介でつながった方に、うかがっています。</p>
 <p>紹介先の社長に「どんな会社か」を確かめていただくために、このページがあります。</p>
+</div>
+</div>
 </div></div></section>
-<section id="toiawase" class="paper"><div class="w sec rv">
-<div class="sh"><h2>お問い合わせ</h2>
-</div><div class="sb">
+<section id="toiawase" class="paper"><div class="w"><div class="in cols2 rv">
+<h2>お問い合わせ</h2>
+<div class="body">
+<div class="paras">
 <p>メール：（準備中）／電話：（準備中）</p>
 <p>会社名・業種・従業員数・いま一番手間のかかっている事務・ご紹介者のお名前を書いていただけると、話が早いです。</p>
+</div>
+</div>
 </div></div></section>
 </main>
 <footer><div class="w"><div><a class="logo" href="#top">Condorcet</a><div class="co">株式会社インスフィアファーム</div><div>所在地（準備中）</div><p class="note" style="margin-top:2em">この素案では、長文は清書済み、「8日間で何が起きるか」以降は下書きです。<br>この案：D 文字と余白　<a href="../" style="color:inherit">ほかの案を見る</a></p></div><nav>

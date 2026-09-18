@@ -343,7 +343,7 @@ p:last-child{margin-bottom:0}
 .facts li:last-child{border-bottom:1px solid var(--line)}
 .facts .k{font-size:.85rem;font-weight:700;color:var(--accent);letter-spacing:.1em;padding-top:.35em}
 .facts p{margin:0;font-size:.98rem;line-height:1.95}
-.essay .sb p{font-size:1.02rem;line-height:2.15;margin-bottom:1.8em}
+.essay .body p{font-size:1.02rem;line-height:2.15;margin-bottom:1.8em}
 .essay .closing{margin-top:3em;padding-left:18px;border-left:2px solid var(--accent)}
 .essay .closing p{color:var(--ink);font-weight:500}
 .blk{padding:26px 0;border-top:1px solid var(--line)}
@@ -369,30 +369,39 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .js .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}}
 
-/* ---- 画面が広いとき（PC・タブレット横）: 横幅を使う ---- */
+/* ---- 画面が広いとき（PC・タブレット横）: 節ごとに横幅の使い方を決める ---- */
 @media (min-width:860px){
-  .w{max-width:1160px;padding-inline:48px}
+  .w{max-width:1120px;padding-inline:48px}
   .hd .bar{height:72px}
   .logo{font-size:1.4rem}
   .mn nav{left:auto;right:48px;top:calc(72px + env(safe-area-inset-top,0px));width:280px;border:1px solid var(--line);padding:10px 24px 16px}
-  .hero{padding:calc(72px + env(safe-area-inset-top,0px) + 120px) 0 96px}
-  .hero .w{display:grid;grid-template-columns:7fr 5fr;gap:48px;align-items:end}
-  .hero .catch{font-size:clamp(2.6rem,4.6vw,4.4rem);line-height:1.3;letter-spacing:0}
-  .hero .sub{margin:0;font-size:1.05rem}
-  .hero .cue{grid-column:1/-1;margin-top:64px}
-  section{padding:120px 0}
-  .sec{display:grid;grid-template-columns:minmax(220px,3fr) 8fr;gap:64px;align-items:start}
-  .sh{position:sticky;top:calc(72px + 40px)}
-  .sh h2{font-size:2rem;line-height:1.4;margin-bottom:0}
-  .sb{max-width:680px}
-  .facts li{grid-template-columns:6em 1fr;gap:0 24px;padding:26px 0}
+  .hero{padding:calc(72px + env(safe-area-inset-top,0px) + 128px) 0 104px}
+  .hero .catch{font-size:clamp(2.6rem,4.4vw,4rem);line-height:1.3;letter-spacing:0;max-width:20em}
+  .hero .sub{font-size:1.05rem;max-width:40em}
+  section{padding:112px 0}
+  h2{font-size:2rem;line-height:1.4}
+  .in.narrow{max-width:720px}
+  /* 表: 内容は全幅、残りは2×2 */
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:0 56px}
+  .facts li{grid-template-columns:5em 1fr;gap:0 20px;padding:26px 0}
+  .facts li.full{grid-column:1/-1}
+  .facts li:nth-last-child(-n+2){border-bottom:1px solid var(--line)}
   .facts p{font-size:1.02rem}
-  .blks{display:grid;grid-template-columns:repeat(3,1fr);gap:0 40px}
-  .blks .blk{border-top:1px solid var(--line);border-bottom:0!important;padding:28px 0 0}
-  .blks.two{grid-template-columns:repeat(2,1fr)}
-  .price{display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
+  /* 横3列 */
+  .cols3 .blks,.cols3 .paras{display:grid;grid-template-columns:repeat(3,1fr);gap:0 48px;align-items:start}
+  .cols3 .blks .blk{border-top:1px solid var(--line);border-bottom:0;padding:28px 0 0}
+  .cols3 .paras p{border-top:1px solid var(--line);padding-top:28px;margin:0}
+  /* 左に文章、右に見本 */
+  .split .body{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+  .split .fig{margin:0;min-height:260px;display:flex;align-items:center;justify-content:center}
+  /* 料金: 2列 */
+  .price{display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
   .price .row{border-bottom:1px solid var(--line)}
   .price .amt{font-size:2.4rem}
+  .pricenote{max-width:720px}
+  /* お問い合わせ: 2列 */
+  .cols2 .paras{display:grid;grid-template-columns:1fr 1fr;gap:0 56px;align-items:start}
+  .cols2 .paras p{margin:0}
   footer .w{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
   footer nav{margin-top:0;flex-direction:column;gap:.3em}
 }
@@ -428,6 +437,10 @@ def d_catch():
     return c
 
 
+LAYOUT = {"hachinichi": "cols3", "tsukureru": "split", "junbi": "narrow", "ai": "cols3",
+          "jirei": "narrow", "ryokin": "price", "okotowari": "narrow", "shokai": "narrow", "toiawase": "cols2"}
+
+
 def render_body_d():
     P = []
     P.append('<header class="hd"><div class="w bar">'
@@ -444,50 +457,60 @@ def render_body_d():
              f'<p class="sub">{esc(C.SUMMARY[0][1])}</p>'
              '<div class="cue">スクロール</div>'
              '</div></div>')
-    # ③
-    P.append('<section id="service" class="paper"><div class="w sec rv">'
-             '<div class="sh"><p class="lbl">コンドルセとは</p><h2>一日で整えて、七日でご自身の手に。</h2></div>'
-             '<div class="sb"><ul class="facts">')
-    for k, v in C.SUMMARY:
-        P.append(f'<li><span class="k">{esc(k)}</span><p>{esc(v)}</p></li>')
+    # ③ 表: 内容は全幅、残りは2×2
+    P.append('<section id="service" class="paper"><div class="w"><div class="in rv">'
+             '<p class="lbl">コンドルセとは</p><ul class="facts">')
+    for i, (k, v) in enumerate(C.SUMMARY):
+        full = ' class="full"' if i == 0 else ''
+        P.append(f'<li{full}><span class="k">{esc(k)}</span><p>{esc(v)}</p></li>')
     P.append('</ul></div></div></section>')
-    # ④
-    P.append('<section id="essay" class="essay"><div class="w sec rv">'
-             f'<div class="sh"><p class="lbl">コンドルセの考え</p><h2>{esc(C.ESSAY_TITLE)}</h2></div><div class="sb">')
+    # ④ 長文: 幅を絞る
+    P.append('<section id="essay" class="essay"><div class="w"><div class="in narrow rv">'
+             f'<p class="lbl">コンドルセの考え</p><h2>{esc(C.ESSAY_TITLE)}</h2><div class="body">')
     for p in C.ESSAY:
         P.append(f'<p>{esc(p)}</p>')
     P.append('<div class="closing">')
     for p in C.ESSAY_CLOSING:
         P.append(f'<p>{esc(p)}</p>')
-    P.append('</div></div></div></section>')
-    # ⑤〜
-    for i, s in enumerate(C.SECTIONS):
+    P.append('</div></div></div></div></section>')
+    # ⑤〜: 節ごとの型
+    for i, s_ in enumerate(C.SECTIONS):
         cls = "paper" if i % 2 == 0 else ""
-        P.append(f'<section id="{s["id"]}" class="{cls}"><div class="w sec rv">')
-        P.append(f'<div class="sh"><h2>{esc(s["title"])}</h2>')
-        if s.get("note"):
-            P.append(f'<p class="note" style="margin-top:1em">{esc(s["note"])}</p>')
-        P.append('</div><div class="sb">')
-        blocks = s.get("blocks", [])
+        lay = LAYOUT.get(s_["id"], "narrow")
+        P.append(f'<section id="{s_["id"]}" class="{cls}"><div class="w"><div class="in {lay} rv">')
+        P.append(f'<h2>{esc(s_["title"])}</h2>')
+        if s_.get("note"):
+            P.append(f'<p class="note">{esc(s_["note"])}</p>')
+        P.append('<div class="body">')
+        if lay == "split":
+            P.append('<div>')
+        blocks = s_.get("blocks", [])
         if blocks:
-            two = " two" if len(blocks) <= 2 else ""
-            P.append(f'<div class="blks{two}">')
+            P.append('<div class="blks">')
             for h, body in blocks:
                 P.append(f'<div class="blk"><h3>{esc(h)}</h3><p>{esc(body)}</p></div>')
             P.append('</div>')
-        if s.get("price"):
+        if s_.get("price"):
             P.append('<div class="price">')
-            for item, amt, cond in s["price"]:
+            for item, amt, cond in s_["price"]:
                 P.append(f'<div class="row"><span class="item">{esc(item)}</span>'
                          f'<span class="amt">{esc(amt)}</span><span class="cond">{esc(cond)}</span></div>')
             P.append('</div>')
-        for j, p in enumerate(s.get("paras", [])):
-            big = ' class="big"' if (s["id"] in ("junbi", "okotowari") and j == 0) else ''
-            P.append(f'<p{big}>{esc(p)}</p>')
-        if s.get("figure"):
-            P.append(f'<div class="fig">{esc(s["figure"])}</div>')
-        if s.get("more"):
-            P.append(f'<span class="more">{esc(s["more"])} →（別ページ・準備中）</span>')
+        paras = s_.get("paras", [])
+        if paras:
+            pcls = "paras pricenote" if lay == "price" else "paras"
+            P.append(f'<div class="{pcls}">')
+            for j, p in enumerate(paras):
+                big = ' class="big"' if (s_["id"] in ("junbi", "okotowari") and j == 0) else ''
+                P.append(f'<p{big}>{esc(p)}</p>')
+            P.append('</div>')
+        if lay == "split":
+            P.append('</div>')
+        if s_.get("figure"):
+            P.append(f'<div class="fig">{esc(s_["figure"])}</div>')
+        P.append('</div>')
+        if s_.get("more"):
+            P.append(f'<span class="more">{esc(s_["more"])} →（別ページ・準備中）</span>')
         P.append('</div></div></section>')
     P.append('</main>')
 
@@ -543,7 +566,7 @@ def index_page(fragment_mode=False):
             '<p class="sub">同じ文章で、雰囲気の違う3案。スマホで開いて比べてください。</p>']
     for k, t in THEMES.items():
         body.append(f'<a class="card" href="{k}/"><b>{esc(t["name"])}</b><span>{esc(t["mood"])}</span></a>')
-    body.append('<a class="card" href="d/"><b>D 文字と余白</b><span>採用サイトの型。薄い灰の地に文字だけ、青は強調したい語にだけ。PCでは見出しを左、本文を右の二段に。ロゴだけ英字</span></a>')
+    body.append('<a class="card" href="d/"><b>D 文字と余白</b><span>採用サイトの型。薄い灰の地に文字だけ、青は強調したい語にだけ。PCでは節ごとに横幅の使い方を変える（長文は絞る・8日間は3列・料金は2列）。ロゴだけ英字</span></a>')
     body.append("<h2>この素案で確定しているもの</h2><ul>"
                 "<li>事業名・キャッチコピー・事業情報の表（内容／対象／日数／料金／誰が）</li>"
                 "<li>長文（博彰の清書。一字も変えていません）</li></ul>")
