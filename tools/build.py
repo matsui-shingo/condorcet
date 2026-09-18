@@ -298,15 +298,15 @@ def fragment(theme_key):
 
 
 # ---------------------------------------------------------------- 案D（採用サイト型・文字だけ）
-# 書体: 見出し・本文とも Zen Kaku Gothic New。ロゴ（Condorcet）だけ英字の Manrope
-D_FONTS = "Zen+Kaku+Gothic+New:wght@400;500;700&family=Manrope:wght@600;700"
+# 書体: 見出しは Zen Old Mincho、本文は端末の書体（ヒラギノ／游ゴシック／メイリオ）。ロゴ（Condorcet）だけ英字の Manrope
+D_FONTS = "Zen+Old+Mincho:wght@500;700&family=Manrope:wght@600;700"
 D_CSS = """
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:light}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 :root{--bg:#f3f3f1;--paper:#ffffff;--ink:#1a1a1a;--ink2:#4a4a4a;--muted:#8a8a86;--accent:#1b57d6;--line:#d8d8d4;
---font:'Zen Kaku Gothic New','Hiragino Sans','Yu Gothic',sans-serif;--latin:'Manrope','Helvetica Neue',Arial,sans-serif}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:2;overflow-wrap:anywhere;font-feature-settings:"palt"}
+--font:'Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','游ゴシック',YuGothic,Meiryo,'Noto Sans JP',sans-serif;--head:'Zen Old Mincho','Hiragino Mincho ProN','Yu Mincho',serif;--latin:'Manrope','Helvetica Neue',Arial,sans-serif}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;font-weight:500;line-height:2;overflow-wrap:anywhere}
 .w{max-width:640px;margin:0 auto;padding-inline:24px}
 .hd{position:fixed;top:0;left:0;right:0;z-index:30;padding-top:env(safe-area-inset-top,0px);background:transparent;transition:background .3s,box-shadow .3s}
 .hd.on{background:rgba(243,243,241,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 1px 0 var(--line)}
@@ -324,7 +324,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 .mn nav a{display:block;padding:.5em 0;color:var(--ink);text-decoration:none;font-size:1.05rem;font-weight:500;letter-spacing:.04em}
 .mn nav a.cur{color:var(--accent)}
 .hero{padding:calc(60px + env(safe-area-inset-top,0px) + 96px) 0 72px}
-.hero .catch{font-size:2.15rem;font-weight:700;line-height:1.45;letter-spacing:.01em;margin:0;text-wrap:pretty}
+.hero .catch{font-family:var(--head);font-size:2.2rem;font-weight:700;line-height:1.5;letter-spacing:.02em;margin:0;text-wrap:pretty;font-feature-settings:"palt"}
 .hero .catch em{font-style:normal;color:var(--accent)}
 .hero .sub{margin:2em 0 0;font-size:1rem;color:var(--ink2);line-height:2;max-width:34em}
 .cue{margin-top:72px;font-size:.75rem;letter-spacing:.2em;color:var(--muted);display:flex;align-items:center;gap:12px}
@@ -334,8 +334,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 section{padding:96px 0;scroll-margin-top:calc(60px + env(safe-area-inset-top,0px))}
 section.paper{background:var(--paper)}
 .lbl{font-size:.75rem;letter-spacing:.25em;color:var(--accent);font-weight:700;margin:0 0 1.6em}
-h2{font-size:1.7rem;font-weight:700;line-height:1.5;letter-spacing:.01em;margin:0 0 1.4em;text-wrap:pretty}
-h3{font-size:1.05rem;font-weight:700;margin:0 0 .5em;letter-spacing:.02em}
+h2{font-family:var(--head);font-size:1.75rem;font-weight:700;line-height:1.5;letter-spacing:.03em;margin:0 0 1.4em;text-wrap:pretty;font-feature-settings:"palt"}
+h3{font-family:var(--head);font-size:1.15rem;font-weight:700;margin:0 0 .5em;letter-spacing:.03em}
 p{margin:0 0 1.4em}
 p:last-child{margin-bottom:0}
 .facts{list-style:none;margin:0;padding:0}
@@ -345,7 +345,7 @@ p:last-child{margin-bottom:0}
 .facts p{margin:0;font-size:.98rem;line-height:1.95}
 .essay .body p{font-size:1.02rem;line-height:2.15;margin-bottom:1.8em}
 .essay .closing{margin-top:3em;padding-left:18px;border-left:2px solid var(--accent)}
-.essay .closing p{color:var(--ink);font-weight:500}
+.essay .closing p{color:var(--ink);font-weight:600}
 .blk{padding:26px 0;border-top:1px solid var(--line)}
 .blks .blk:last-child{border-bottom:1px solid var(--line)}
 .blk p{font-size:.98rem}
@@ -356,9 +356,9 @@ p:last-child{margin-bottom:0}
 .price .row{padding:22px 0;border-top:1px solid var(--line)}
 .price .row:last-child{border-bottom:1px solid var(--line)}
 .price .item{display:block;font-size:.95rem;color:var(--ink2)}
-.price .amt{display:block;font-size:2rem;font-weight:700;letter-spacing:.01em;line-height:1.3;margin:.15em 0;font-variant-numeric:tabular-nums}
+.price .amt{display:block;font-family:var(--head);font-size:2rem;font-weight:700;letter-spacing:.02em;line-height:1.3;margin:.15em 0;font-variant-numeric:tabular-nums}
 .price .cond{display:block;font-size:.85rem;color:var(--muted)}
-.big{font-size:1.25rem;font-weight:500;line-height:1.9}
+.big{font-family:var(--head);font-size:1.3rem;font-weight:500;line-height:1.9}
 footer{padding:64px 0 72px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
 footer .logo{display:inline-block;margin-bottom:.6em}
 footer .co{color:var(--ink);font-weight:700;font-size:1rem;margin-bottom:.3em}
