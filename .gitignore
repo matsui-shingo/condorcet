@@ -1,0 +1,20 @@
+# 秘密情報
+.env
+.env.*
+!.env.example
+
+# 依存・ビルド成果物
+node_modules/
+.next/
+out/
+dist/
+.vercel/
+
+# 個人・非公開のメモ（許諾前の実名・原稿など）
+_private/
+
+# OS・エディタ
+.DS_Store
+Thumbs.db
+.obsidian/
+.vscode/
