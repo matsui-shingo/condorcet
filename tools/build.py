@@ -335,6 +335,11 @@ main,footer{position:relative;z-index:1}
 .cue::after{content:"";width:1px;height:40px;background:rgba(255,255,255,.6);animation:cue 1.8s ease-in-out infinite;transform-origin:top}
 @keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}
 @media (prefers-reduced-motion:reduce){.cue::after{animation:none}}
+/* ヒーローの写真: スマホでは文字の下に帯で置き、上端を濃紺になじませる */
+.hero{position:relative;overflow:hidden;padding-bottom:0}
+.hero .w{position:relative;z-index:1}
+.hero-img{height:92vw;max-height:560px;margin-top:8px;
+background:linear-gradient(to bottom,var(--deep) 0%,rgba(15,31,61,0) 38%),url(hero.webp) 80% 72%/cover no-repeat,var(--deep)}
 section{padding:96px 0;scroll-margin-top:calc(60px + env(safe-area-inset-top,0px))}
 section.paper{background:var(--paper)}
 .lbl{font-size:.75rem;letter-spacing:.25em;color:var(--accent);font-weight:700;margin:0 0 1.6em}
@@ -382,6 +387,13 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
   .hero{padding:calc(72px + env(safe-area-inset-top,0px) + 120px) 0 96px}
   .hero .catch{font-size:clamp(2.6rem,4.4vw,4rem);line-height:1.3;letter-spacing:0;max-width:20em}
   .hero .sub{font-size:1.05rem;max-width:40em}
+  /* ヒーローの写真: PCでは右に高さいっぱいで置き、左の文字側を濃紺でなじませる */
+  .hero{min-height:clamp(640px,92vh,960px);display:flex;align-items:center;padding-bottom:96px}
+  .hero .w{width:100%}
+  .hero .catch{font-size:clamp(2.4rem,3.4vw,3.2rem);max-width:11.5em}
+  .hero .sub{max-width:24em}
+  .hero-img{position:absolute;inset:0;height:auto;max-height:none;margin:0;
+  background:linear-gradient(to right,var(--deep) 0%,var(--deep) 18%,rgba(15,31,61,.6) 32%,rgba(15,31,61,0) 50%),url(hero.webp) right center/auto 100% no-repeat,var(--deep)}
   section{padding:112px 0}
   h2{font-size:2rem;line-height:1.4}
   .in.narrow{max-width:720px}
@@ -460,7 +472,7 @@ def render_body_d():
              f'<h1 class="catch">{d_catch()}</h1>'
              f'<p class="sub">{esc(C.SUMMARY[0][1])}</p>'
              '<div class="cue">スクロール</div>'
-             '</div></div>')
+             '</div><div class="hero-img" role="img" aria-label="夜の机。職人の手が置かれた手書きのノートから光の線が伸び、スマホとノートPCへつながっている"></div></div>')
     # ③ 表: 内容は全幅、残りは2×2
     P.append('<section id="service" class="paper"><div class="w"><div class="in rv">'
              '<p class="lbl">コンドルセとは</p><ul class="facts">')
