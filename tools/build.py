@@ -207,6 +207,9 @@ def render_section(s):
     out.append(f"<h2>{esc(s['title'])}</h2>")
     if s.get("note"):
         out.append(f'<p class="note">{esc(s["note"])}</p>')
+    if s.get("timeline"):
+        out.append(f'<div class="block"><h3>{esc(s["timeline_title"])}</h3><p>'
+                   + "<br>".join(f"{esc(t)}：{esc(l)}" for t, l in s["timeline"]) + '</p></div>')
     for h, body in s.get("blocks", []):
         out.append(f'<div class="block"><h3>{esc(h)}</h3><p>{esc(body)}</p></div>')
     if s.get("price"):
@@ -363,6 +366,15 @@ p:last-child{margin-bottom:0}
 .essay .body p{font-size:1.02rem;line-height:2.15;margin-bottom:1.8em}
 .essay .closing{margin-top:3em;padding-left:18px;border-left:2px solid var(--accent)}
 .essay .closing p{color:var(--ink);font-weight:600}
+.tl-blk h3{margin-bottom:.4em}
+.tl-blk .intro{margin:0 0 1.2em;font-size:.98rem}
+.tl{list-style:none;margin:0;padding:0 0 0 2px;border-left:1px solid var(--line)}
+.tl li{position:relative;padding:0 0 1.3em 22px}
+.tl li:last-child{padding-bottom:0}
+.tl li::before{content:"";position:absolute;left:-5px;top:.62em;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.tl .t{display:block;font-size:.76rem;color:var(--accent);font-weight:700;letter-spacing:.12em;line-height:1.6}
+.tl p{margin:0;font-size:.98rem;line-height:1.9}
+.flow .rest .blk:first-child{border-top:0;padding-top:0}
 .blk{padding:26px 0;border-top:1px solid var(--line)}
 .blks .blk:last-child{border-bottom:1px solid var(--line)}
 .blk p{font-size:.98rem}
@@ -414,6 +426,10 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
   #service .in{max-width:820px}
   .facts li{grid-template-columns:6em 1fr;gap:0 28px;padding:28px 0}
   .facts p{font-size:1.02rem}
+  /* サービスの流れ: 左にタイムライン、右に2〜8日目とその後 */
+  .flow{display:grid;grid-template-columns:7fr 5fr;gap:0 64px;align-items:start}
+  .flow .rest .blk:first-child{border-top:0;padding-top:0}
+  .tl li{padding-bottom:1.5em}
   /* 横3列 */
   .cols3 .blks,.cols3 .paras{display:grid;grid-template-columns:repeat(3,1fr);gap:0 48px;align-items:start}
   .cols3 .blks .blk{border-top:1px solid var(--line);border-bottom:0;padding:28px 0 0}
@@ -469,7 +485,7 @@ def d_catch():
     return c
 
 
-LAYOUT = {"hachinichi": "cols3", "tsukureru": "split", "junbi": "narrow", "ai": "cols3",
+LAYOUT = {"hachinichi": "wide", "tsukureru": "split", "junbi": "narrow", "ai": "cols3",
           "jirei": "narrow", "ryokin": "price", "okotowari": "narrow", "shokai": "narrow", "toiawase": "cols2"}
 
 
@@ -517,6 +533,17 @@ def render_body_d():
         if lay == "split":
             P.append('<div>')
         blocks = s_.get("blocks", [])
+        if s_.get("timeline"):
+            P.append('<div class="flow"><div class="tl-blk">'
+                     f'<h3>{esc(s_["timeline_title"])}</h3>'
+                     f'<p class="intro">{esc(s_["timeline_intro"])}</p><ol class="tl">')
+            for t, line in s_["timeline"]:
+                P.append(f'<li><span class="t">{esc(t)}</span><p>{esc(line)}</p></li>')
+            P.append('</ol></div><div class="rest">')
+            for h, body in blocks:
+                P.append(f'<div class="blk"><h3>{esc(h)}</h3><p>{esc(body)}</p></div>')
+            P.append('</div></div>')
+            blocks = []
         if blocks:
             P.append('<div class="blks">')
             for h, body in blocks:

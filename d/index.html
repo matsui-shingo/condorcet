@@ -68,6 +68,15 @@ p:last-child{margin-bottom:0}
 .essay .body p{font-size:1.02rem;line-height:2.15;margin-bottom:1.8em}
 .essay .closing{margin-top:3em;padding-left:18px;border-left:2px solid var(--accent)}
 .essay .closing p{color:var(--ink);font-weight:600}
+.tl-blk h3{margin-bottom:.4em}
+.tl-blk .intro{margin:0 0 1.2em;font-size:.98rem}
+.tl{list-style:none;margin:0;padding:0 0 0 2px;border-left:1px solid var(--line)}
+.tl li{position:relative;padding:0 0 1.3em 22px}
+.tl li:last-child{padding-bottom:0}
+.tl li::before{content:"";position:absolute;left:-5px;top:.62em;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.tl .t{display:block;font-size:.76rem;color:var(--accent);font-weight:700;letter-spacing:.12em;line-height:1.6}
+.tl p{margin:0;font-size:.98rem;line-height:1.9}
+.flow .rest .blk:first-child{border-top:0;padding-top:0}
 .blk{padding:26px 0;border-top:1px solid var(--line)}
 .blks .blk:last-child{border-bottom:1px solid var(--line)}
 .blk p{font-size:.98rem}
@@ -119,6 +128,10 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
   #service .in{max-width:820px}
   .facts li{grid-template-columns:6em 1fr;gap:0 28px;padding:28px 0}
   .facts p{font-size:1.02rem}
+  /* サービスの流れ: 左にタイムライン、右に2〜8日目とその後 */
+  .flow{display:grid;grid-template-columns:7fr 5fr;gap:0 64px;align-items:start}
+  .flow .rest .blk:first-child{border-top:0;padding-top:0}
+  .tl li{padding-bottom:1.5em}
   /* 横3列 */
   .cols3 .blks,.cols3 .paras{display:grid;grid-template-columns:repeat(3,1fr);gap:0 48px;align-items:start}
   .cols3 .blks .blk{border-top:1px solid var(--line);border-bottom:0;padding:28px 0 0}
@@ -170,14 +183,21 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 <div class="closing">
 <p>売上をつくるのは、現場と営業です。それなのに、見積書の作成や請求書の下書き、日報の転記などのただ時間のかかる入力に手を取られ、本業にかける時間が削られていく。その歯がゆさは、御社の仕事を覚えたAIを使えばなくせます。残るのは、社長にしかできない核となる仕事だけ。最初に申し上げた「現場や営業に集中する時間」は、そうやってつくります。</p>
 </div></div></div></div></section>
-<section id="hachinichi" class="paper"><div class="w"><div class="in cols3 rv">
+<section id="hachinichi" class="paper"><div class="w"><div class="in wide rv">
 <h2>サービスの流れ</h2>
 <div class="body">
-<div class="blks">
-<div class="blk"><h3>1日目 — 御社にうかがいます</h3><p>机の上のノート・伝票・Excelを一緒に見ます。会社のメール・AI・保管場所を、全部社長の名義でつくります。AIが社長に会社のことを聞き取って、覚えます。その日のうちに、困っている業務を一つ、社長が自分の言葉で頼んで、スマホで開けるものにします。</p></div>
+<div class="flow"><div class="tl-blk"><h3>1日目 — 御社にうかがいます</h3><p class="intro">訪問日は、こう進みます。</p><ol class="tl">
+<li><span class="t">朝</span><p>費用と今日の目標を、紙で確認します。</p></li>
+<li><span class="t">午前</span><p>会社のメールと、AIと必要なものを、社長の名義で整えます。</p></li>
+<li><span class="t">午前</span><p>用意していただいた紙・Excelを一緒に見て、今日つくるものを一つ決めます。</p></li>
+<li><span class="t">昼前後</span><p>AIが社長に、御社のことを聞き取ります。ここは時間をかけます。</p></li>
+<li><span class="t">午後</span><p>社長が自分の言葉で頼んで、決めた事務をスマホで動く形にします。</p></li>
+<li><span class="t">夕方</span><p>実際に使ってみて、時間を計ります。明日からの連絡の仕方（画面を撮って送る）も覚えます。</p></li>
+<li><span class="t">終わり</span><p>今日の記録と、フォローの終了日を紙でお渡しします。8時間で終えます。</p></li>
+</ol></div><div class="rest">
 <div class="blk"><h3>2〜8日目 — 翌日から7日間</h3><p>チャットと電話で返します。社長がご自身でAIに頼んで動かし、「使い物になる」と思えるところまで。</p></div>
 <div class="blk"><h3>その後のご相談</h3><p>作ったものを直すのも、変えるのも、社長がAIに頼んでやります。それができるようになるのが、この8日間です。困ったときだけ、1時間からの相談。月々の契約はありません。</p></div>
-</div>
+</div></div>
 </div>
 <span class="more">進め方をくわしく →（別ページ・準備中）</span>
 </div></div></section>
