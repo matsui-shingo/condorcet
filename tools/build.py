@@ -486,7 +486,7 @@ def render_body_d():
     P.append('<main id="top">')
     P.append('<div class="hero"><div class="w">'
              f'<h1 class="catch">{d_catch()}</h1>'
-             f'<p class="sub">{esc(C.SUMMARY[0][1])}</p>'
+             f'<p class="sub">{esc(C.HERO_SUB)}</p>'
              '<div class="cue">スクロール</div>'
              '</div><div class="hero-img" role="img" aria-label="夜の机。職人の手が置かれた手書きのノートから光の線が伸び、スマホとノートPCへつながっている"></div></div>')
     # ③ 表: 内容は全幅、残りは2×2
