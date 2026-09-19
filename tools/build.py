@@ -552,9 +552,67 @@ def render_body_d():
              '<a href="../" style="color:inherit">ほかの案を見る</a></p></div><nav>')
     for href, label in menu_items():
         P.append(f'<a href="{href}">{esc(label)}</a>')
+    for sp in C.SUBPAGES:
+        P.append(f'<a href="{sp["slug"]}/">{esc(sp["title"])}</a>')
     P.append('</nav></div></footer>')
     P.append(f'<script>{D_JS}</script>')
     return "\n".join(P)
+
+
+SUB_CSS = """
+.sub-hd{background:var(--deep);color:#fff;padding:calc(60px + env(safe-area-inset-top,0px) + 56px) 0 48px}
+.sub-hd h1{font-family:var(--head);font-size:1.9rem;font-weight:700;line-height:1.5;margin:0;letter-spacing:.03em}
+.sub-hd .lead{margin:1em 0 0;color:rgba(255,255,255,.82);font-size:.98rem}
+.sub-body{padding:64px 0 96px}
+.sub-body .in{max-width:720px}
+.sub-body p{font-size:1.02rem;line-height:2.1;margin-bottom:1.6em}
+.back{display:inline-block;margin-top:2.5em;color:var(--accent);font-weight:500;text-decoration:none}
+@media (min-width:860px){.sub-hd{padding:calc(72px + env(safe-area-inset-top,0px) + 72px) 0 64px}.sub-hd h1{font-size:2.4rem}.sub-body{padding:88px 0 120px}}
+"""
+
+
+def render_subpage_d(sp):
+    """別ページ。ヘッダー・フッターはトップと同じ。リンクは ../ でトップへ"""
+    P = []
+    P.append('<header class="hd on"><div class="w bar">'
+             f'<a class="logo" href="../">{C.SITE_NAME}</a>'
+             '<div class="rt"><a class="cta" href="../#toiawase">お問い合わせ</a>'
+             '<details class="mn"><summary aria-label="メニュー"></summary><nav>')
+    for href, label in menu_items():
+        P.append(f'<a href="../{href}">{esc(label)}</a>')
+    P.append('</nav></details></div></div></header>')
+    P.append('<main id="top">')
+    P.append(f'<div class="sub-hd"><div class="w"><h1>{esc(sp["title"])}</h1>')
+    if sp.get("lead"):
+        P.append(f'<p class="lead">{esc(sp["lead"])}</p>')
+    P.append('</div></div>')
+    P.append('<div class="sub-body"><div class="w"><div class="in">')
+    for para in sp.get("paras", []):
+        P.append(f'<p>{esc(para)}</p>')
+    P.append('<a class="back" href="../">← トップへ戻る</a>')
+    P.append('</div></div></div></main>')
+    P.append('<footer><div class="w"><div>'
+             f'<a class="logo" href="../">{C.SITE_NAME}</a></div><nav>')
+    for href, label in menu_items():
+        P.append(f'<a href="../{href}">{esc(label)}</a>')
+    for other in C.SUBPAGES:
+        P.append(f'<a href="../{other["slug"]}/">{esc(other["title"])}</a>')
+    P.append('</nav></div></footer>')
+    # 別ページでは上のバーを最初から地の色にする（.on を付けたまま、スクロール判定はしない）
+    P.append('<script>document.documentElement.classList.add("js");'
+             'document.querySelectorAll(".rv").forEach(function(e){e.classList.add("in")});</script>')
+    return "\n".join(P)
+
+
+def full_subpage_d(sp):
+    title = f"<title>{esc(sp['title'])} — {C.SITE_NAME}（{C.SITE_KANA}）</title>"
+    link = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
+            '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+            f'<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={D_FONTS}&display=swap">')
+    style = f"<style>{D_CSS}{SUB_CSS}</style>"
+    return ("<!doctype html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"utf-8\">\n"
+            "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,viewport-fit=cover\">\n"
+            f"{title}\n{link}\n{style}\n</head>\n<body>\n{render_subpage_d(sp)}\n</body>\n</html>\n")
 
 
 def d_head():
@@ -638,6 +696,8 @@ def main():
     for k in THEMES:
         write(os.path.join(ROOT, k, "index.html"), full_page(k))
     write(os.path.join(ROOT, "d", "index.html"), full_page_d())
+    for sp in C.SUBPAGES:
+        write(os.path.join(ROOT, "d", sp["slug"], "index.html"), full_subpage_d(sp))
     print("written:", ROOT)
 
 
