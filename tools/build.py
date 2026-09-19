@@ -410,11 +410,9 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
   section + section .w{padding-top:112px}
   h2{font-size:2rem;line-height:1.4}
   .in.narrow{max-width:720px}
-  /* 表: 内容は全幅、残りは2×2 */
-  .facts{display:grid;grid-template-columns:1fr 1fr;gap:0 56px}
-  .facts li{grid-template-columns:5em 1fr;gap:0 20px;padding:26px 0}
-  .facts li.full{grid-column:1/-1}
-  .facts li:nth-last-child(-n+2){border-bottom:1px solid var(--line)}
+  /* 表: 1列で縦に並べる（2×2はやめた 2026-09-19） */
+  #service .in{max-width:820px}
+  .facts li{grid-template-columns:6em 1fr;gap:0 28px;padding:28px 0}
   .facts p{font-size:1.02rem}
   /* 横3列 */
   .cols3 .blks,.cols3 .paras{display:grid;grid-template-columns:repeat(3,1fr);gap:0 48px;align-items:start}
