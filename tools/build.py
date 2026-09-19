@@ -304,14 +304,14 @@ D_CSS = """
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:light}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-:root{--bg:#f3f3f1;--paper:#ffffff;--ink:#1a1a1a;--ink2:#4a4a4a;--muted:#8a8a86;--accent:#1b57d6;--line:#d8d8d4;--deep:#0f1f3d;--deep-em:#8fb3ff;
+:root{--bg:#e6edf7;--paper:#ffffff;--ink:#141c2b;--ink2:#3f4a5e;--muted:#6f7b90;--accent:#1b57d6;--line:#c5d1e4;--deep:#0f1f3d;--deep-em:#8fb3ff;
 --font:'Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','游ゴシック',YuGothic,Meiryo,'Noto Sans JP',sans-serif;--head:'Zen Old Mincho','Hiragino Mincho ProN','Yu Mincho',serif;--latin:'Manrope','Helvetica Neue',Arial,sans-serif}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;font-weight:500;line-height:2;overflow-wrap:anywhere}
 body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 main,footer{position:relative;z-index:1}
 .w{max-width:640px;margin:0 auto;padding-inline:24px}
 .hd{position:fixed;top:0;left:0;right:0;z-index:30;padding-top:env(safe-area-inset-top,0px);background:transparent;transition:background .3s,box-shadow .3s}
-.hd.on{background:rgba(243,243,241,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 1px 0 var(--line)}
+.hd.on{background:rgba(230,237,247,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 1px 0 var(--line)}
 .hd:not(.on) .logo,.hd:not(.on) .cta{color:#fff;border-color:rgba(255,255,255,.7)}
 .hd:not(.on) .mn summary::before,.hd:not(.on) .mn summary::after{background:#fff}
 .hd .bar{display:flex;align-items:center;justify-content:space-between;height:60px}
