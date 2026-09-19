@@ -464,6 +464,7 @@ def d_catch():
         if a.endswith("AIを"):
             return f'{a[:-3]}<span style="white-space:nowrap">AIを、</span><em>{b}</em>'
         # 「、」の位置で改行する。改行するので読点は表示しない（2026-09-19 博彰）
+        b = b.rstrip("。")  # 句点も表示しない（2026-09-19 博彰）
         return f"{a}<br><em>{b}</em>"
     return c
 
