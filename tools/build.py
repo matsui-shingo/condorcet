@@ -315,7 +315,9 @@ main,footer{position:relative;z-index:1}
 .hd:not(.on) .logo,.hd:not(.on) .cta{color:#fff;border-color:rgba(255,255,255,.7)}
 .hd:not(.on) .mn summary::before,.hd:not(.on) .mn summary::after{background:#fff}
 .hd .bar{display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{font-family:var(--latin);font-weight:700;font-size:1.25rem;letter-spacing:-.02em;color:var(--ink);text-decoration:none}
+.logo{font-family:var(--latin);font-weight:700;font-size:1.25rem;letter-spacing:-.02em;color:var(--ink);text-decoration:none;display:inline-flex;flex-direction:column;line-height:1.1}
+.logo .kana{font-family:var(--font);font-weight:500;font-size:.6rem;letter-spacing:.3em;opacity:.8;margin-top:.25em;transition:opacity .3s,max-height .3s;max-height:1.2em;overflow:hidden}
+.hd.on .logo .kana{opacity:0;max-height:0;margin-top:0}
 .hd .rt{display:flex;align-items:center;gap:16px}
 .hd .cta{font-size:.8rem;font-weight:500;color:var(--ink);text-decoration:none;border:1px solid var(--ink);border-radius:999px;padding:.35em 1em;white-space:nowrap}
 .mn{position:relative}
@@ -474,7 +476,7 @@ LAYOUT = {"hachinichi": "cols3", "tsukureru": "split", "junbi": "narrow", "ai": 
 def render_body_d():
     P = []
     P.append('<header class="hd"><div class="w bar">'
-             f'<a class="logo" href="#top">{C.SITE_NAME}</a>'
+             f'<a class="logo" href="#top">{C.SITE_NAME}<span class="kana">{C.SITE_KANA}</span></a>'
              '<div class="rt"><a class="cta" href="#toiawase">お問い合わせ</a>'
              '<details class="mn"><summary aria-label="メニュー"></summary><nav>')
     for href, label in menu_items():
