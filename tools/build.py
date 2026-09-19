@@ -546,7 +546,6 @@ def render_body_d():
 
     P.append('<footer><div class="w"><div>'
              f'<a class="logo" href="#top">{C.SITE_NAME}</a>'
-             f'<div class="co">{esc(C.COMPANY)}</div><div>所在地（準備中）</div>'
              f'<p class="note" style="margin-top:2em">{esc(C.FOOTER_NOTE)}<br>この案：D 文字と余白　'
              '<a href="../" style="color:inherit">ほかの案を見る</a></p></div><nav>')
     for href, label in menu_items():
