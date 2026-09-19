@@ -299,7 +299,7 @@ def fragment(theme_key):
 
 # ---------------------------------------------------------------- 案D（採用サイト型・文字だけ）
 # 書体: 見出しは Zen Old Mincho、本文は端末の書体（ヒラギノ／游ゴシック／メイリオ）。ロゴ（Condorcet）だけ英字の Manrope
-D_FONTS = "Zen+Old+Mincho:wght@500;700&family=Manrope:wght@600;700"
+D_FONTS = "Zen+Old+Mincho:wght@500;700&family=Klee+One:wght@400;600&family=Manrope:wght@600;700"
 D_CSS = """
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:light}
@@ -332,7 +332,7 @@ main,footer{position:relative;z-index:1}
 .hero{background:var(--deep);color:#fff;padding:calc(60px + env(safe-area-inset-top,0px) + 88px) 0 64px}
 .hero .catch{font-family:var(--head);font-size:2.2rem;font-weight:700;line-height:1.5;letter-spacing:.02em;margin:0;text-wrap:pretty;font-feature-settings:"palt"}
 .hero .catch em{font-style:normal;color:var(--deep-em);white-space:nowrap}
-.hero .sub{margin:2em 0 0;font-size:1rem;color:rgba(255,255,255,.82);line-height:2;max-width:34em}
+.hero .sub{margin:2em 0 0;font-family:'Klee One','Hiragino Maru Gothic ProN',cursive;font-weight:400;font-size:1.05rem;color:rgba(255,255,255,.88);line-height:2.1;max-width:34em;letter-spacing:.02em}
 .cue{margin-top:64px;font-size:.75rem;letter-spacing:.2em;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:12px}
 .cue::after{content:"";width:1px;height:40px;background:rgba(255,255,255,.6);animation:cue 1.8s ease-in-out infinite;transform-origin:top}
 @keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}
