@@ -345,6 +345,8 @@ main,footer{position:relative;z-index:1}
 .hero-img{order:0;flex:1 0 auto;min-height:72vw;
 background:linear-gradient(to bottom,rgba(15,31,61,.55) 0%,rgba(15,31,61,0) 22%),linear-gradient(to top,var(--deep) 0%,rgba(15,31,61,0) 28%),url(hero.webp) 86% 62%/cover no-repeat,var(--deep)}
 section{padding:96px 0;scroll-margin-top:calc(60px + env(safe-area-inset-top,0px))}
+section + section .w{border-top:1px solid var(--line);padding-top:96px}
+section + section{padding-top:0}
 section.paper{background:var(--bg)} /* いったん白の節をなくして全部同じ青に（2026-09-19） */
 .lbl{font-size:.75rem;letter-spacing:.25em;color:var(--accent);font-weight:700;margin:0 0 1.6em}
 h2{font-family:var(--head);font-size:1.75rem;font-weight:700;line-height:1.5;letter-spacing:.03em;margin:0 0 1.4em;text-wrap:pretty;font-feature-settings:"palt"}
@@ -402,6 +404,8 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
   .hero-img{position:absolute;inset:0;height:auto;max-height:none;margin:0;
   background:linear-gradient(to right,var(--deep) 0%,var(--deep) 18%,rgba(15,31,61,.6) 32%,rgba(15,31,61,0) 50%),url(hero.webp) right center/auto 100% no-repeat,var(--deep)}
   section{padding:112px 0}
+  section + section{padding-top:0}
+  section + section .w{padding-top:112px}
   h2{font-size:2rem;line-height:1.4}
   .in.narrow{max-width:720px}
   /* 表: 内容は全幅、残りは2×2 */
