@@ -335,11 +335,15 @@ main,footer{position:relative;z-index:1}
 .cue::after{content:"";width:1px;height:40px;background:rgba(255,255,255,.6);animation:cue 1.8s ease-in-out infinite;transform-origin:top}
 @keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}
 @media (prefers-reduced-motion:reduce){.cue::after{animation:none}}
-/* ヒーローの写真: スマホでは文字の下に帯で置き、上端を濃紺になじませる */
-.hero{position:relative;overflow:hidden;padding-bottom:0}
-.hero .w{position:relative;z-index:1}
-.hero-img{height:92vw;max-height:560px;margin-top:8px;
-background:linear-gradient(to bottom,var(--deep) 0%,rgba(15,31,61,0) 38%),url(hero.webp) 80% 72%/cover no-repeat,var(--deep)}
+/* ヒーローの写真: スマホでは一番上に写真（右寄りを切り出す）、その下の濃紺に文字。ひと画面に両方が入る大きさ */
+.hero{position:relative;overflow:hidden;display:flex;flex-direction:column;padding:0;min-height:100vh;min-height:100svh}
+.hero .w{position:relative;z-index:1;order:1;padding-top:20px;padding-bottom:32px}
+.hero .catch{font-size:1.55rem;line-height:1.5}
+.hero .sub{margin-top:1.1em;font-size:.88rem;line-height:1.85}
+.hero .cue{margin-top:24px}
+.hero .cue::after{height:28px}
+.hero-img{order:0;flex:1 0 auto;min-height:72vw;
+background:linear-gradient(to bottom,rgba(15,31,61,.55) 0%,rgba(15,31,61,0) 22%),linear-gradient(to top,var(--deep) 0%,rgba(15,31,61,0) 28%),url(hero.webp) 86% 62%/cover no-repeat,var(--deep)}
 section{padding:96px 0;scroll-margin-top:calc(60px + env(safe-area-inset-top,0px))}
 section.paper{background:var(--paper)}
 .lbl{font-size:.75rem;letter-spacing:.25em;color:var(--accent);font-weight:700;margin:0 0 1.6em}
@@ -388,10 +392,13 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
   .hero .catch{font-size:clamp(2.6rem,4.4vw,4rem);line-height:1.3;letter-spacing:0;max-width:20em}
   .hero .sub{font-size:1.05rem;max-width:40em}
   /* ヒーローの写真: PCでは右に高さいっぱいで置き、左の文字側を濃紺でなじませる */
-  .hero{min-height:clamp(640px,92vh,960px);display:flex;align-items:center;padding-bottom:96px}
-  .hero .w{width:100%}
-  .hero .catch{font-size:clamp(2.4rem,3.4vw,3.2rem);max-width:11.5em}
-  .hero .sub{max-width:24em}
+  .hero-img{flex:none;min-height:0}
+  .hero{min-height:clamp(640px,92vh,960px);flex-direction:row;align-items:center;padding:calc(72px + env(safe-area-inset-top,0px) + 120px) 0 96px}
+  .hero .w{width:100%;padding-top:0;padding-bottom:0}
+  .hero .catch{font-size:clamp(2.4rem,3.4vw,3.2rem);line-height:1.3;max-width:11.5em}
+  .hero .sub{margin-top:2em;font-size:1.05rem;line-height:2;max-width:24em}
+  .hero .cue{margin-top:64px}
+  .hero .cue::after{height:40px}
   .hero-img{position:absolute;inset:0;height:auto;max-height:none;margin:0;
   background:linear-gradient(to right,var(--deep) 0%,var(--deep) 18%,rgba(15,31,61,.6) 32%,rgba(15,31,61,0) 50%),url(hero.webp) right center/auto 100% no-repeat,var(--deep)}
   section{padding:112px 0}
@@ -449,6 +456,9 @@ def d_catch():
     c = esc(C.CATCH)
     if "、" in c:
         a, b = c.rsplit("、", 1)
+        # 「AIを、」の途中で改行させない（…任せられる／AIを、一日で。）
+        if a.endswith("AIを"):
+            return f'{a[:-3]}<span style="white-space:nowrap">AIを、</span><em>{b}</em>'
         return f"{a}、<em>{b}</em>"
     return c
 
