@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Condorcet（コンドルセ）— AI経営の最先端まで、登り詰める8日間</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500;700&family=Manrope:wght@600;700&display=swap">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:light}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+:root{--bg:#e6edf7;--paper:#ffffff;--ink:#141c2b;--ink2:#3f4a5e;--muted:#6f7b90;--accent:#1b57d6;--line:#c5d1e4;--deep:#0f1f3d;--deep-em:#8fb3ff;
+--font:'Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','游ゴシック',YuGothic,Meiryo,'Noto Sans JP',sans-serif;--head:'Zen Old Mincho','Hiragino Mincho ProN','Yu Mincho',serif;--latin:'Manrope','Helvetica Neue',Arial,sans-serif}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;font-weight:500;line-height:2;overflow-wrap:anywhere}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+main,footer{position:relative;z-index:1}
+.w{max-width:640px;margin:0 auto;padding-inline:24px}
+.hd{position:fixed;top:0;left:0;right:0;z-index:30;padding-top:env(safe-area-inset-top,0px);background:transparent;transition:background .3s,box-shadow .3s}
+.hd.on{background:rgba(230,237,247,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 1px 0 var(--line)}
+.hd:not(.on) .logo,.hd:not(.on) .cta{color:#fff;border-color:rgba(255,255,255,.7)}
+.hd:not(.on) .mn summary::before,.hd:not(.on) .mn summary::after{background:#fff}
+.hd .bar{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-family:var(--latin);font-weight:700;font-size:1.25rem;letter-spacing:-.02em;color:var(--ink);text-decoration:none;display:inline-flex;flex-direction:column;line-height:1.1}
+.logo .kana{font-family:var(--font);font-weight:500;font-size:.6rem;letter-spacing:.3em;opacity:.8;margin-top:.25em;transition:opacity .3s,max-height .3s;max-height:1.2em;overflow:hidden}
+.hd.on .logo .kana{opacity:0;max-height:0;margin-top:0}
+.hd .rt{display:flex;align-items:center;gap:16px}
+.hd .cta{font-size:.8rem;font-weight:500;color:var(--ink);text-decoration:none;border:1px solid var(--ink);border-radius:999px;padding:.35em 1em;white-space:nowrap}
+.mn{position:relative}
+.mn summary{list-style:none;cursor:pointer;width:34px;height:24px;position:relative;display:block}
+.mn summary::-webkit-details-marker{display:none}
+.mn summary::before,.mn summary::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:var(--ink);transition:transform .3s}
+.mn summary::before{top:6px}.mn summary::after{bottom:6px}
+.mn[open] summary::before{transform:translateY(5px) rotate(20deg)}.mn[open] summary::after{transform:translateY(-5px) rotate(-20deg)}
+.mn nav{position:fixed;left:0;right:0;top:calc(60px + env(safe-area-inset-top,0px));background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 24px 20px}
+.mn nav a{display:block;padding:.5em 0;color:var(--ink);text-decoration:none;font-size:1.05rem;font-weight:500;letter-spacing:.04em}
+.mn nav a.cur{color:var(--accent)}
+.hero{background:var(--deep);color:#fff;padding:calc(60px + env(safe-area-inset-top,0px) + 88px) 0 64px}
+.hero .catch{font-family:var(--head);font-size:2.2rem;font-weight:700;line-height:1.5;letter-spacing:.02em;margin:0;text-wrap:pretty;font-feature-settings:"palt"}
+.hero .catch em{font-style:normal;color:var(--deep-em);white-space:nowrap}
+.hero .sub{margin:2em 0 0;font-family:var(--head);font-weight:500;font-size:1.06rem;color:rgba(255,255,255,.88);line-height:2.1;max-width:34em;letter-spacing:.04em;font-feature-settings:"palt"}
+.cue{margin-top:64px;font-size:.75rem;letter-spacing:.2em;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:12px}
+.cue::after{content:"";width:1px;height:40px;background:rgba(255,255,255,.6);animation:cue 1.8s ease-in-out infinite;transform-origin:top}
+@keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}
+@media (prefers-reduced-motion:reduce){.cue::after{animation:none}}
+/* ヒーローの写真: スマホでは一番上に写真（右寄りを切り出す）、その下の濃紺に文字。ひと画面に両方が入る大きさ */
+.hero{position:relative;overflow:hidden;display:flex;flex-direction:column;padding:0;min-height:100vh;min-height:100svh}
+.hero .w{position:relative;z-index:1;order:1;padding-top:20px;padding-bottom:32px}
+.hero .catch{font-size:1.55rem;line-height:1.5}
+.hero .sub{margin-top:1.1em;font-size:.88rem;line-height:1.85}
+.hero .cue{margin-top:24px}
+.hero .cue::after{height:28px}
+.hero-img{order:0;flex:1 0 auto;min-height:72vw;
+background:linear-gradient(to bottom,rgba(15,31,61,.55) 0%,rgba(15,31,61,0) 22%),linear-gradient(to top,var(--deep) 0%,rgba(15,31,61,0) 28%),url(hero.webp) 86% 62%/cover no-repeat,var(--deep)}
+section{padding:96px 0;scroll-margin-top:calc(60px + env(safe-area-inset-top,0px))}
+section + section .w{border-top:1px solid var(--line);padding-top:96px}
+section + section{padding-top:0}
+section.paper{background:var(--bg)} /* いったん白の節をなくして全部同じ青に（2026-09-19） */
+.lbl{font-size:.75rem;letter-spacing:.25em;color:var(--accent);font-weight:700;margin:0 0 1.6em}
+h2{font-family:var(--head);font-size:1.75rem;font-weight:700;line-height:1.5;letter-spacing:.03em;margin:0 0 1.4em;text-wrap:pretty;font-feature-settings:"palt"}
+h3{font-family:var(--head);font-size:1.15rem;font-weight:700;margin:0 0 .5em;letter-spacing:.03em}
+p{margin:0 0 1.4em}
+p:last-child{margin-bottom:0}
+.facts{list-style:none;margin:0;padding:0}
+.facts li{display:grid;grid-template-columns:4.5em 1fr;gap:0 12px;padding:22px 0;border-top:1px solid var(--line)}
+.facts li:last-child{border-bottom:1px solid var(--line)}
+.facts .k{font-size:.85rem;font-weight:700;color:var(--accent);letter-spacing:.1em;padding-top:.35em}
+.facts p{margin:0;font-size:.98rem;line-height:1.95}
+.essay .body p{font-size:1.02rem;line-height:2.15;margin-bottom:1.8em}
+.essay .closing{margin-top:3em;padding-left:18px;border-left:2px solid var(--accent)}
+.essay .closing p{color:var(--ink);font-weight:600}
+.tl-blk h3{margin-bottom:.4em}
+.tl-blk .intro{margin:0 0 1.2em;font-size:.98rem}
+.tl{list-style:none;margin:0;padding:0 0 0 2px;border-left:1px solid var(--line)}
+.tl li{position:relative;padding:0 0 1.3em 22px}
+.tl li:last-child{padding-bottom:0}
+.tl li::before{content:"";position:absolute;left:-5px;top:.62em;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.tl .t{display:block;font-size:.76rem;color:var(--accent);font-weight:700;letter-spacing:.12em;line-height:1.6}
+.tl p{margin:0;font-size:.98rem;line-height:1.9}
+.flow .rest .blk:first-child{border-top:0;padding-top:0}
+.blk{padding:26px 0;border-top:1px solid var(--line)}
+.blks .blk:last-child{border-bottom:1px solid var(--line)}
+.blk p{font-size:.98rem}
+.more{display:inline-block;margin-top:2em;color:var(--accent);font-weight:500;text-decoration:none;font-size:.95rem}
+.note{color:var(--muted);font-size:.9rem}
+.fig{margin:2em 0 0;padding:44px 16px;text-align:center;color:var(--muted);font-size:.85rem;border:1px dashed var(--line)}
+.price{margin:0 0 2em}
+.price .row{padding:22px 0;border-top:1px solid var(--line)}
+.price .row:last-child{border-bottom:1px solid var(--line)}
+.price .item{display:block;font-size:.95rem;color:var(--ink2)}
+.price .amt{display:block;font-family:var(--head);font-size:2rem;font-weight:700;letter-spacing:.02em;line-height:1.3;margin:.15em 0;font-variant-numeric:tabular-nums}
+.price .cond{display:block;font-size:.85rem;color:var(--muted)}
+.big{font-family:var(--head);font-size:1.3rem;font-weight:500;line-height:1.9}
+footer{padding:64px 0 72px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
+footer .logo{display:inline-block;margin-bottom:.6em}
+footer .co{color:var(--ink);font-weight:700;font-size:1rem;margin-bottom:.3em}
+footer nav{margin-top:2em;display:flex;flex-wrap:wrap;gap:.2em 1.4em}
+footer nav a{color:var(--muted);text-decoration:none}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity .8s cubic-bezier(.2,.6,.2,1),transform .8s cubic-bezier(.2,.6,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}}
+
+/* ---- 画面が広いとき（PC・タブレット横）: 節ごとに横幅の使い方を決める ---- */
+@media (min-width:860px){
+  .w{max-width:1120px;padding-inline:48px}
+  .hd .bar{height:72px}
+  .logo{font-size:1.4rem}
+  .mn nav{left:auto;right:48px;top:calc(72px + env(safe-area-inset-top,0px));width:280px;border:1px solid var(--line);padding:10px 24px 16px}
+  .hero{padding:calc(72px + env(safe-area-inset-top,0px) + 120px) 0 96px}
+  .hero .catch{font-size:clamp(2.6rem,4.4vw,4rem);line-height:1.3;letter-spacing:0;max-width:20em}
+  .hero .sub{font-size:1.05rem;max-width:40em}
+  /* ヒーローの写真: PCでは右に高さいっぱいで置き、左の文字側を濃紺でなじませる */
+  .hero-img{flex:none;min-height:0}
+  .hero{min-height:clamp(640px,92vh,960px);flex-direction:row;align-items:center;padding:calc(72px + env(safe-area-inset-top,0px) + 120px) 0 96px}
+  .hero .w{width:100%;padding-top:0;padding-bottom:0}
+  .hero .catch{font-size:clamp(2.4rem,3.4vw,3.2rem);line-height:1.3;max-width:11.5em}
+  .hero .sub{margin-top:2em;font-size:1.05rem;line-height:2;max-width:24em}
+  .hero .cue{margin-top:64px}
+  .hero .cue::after{height:40px}
+  .hero-img{position:absolute;inset:0;height:auto;max-height:none;margin:0;
+  background:linear-gradient(to right,var(--deep) 0%,var(--deep) 18%,rgba(15,31,61,.6) 32%,rgba(15,31,61,0) 50%),url(hero.webp) right center/auto 100% no-repeat,var(--deep)}
+  section{padding:112px 0}
+  section + section{padding-top:0}
+  section + section .w{padding-top:112px}
+  h2{font-size:2rem;line-height:1.4}
+  .in.narrow{max-width:720px}
+  /* 表: 1列で縦に並べる（2×2はやめた 2026-09-19） */
+  #service .in{max-width:820px}
+  .facts li{grid-template-columns:6em 1fr;gap:0 28px;padding:28px 0}
+  .facts p{font-size:1.02rem}
+  /* サービスの流れ: 左にタイムライン、右に2〜8日目とその後 */
+  .flow{display:grid;grid-template-columns:7fr 5fr;gap:0 64px;align-items:start}
+  .flow .rest .blk:first-child{border-top:0;padding-top:0}
+  .tl li{padding-bottom:1.5em}
+  /* 横3列 */
+  .cols3 .blks,.cols3 .paras{display:grid;grid-template-columns:repeat(3,1fr);gap:0 48px;align-items:start}
+  .cols3 .blks .blk{border-top:1px solid var(--line);border-bottom:0;padding:28px 0 0}
+  .cols3 .paras p{border-top:1px solid var(--line);padding-top:28px;margin:0}
+  /* 左に文章、右に見本 */
+  .split .body{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+  .split .fig{margin:0;min-height:260px;display:flex;align-items:center;justify-content:center}
+  /* 料金: 2列 */
+  .price{display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
+  .price .row{border-bottom:1px solid var(--line)}
+  .price .amt{font-size:2.4rem}
+  .pricenote{max-width:720px}
+  /* お問い合わせ: 2列 */
+  .cols2 .paras{display:grid;grid-template-columns:1fr 1fr;gap:0 56px;align-items:start}
+  .cols2 .paras p{margin:0}
+  footer .w{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  footer nav{margin-top:0;flex-direction:column;gap:.3em}
+}
+</style>
+</head>
+<body>
+<header class="hd"><div class="w bar"><a class="logo" href="#top">Condorcet<span class="kana">コンドルセ</span></a><div class="rt"><a class="cta" href="#toiawase">お問い合わせ</a><details class="mn"><summary aria-label="メニュー"></summary><nav>
+<a href="#service">サービス</a>
+<a href="#essay">コンドルセの考え</a>
+<a href="#hachinichi">サービスの流れ</a>
+<a href="#tsukureru">作れるもの</a>
+<a href="#ai">AIとの付き合い方</a>
+<a href="#jirei">事例</a>
+<a href="#ryokin">料金</a>
+<a href="#toiawase">お問い合わせ</a>
+</nav></details></div></div></header>
+<main id="top">
+<div class="hero"><div class="w"><h1 class="catch">AI経営の最先端まで<br><em>登り詰める8日間</em></h1><p class="sub">見積書、日報、請求書の下書き。御社の決まりごとが社長の頭の中にしかないから、人に渡せなかった事務。パソコンは、設定と説明書の道具から、話せば動く道具に変わりました。その事務をAIに覚えさせ、現場からスマホで動く、自社のシステムに。</p><div class="cue">スクロール</div></div><div class="hero-img" role="img" aria-label="夜の机。職人の手が置かれた手書きのノートから光の線が伸び、スマホとノートPCへつながっている"></div></div>
+<section id="service" class="paper"><div class="w"><div class="in rv"><p class="lbl">コンドルセとは</p><ul class="facts">
+<li class="full"><span class="k">内容</span><p>訪問する一日で、AIと必要なものの契約（すべて社長の名義）、御社の仕事を覚えさせること、事務を一つAIで自動化すること、の三つをご一緒します。その後は、ほかの使い方や困りごとの相談に乗ります。</p></li>
+<li><span class="k">対象</span><p>従業員1〜数名の現場の会社（建設・農業・運輸・卸・製造など）。PCが苦手でかまいません。</p></li>
+<li><span class="k">日数</span><p>訪問1日＋フォロー7日。合わせて8日間。</p></li>
+<li><span class="k">料金</span><p>20万円・都度払い（交通費・宿泊費は別途実費）。別に、AIなどの月額 約2.3万円は、各社へ直接お支払いいただきます。</p></li>
+<li><span class="k">誰が</span><p>AIに頼むのは、社長ご本人です。コンドルセは横で頼み方を一緒に考えます。</p></li>
+</ul></div></div></section>
+<section id="essay" class="essay"><div class="w"><div class="in narrow rv"><p class="lbl">コンドルセの考え</p><h2>社長の手がないと回らない仕事、ありますよね。</h2><div class="body">
+<p>我々、コンドルセがさせていただくサービスは、社長が毎日やらなくてはいけない事務の負担を軽くするために、AIの導入をサポートし、より現場や営業に集中する時間を作るお手伝いをさせていただくことです。</p>
+<p>たしかに、Excelや会計アプリのおかげで、注文の集計や請求書、商品の値段の管理は、ある程度楽になったと思います。しかし、業界ごと、会社ごとの商慣習や、決まりどおりにいかない帳簿のつけ方には、アプリは合わせきれていないはずです。</p>
+<p>結果、社長の手と経験、頭の中にしかない価格や決まりごとが、どうしても要る。その仕事の量と負担は、無視できないものだと思います。</p>
+<p>かといって、自社専用の道具を外に作ってもらうのは大変ですし、初期で50万から300万、そのあと保守もかかります。ご自身で一から勉強し、プログラミングをするのは、手間が仕事にならないほど大きい。事務員を雇うのも大変です。求人を出して、面接をして、雇ってからも手続きが続きます。正社員で年に600万から750万、パートでも年に200万から240万かかります。AIを使うのも難しい。AIは御社のことを何も知らないので、聞いても一般論しか返ってきません。</p>
+<p>しかし、AIに御社のことを覚えさせれば、御社の仕組みを隅々まで知っていて、社長が頼めば必要なものを作ってくれる、専属の担当者を持てます。社長の名義で、社長の手元にあって、情報を外に出さずに持たせられる相手です。御社の仕事を覚えた社員が一人増える、と考えていただければ、その効果を実感できると思います。</p>
+<p>コンドルセがするのは、そのお手伝いです。御社にうかがって、AIと話せる状態までの環境——会社のメール、AI、作ったものの保管場所——を一日で整え、社長の言葉で、AIに御社のことを覚えさせます。そしてその日のうちに、いま一番手間のかかっている仕事を一つ、社長がAIに頼んで、スマホで済ませられるようにします。そのあと7日間、社長がご自身でAIに頼んで動かせるようになるまで、何度でもお手伝いさせていただきます。</p>
+<p>すべて社長の名義で、AIに指示を出すのも社長ご本人です。専門家にしか触れないものは、一つもありません。</p>
+<div class="closing">
+<p>売上をつくるのは、現場と営業です。それなのに、見積書の作成や請求書の下書き、日報の転記などのただ時間のかかる入力に手を取られ、本業にかける時間が削られていく。その歯がゆさは、御社の仕事を覚えたAIを使えばなくせます。残るのは、社長にしかできない核となる仕事だけ。最初に申し上げた「現場や営業に集中する時間」は、そうやってつくります。</p>
+</div></div></div></div></section>
+<section id="hachinichi" class="paper"><div class="w"><div class="in wide rv">
+<h2>サービスの流れ</h2>
+<div class="body">
+<div class="flow"><div class="tl-blk"><h3>1日目 — 御社にうかがいます</h3><p class="intro">訪問日は、こう進みます。</p><ol class="tl">
+<li><span class="t">朝</span><p>費用と今日の目標を、紙で確認します。</p></li>
+<li><span class="t">午前</span><p>会社のメールと、AIと必要なものを、社長の名義で整えます。</p></li>
+<li><span class="t">午前</span><p>用意していただいた紙・Excelを一緒に見て、今日つくるものを一つ決めます。</p></li>
+<li><span class="t">昼前後</span><p>AIが社長に、御社のことを聞き取ります。ここは時間をかけます。</p></li>
+<li><span class="t">午後</span><p>社長が自分の言葉で頼んで、決めた事務をスマホで動く形にします。</p></li>
+<li><span class="t">夕方</span><p>実際に使ってみて、削減できた時間を計ります。明日からの連絡の仕方をお伝えします。</p></li>
+<li><span class="t">終わり</span><p>今日の記録と、フォローの終了日を紙でお渡しします。8時間で終えます。</p></li>
+</ol></div><div class="rest">
+<div class="blk"><h3>2〜8日目 — 翌日から7日間</h3><p>チャットと電話でお返事します。社長がご自身でAIに頼んで動かし、「AIを使いこなせた」と思えるところまで、ご一緒します。</p></div>
+<div class="blk"><h3>その後のご相談</h3><p>自社のシステムを直すのも、手を加えるのも、社長がAIに頼んで、ご自身で進められます。困ったときだけ、1時間からの相談をお受けします。月々の契約はありません。</p></div>
+</div></div>
+</div>
+<span class="more">進め方をくわしく →（別ページ・準備中）</span>
+</div></div></section>
+<section id="tsukureru" class=""><div class="w"><div class="in split rv">
+<h2>たとえば、こんなものが作れます</h2>
+<div class="body">
+<div>
+<div class="paras">
+<p>見積書・日報・在庫表・請求書の下書き・お客さんごとの単価表。</p>
+<p>訪問日に作るのは一つ。二つ目からは、社長が自分でAIに頼みます。</p>
+</div>
+</div>
+<div class="fig">見本の画面（仮名の見積書アプリ）を、ここに1枚入れる予定</div>
+</div>
+</div></div></section>
+<section id="junbi" class="paper"><div class="w"><div class="in narrow rv">
+<h2>社長側でしていただくこと</h2>
+<div class="body">
+<div class="paras">
+<p class="big">訪問日は、一日空けてください。</p>
+<p>いま手間のかかっている事務で使っているもの（ノート・伝票・Excel）を、机に出しておいてください。きれいにしなくて大丈夫です。</p>
+<p>準備は、それだけです。</p>
+</div>
+</div>
+</div></div></section>
+<section id="ai" class=""><div class="w"><div class="in cols3 rv">
+<h2>AIとの付き合い方</h2>
+<div class="body">
+<div class="paras">
+<p>AIは、間違えます。だから、間違えても戻せる形で始めます。</p>
+<p>元の帳簿やExcelには触らせません。お金が動くこと、外に出ることは、勝手にやらない設定にします。戻し方は紙でお渡しします。</p>
+<p>おかしくなったら、新しいチャットを始めればいい。それでも困ったら、画面を撮って送ってください。</p>
+</div>
+</div>
+<span class="more">AIとの付き合い方をくわしく →（別ページ・準備中）</span>
+</div></div></section>
+<section id="jirei" class="paper"><div class="w"><div class="in narrow rv">
+<h2>事例</h2>
+<p class="note">当面は、社名を伏せて紹介しています。</p>
+<div class="body">
+<div class="blks">
+<div class="blk"><h3>北陸の肥料販売業（従業員数名）</h3><p>手書きだった見積書を、訪問日の一日で、スマホから作れるようにしました。その後、同業の方をご紹介いただきました。</p></div>
+</div>
+</div>
+<span class="more">事例を読む →（別ページ・準備中）</span>
+</div></div></section>
+<section id="ryokin" class=""><div class="w"><div class="in price rv">
+<h2>料金</h2>
+<div class="body">
+<div class="price">
+<div class="row"><span class="item">訪問日（8時間）＋フォロー（7日間）</span><span class="amt">20万円</span><span class="cond">交通費・宿泊費は別途実費</span></div>
+<div class="row"><span class="item">スポット相談</span><span class="amt">1時間1万円から</span><span class="cond">オンライン可。設定を元に戻す相談は無料</span></div>
+</div>
+<div class="paras pricenote">
+<p>都度払いです。月々いただくお金はありません。</p>
+<p>別に、AIなどの月額（目安 約2.3万円）を、社長ご自身で直接ご契約いただきます。当社が受け取るお金ではありません。</p>
+</div>
+</div>
+<span class="more">料金のくわしい説明（事務員を雇う場合との比較） →（別ページ・準備中）</span>
+</div></div></section>
+<section id="okotowari" class="paper"><div class="w"><div class="in narrow rv">
+<h2>お断りしていること</h2>
+<div class="body">
+<div class="paras">
+<p class="big">代わりに作ること。アカウントやパスワードをお預かりすること。「全部お任せ」。</p>
+<p>ご自身でできるようになりたい方のためのものです。</p>
+</div>
+</div>
+</div></div></section>
+<section id="shokai" class=""><div class="w"><div class="in narrow rv">
+<h2>ご紹介いただく方へ</h2>
+<div class="body">
+<div class="paras">
+<p>広告は出していません。ご紹介でつながった方に、うかがっています。</p>
+<p>紹介先の社長に「どんな会社か」を確かめていただくために、このページがあります。</p>
+</div>
+</div>
+</div></div></section>
+<section id="toiawase" class="paper"><div class="w"><div class="in cols2 rv">
+<h2>お問い合わせ</h2>
+<div class="body">
+<div class="paras">
+<p>メール：（準備中）／電話：（準備中）</p>
+<p>会社名・業種・従業員数・いま一番手間のかかっている事務・ご紹介者のお名前を書いていただけると、話が早いです。</p>
+</div>
+</div>
+</div></div></section>
+</main>
+<footer><div class="w"><div><a class="logo" href="#top">Condorcet</a><p class="note" style="margin-top:2em">この素案では、長文は清書済み、「8日間で何が起きるか」以降は下書きです。<br>この案：D 文字と余白　<a href="../" style="color:inherit">ほかの案を見る</a></p></div><nav>
+<a href="#service">サービス</a>
+<a href="#essay">コンドルセの考え</a>
+<a href="#hachinichi">サービスの流れ</a>
+<a href="#tsukureru">作れるもの</a>
+<a href="#ai">AIとの付き合い方</a>
+<a href="#jirei">事例</a>
+<a href="#ryokin">料金</a>
+<a href="#toiawase">お問い合わせ</a>
+<a href="name/">名前について</a>
+</nav></div></footer>
+<script>
+(function(){
+  var root=document.documentElement;root.classList.add('js');
+  var hd=document.querySelector('.hd');
+  function onS(){hd.classList.toggle('on',window.scrollY>8)}
+  onS();window.addEventListener('scroll',onS,{passive:true});
+  var rv=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    rv.forEach(function(el){io.observe(el)});
+  }else{rv.forEach(function(el){el.classList.add('in')})}
+  var links=document.querySelectorAll('.mn nav a');
+  links.forEach(function(a){a.addEventListener('click',function(){var d=a.closest('details');if(d)d.open=false})});
+  var secs=[].map.call(links,function(a){return document.querySelector(a.getAttribute('href'))}).filter(Boolean);
+  if('IntersectionObserver' in window){
+    var spy=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('cur',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-40% 0px -55% 0px'});
+    secs.forEach(function(s){spy.observe(s)});
+  }
+})();
+</script>
+</body>
+</html>

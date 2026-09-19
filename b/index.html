@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Condorcet（コンドルセ）— AI経営の最先端まで、登り詰める8日間</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&family=BIZ+UDPGothic:wght@400;700&display=swap">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:light}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:var(--fs);line-height:1.9;
+font-feature-settings:"palt" 0;overflow-wrap:anywhere}
+.wrap{max-width:640px;margin:0 auto;padding-inline:20px}
+header.top{position:fixed;top:0;left:0;right:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);
+padding-top:env(safe-area-inset-top,0px)}
+header.top .bar{display:flex;align-items:center;justify-content:space-between;height:56px}
+header.top .brand{font-family:var(--display);font-weight:700;font-size:1.15rem;color:var(--accent);text-decoration:none;letter-spacing:.03em}
+.menu{position:relative}
+.menu summary{list-style:none;cursor:pointer;border:1px solid var(--accent);color:var(--accent);padding:.25em .8em;font-size:.85rem;border-radius:3px;user-select:none}
+.menu summary::-webkit-details-marker{display:none}
+.menu summary .ico{display:none}
+.cta{display:none}
+header.top .right{display:flex;align-items:center;gap:12px}
+.menu nav{position:absolute;right:0;top:calc(100% + 10px);background:var(--bg);border:1px solid var(--line);min-width:220px;
+box-shadow:0 8px 24px rgba(0,0,0,.12);padding:.4em 0;border-radius:4px}
+.menu nav a{display:block;padding:.55em 1.2em;color:var(--fg);text-decoration:none;font-size:.95rem}
+.menu nav a:hover,.menu nav a:focus-visible{background:var(--soft);outline:none}
+main{padding-top:calc(56px + env(safe-area-inset-top,0px))}
+.hero{padding-block:52px 40px}
+.hero .kana{display:block}
+.hero .catch{text-wrap:pretty;font-weight:inherit;margin-bottom:0}
+section{padding-block:40px;border-top:1px solid var(--line);scroll-margin-top:calc(64px + env(safe-area-inset-top,0px))}
+h2{font-size:1.4rem;line-height:1.5;margin:0 0 1em;text-wrap:balance}
+h3{font-size:1.05rem;line-height:1.6;margin:0 0 .4em}
+p{margin:0 0 1.1em}
+p:last-child{margin-bottom:0}
+dl.summary{margin:0}
+dl.summary dt{margin:0 0 .3em}
+dl.summary dd{margin:0 0 1.5em}
+dl.summary dd:last-child{margin-bottom:0}
+.essay p{text-indent:1em}
+.essay .closing{margin-top:2.2em;padding-top:1.6em;border-top:1px dashed var(--line)}
+.block{margin-bottom:1.6em}
+.block:last-of-type{margin-bottom:0}
+.more{display:inline-block;margin-top:.6em;color:var(--muted);font-size:.9rem;border-bottom:1px dotted var(--muted)}
+.note{color:var(--muted);font-size:.9rem}
+.figure{margin:1.4em 0 0;padding:2.2em 1em;text-align:center;color:var(--muted);font-size:.9rem;border:1px dashed var(--line);border-radius:4px}
+.price{margin:0 0 1.2em}
+.price .row{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2em .8em;padding:.8em 0;border-bottom:1px solid var(--line)}
+.price .row:first-child{border-top:1px solid var(--line)}
+.price .item{flex:1 1 100%;}
+.price .amt{font-size:1.35rem;font-variant-numeric:tabular-nums}
+.price .cond{color:var(--muted);font-size:.85rem}
+footer{border-top:1px solid var(--line);padding-block:32px 48px;color:var(--muted);font-size:.85rem}
+footer .co{color:var(--fg);font-weight:700;margin-bottom:.4em}
+footer nav{margin-top:1.2em;display:flex;flex-wrap:wrap;gap:.3em 1.2em}
+footer nav a{color:var(--muted);text-decoration:none}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+:root{--bg:#f7f5ef;--fg:#1f2d3d;--accent:#1f2d3d;--sub:#3e6b8f;--line:#d9d4c7;--muted:#5f6b78;--soft:#ecebe3;
+--display:'Zen Maru Gothic','Hiragino Maru Gothic ProN',sans-serif;--body:'BIZ UDPGothic','Hiragino Sans',sans-serif;--fs:18px}
+header.top{background:var(--accent);color:#fff;border-bottom:0}
+header.top .brand{color:#fff;font-weight:700}
+.menu summary{color:#fff;border-color:rgba(255,255,255,.55);border-radius:999px;padding:.3em 1em}
+.menu nav{border-radius:14px}
+.hero{padding-block:60px 44px}
+.hero .name{font-family:var(--display);font-weight:700;font-size:2.6rem;color:var(--accent)}
+.hero .kana{display:inline-block;background:var(--sub);color:#fff;border-radius:999px;padding:.1em .9em;font-size:.85rem;margin-top:.5em}
+.hero .catch{font-family:var(--display);font-weight:700;font-size:1.55rem;line-height:1.6;margin-top:1.3em}
+section{border-top:0;padding-block:52px}
+main > section:nth-of-type(even){background:var(--soft)}
+#service dl.summary{background:#fff;border-radius:18px;padding:26px 22px;box-shadow:0 10px 30px rgba(31,45,61,.10)}
+h2{font-family:var(--display);font-weight:700;color:var(--accent)}
+h2::before{content:"";display:block;width:36px;height:5px;background:var(--sub);border-radius:3px;margin-bottom:.8em}
+dl.summary dt{display:inline-block;background:var(--accent);color:#fff;border-radius:6px;padding:.05em .8em;font-size:.85rem;font-weight:700}
+.essay .closing{border-top:0;background:#fff;border-radius:14px;padding:20px 18px}
+.block{background:#fff;border-radius:14px;padding:18px 18px 16px}
+main > section:nth-of-type(odd) .block{background:var(--soft)}
+.block h3{font-family:var(--display);color:var(--sub);font-weight:700}
+.more{color:var(--sub);border-bottom:0;font-weight:700}
+.price .row:first-child{border-top:0}
+.price .amt{color:var(--sub);font-family:var(--display);font-weight:700;font-size:1.55rem}
+.figure{background:#fff;border:2px dashed var(--line);border-radius:14px}
+footer{background:var(--accent);color:rgba(255,255,255,.75);border-top:0;padding-block:40px 56px}
+footer .co{color:#fff}
+footer nav a{color:rgba(255,255,255,.75)}
+footer .note{color:rgba(255,255,255,.6)}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap bar"><a class="brand" href="#top">Condorcet</a><div class="right"><a class="cta" href="#toiawase">お問い合わせ</a><details class="menu"><summary><span class="ico"><i></i></span><span class="lbl">メニュー</span></summary><nav>
+<a href="#service">サービス</a>
+<a href="#essay">コンドルセの考え</a>
+<a href="#hachinichi">サービスの流れ</a>
+<a href="#tsukureru">作れるもの</a>
+<a href="#ai">AIとの付き合い方</a>
+<a href="#jirei">事例</a>
+<a href="#ryokin">料金</a>
+<a href="#toiawase">お問い合わせ</a>
+</nav></details></div></div></header>
+<main id="top">
+<div class="hero"><div class="wrap"><div class="name">Condorcet</div><span class="kana">コンドルセ</span><div class="catchwrap"><h1 class="catch">AI経営の最先端まで、登り詰める8日間</h1></div></div></div>
+<section id="service"><div class="wrap"><dl class="summary">
+<dt>内容</dt><dd>訪問する一日で、AIと必要なものの契約（すべて社長の名義）、御社の仕事を覚えさせること、事務を一つAIで自動化すること、の三つをご一緒します。その後は、ほかの使い方や困りごとの相談に乗ります。</dd>
+<dt>対象</dt><dd>従業員1〜数名の現場の会社（建設・農業・運輸・卸・製造など）。PCが苦手でかまいません。</dd>
+<dt>日数</dt><dd>訪問1日＋フォロー7日。合わせて8日間。</dd>
+<dt>料金</dt><dd>20万円・都度払い（交通費・宿泊費は別途実費）。別に、AIなどの月額 約2.3万円は、各社へ直接お支払いいただきます。</dd>
+<dt>誰が</dt><dd>AIに頼むのは、社長ご本人です。コンドルセは横で頼み方を一緒に考えます。</dd>
+</dl></div></section>
+<section id="essay" class="essay"><div class="wrap">
+<h2>社長の手がないと回らない仕事、ありますよね。</h2>
+<p>我々、コンドルセがさせていただくサービスは、社長が毎日やらなくてはいけない事務の負担を軽くするために、AIの導入をサポートし、より現場や営業に集中する時間を作るお手伝いをさせていただくことです。</p>
+<p>たしかに、Excelや会計アプリのおかげで、注文の集計や請求書、商品の値段の管理は、ある程度楽になったと思います。しかし、業界ごと、会社ごとの商慣習や、決まりどおりにいかない帳簿のつけ方には、アプリは合わせきれていないはずです。</p>
+<p>結果、社長の手と経験、頭の中にしかない価格や決まりごとが、どうしても要る。その仕事の量と負担は、無視できないものだと思います。</p>
+<p>かといって、自社専用の道具を外に作ってもらうのは大変ですし、初期で50万から300万、そのあと保守もかかります。ご自身で一から勉強し、プログラミングをするのは、手間が仕事にならないほど大きい。事務員を雇うのも大変です。求人を出して、面接をして、雇ってからも手続きが続きます。正社員で年に600万から750万、パートでも年に200万から240万かかります。AIを使うのも難しい。AIは御社のことを何も知らないので、聞いても一般論しか返ってきません。</p>
+<p>しかし、AIに御社のことを覚えさせれば、御社の仕組みを隅々まで知っていて、社長が頼めば必要なものを作ってくれる、専属の担当者を持てます。社長の名義で、社長の手元にあって、情報を外に出さずに持たせられる相手です。御社の仕事を覚えた社員が一人増える、と考えていただければ、その効果を実感できると思います。</p>
+<p>コンドルセがするのは、そのお手伝いです。御社にうかがって、AIと話せる状態までの環境——会社のメール、AI、作ったものの保管場所——を一日で整え、社長の言葉で、AIに御社のことを覚えさせます。そしてその日のうちに、いま一番手間のかかっている仕事を一つ、社長がAIに頼んで、スマホで済ませられるようにします。そのあと7日間、社長がご自身でAIに頼んで動かせるようになるまで、何度でもお手伝いさせていただきます。</p>
+<p>すべて社長の名義で、AIに指示を出すのも社長ご本人です。専門家にしか触れないものは、一つもありません。</p>
+<div class="closing">
+<p>売上をつくるのは、現場と営業です。それなのに、見積書の作成や請求書の下書き、日報の転記などのただ時間のかかる入力に手を取られ、本業にかける時間が削られていく。その歯がゆさは、御社の仕事を覚えたAIを使えばなくせます。残るのは、社長にしかできない核となる仕事だけ。最初に申し上げた「現場や営業に集中する時間」は、そうやってつくります。</p>
+</div></div></section>
+<section id="hachinichi"><div class="wrap">
+<h2>サービスの流れ</h2>
+<div class="block"><h3>1日目 — 御社にうかがいます</h3><p>朝：費用と今日の目標を、紙で確認します。<br>午前：会社のメールと、AIと必要なものを、社長の名義で整えます。<br>午前：用意していただいた紙・Excelを一緒に見て、今日つくるものを一つ決めます。<br>昼前後：AIが社長に、御社のことを聞き取ります。ここは時間をかけます。<br>午後：社長が自分の言葉で頼んで、決めた事務をスマホで動く形にします。<br>夕方：実際に使ってみて、削減できた時間を計ります。明日からの連絡の仕方をお伝えします。<br>終わり：今日の記録と、フォローの終了日を紙でお渡しします。8時間で終えます。</p></div>
+<div class="block"><h3>2〜8日目 — 翌日から7日間</h3><p>チャットと電話でお返事します。社長がご自身でAIに頼んで動かし、「AIを使いこなせた」と思えるところまで、ご一緒します。</p></div>
+<div class="block"><h3>その後のご相談</h3><p>自社のシステムを直すのも、手を加えるのも、社長がAIに頼んで、ご自身で進められます。困ったときだけ、1時間からの相談をお受けします。月々の契約はありません。</p></div>
+<span class="more">→ 進め方をくわしく（別ページ・準備中）</span>
+</div></section>
+<section id="tsukureru"><div class="wrap">
+<h2>たとえば、こんなものが作れます</h2>
+<p>見積書・日報・在庫表・請求書の下書き・お客さんごとの単価表。</p>
+<p>訪問日に作るのは一つ。二つ目からは、社長が自分でAIに頼みます。</p>
+<div class="figure">見本の画面（仮名の見積書アプリ）を、ここに1枚入れる予定</div>
+</div></section>
+<section id="junbi"><div class="wrap">
+<h2>社長側でしていただくこと</h2>
+<p>訪問日は、一日空けてください。</p>
+<p>いま手間のかかっている事務で使っているもの（ノート・伝票・Excel）を、机に出しておいてください。きれいにしなくて大丈夫です。</p>
+<p>準備は、それだけです。</p>
+</div></section>
+<section id="ai"><div class="wrap">
+<h2>AIとの付き合い方</h2>
+<p>AIは、間違えます。だから、間違えても戻せる形で始めます。</p>
+<p>元の帳簿やExcelには触らせません。お金が動くこと、外に出ることは、勝手にやらない設定にします。戻し方は紙でお渡しします。</p>
+<p>おかしくなったら、新しいチャットを始めればいい。それでも困ったら、画面を撮って送ってください。</p>
+<span class="more">→ AIとの付き合い方をくわしく（別ページ・準備中）</span>
+</div></section>
+<section id="jirei"><div class="wrap">
+<h2>事例</h2>
+<p class="note">当面は、社名を伏せて紹介しています。</p>
+<div class="block"><h3>北陸の肥料販売業（従業員数名）</h3><p>手書きだった見積書を、訪問日の一日で、スマホから作れるようにしました。その後、同業の方をご紹介いただきました。</p></div>
+<span class="more">→ 事例を読む（別ページ・準備中）</span>
+</div></section>
+<section id="ryokin"><div class="wrap">
+<h2>料金</h2>
+<div class="price">
+<div class="row"><span class="item">訪問日（8時間）＋フォロー（7日間）</span><span class="amt">20万円</span><span class="cond">交通費・宿泊費は別途実費</span></div>
+<div class="row"><span class="item">スポット相談</span><span class="amt">1時間1万円から</span><span class="cond">オンライン可。設定を元に戻す相談は無料</span></div>
+</div>
+<p>都度払いです。月々いただくお金はありません。</p>
+<p>別に、AIなどの月額（目安 約2.3万円）を、社長ご自身で直接ご契約いただきます。当社が受け取るお金ではありません。</p>
+<span class="more">→ 料金のくわしい説明（事務員を雇う場合との比較）（別ページ・準備中）</span>
+</div></section>
+<section id="okotowari"><div class="wrap">
+<h2>お断りしていること</h2>
+<p>代わりに作ること。アカウントやパスワードをお預かりすること。「全部お任せ」。</p>
+<p>ご自身でできるようになりたい方のためのものです。</p>
+</div></section>
+<section id="shokai"><div class="wrap">
+<h2>ご紹介いただく方へ</h2>
+<p>広告は出していません。ご紹介でつながった方に、うかがっています。</p>
+<p>紹介先の社長に「どんな会社か」を確かめていただくために、このページがあります。</p>
+</div></section>
+<section id="toiawase"><div class="wrap">
+<h2>お問い合わせ</h2>
+<p>メール：（準備中）／電話：（準備中）</p>
+<p>会社名・業種・従業員数・いま一番手間のかかっている事務・ご紹介者のお名前を書いていただけると、話が早いです。</p>
+</div></section>
+</main>
+<footer><div class="wrap"><div class="co">株式会社インスフィアファーム</div><div>所在地（準備中）</div><nav>
+<a href="#service">サービス</a>
+<a href="#essay">コンドルセの考え</a>
+<a href="#hachinichi">サービスの流れ</a>
+<a href="#tsukureru">作れるもの</a>
+<a href="#ai">AIとの付き合い方</a>
+<a href="#jirei">事例</a>
+<a href="#ryokin">料金</a>
+<a href="#toiawase">お問い合わせ</a>
+</nav><p class="note" style="margin-top:1.4em">この素案では、長文は清書済み、「8日間で何が起きるか」以降は下書きです。<br>この案：B 生成りと藍鉄　<a href="../" style="color:inherit">ほかの案を見る</a></p></div></footer>
+<script>
+document.querySelectorAll('.menu nav a').forEach(function(a){
+  a.addEventListener('click',function(){var d=a.closest('details');if(d){d.open=false;}});
+});
+</script>
+</body>
+</html>
