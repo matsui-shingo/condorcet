@@ -481,15 +481,32 @@ h2.ml .i{padding-left:.75em}
 .okotowari .n{margin:1em 0 0;font-size:.85rem;line-height:1.7;color:var(--muted)}
 /* リンクが2本並ぶときの間隔 */
 a.more + a.more{margin-left:1.6em}
-/* お問い合わせ */
+/* お問い合わせフォーム。指で押しやすいよう、欄は大きめに */
 .form{margin:2.4em 0 0}
-.f-intro{margin:0 0 1em;font-size:1rem}
-.f-items{list-style:none;margin:0 0 2em;padding:0}
-.f-items li{position:relative;padding:.5em 0 .5em 1.3em;border-top:1px solid var(--line);font-size:.98rem;line-height:1.6}
-.f-items li:last-child{border-bottom:1px solid var(--line)}
-.f-items li::before{content:"";position:absolute;left:.15em;top:1.15em;width:.45em;height:.45em;border-radius:50%;background:var(--accent)}
-.f-filter{margin:0 0 1.6em;font-size:.9rem;line-height:1.7;color:var(--muted)}
-.f-note{margin:0;font-size:.95rem;font-weight:700}
+.f-intro{margin:0 0 1.6em;font-size:1rem;line-height:1.7}
+.f-row{margin:0 0 1.5em}
+.f-row label{display:block;font-size:.9rem;font-weight:700;letter-spacing:.04em;margin-bottom:.5em}
+.f-row .req{display:inline-block;margin-left:.6em;padding:.1em .6em;border-radius:3px;
+background:var(--accent);color:var(--deep);font-size:.7rem;font-weight:700;letter-spacing:.08em;vertical-align:.1em}
+.f-hint{display:block;font-size:.8rem;line-height:1.6;color:var(--muted);margin-bottom:.5em;white-space:pre-line}
+.cform input,.cform textarea{display:block;width:100%;box-sizing:border-box;
+font-family:inherit;font-size:1rem;line-height:1.6;color:#141c2b;background:#fff;
+border:1px solid var(--line);border-radius:6px;padding:.75em .8em;-webkit-appearance:none}
+.cform input{min-height:48px}
+.cform textarea{resize:vertical;min-height:9em}
+.cform input:focus,.cform textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.cform input[aria-invalid="true"],.cform textarea[aria-invalid="true"]{outline:2px solid #ff8f8f;outline-offset:1px}
+/* 人には見せない欄（自動送信よけ） */
+.f-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.f-privacy{margin:0 0 1.6em;font-size:.85rem;line-height:1.75;color:var(--muted)}
+.f-submit{display:block;width:100%;min-height:54px;font-family:var(--head);font-size:1.05rem;font-weight:700;
+letter-spacing:.08em;color:var(--deep);background:var(--accent);border:0;border-radius:6px;cursor:pointer}
+.f-submit:disabled{opacity:.5;cursor:default}
+.f-status{margin:1.2em 0 0;font-size:.95rem;line-height:1.7;font-weight:700;min-height:1.7em}
+.f-status.ng{color:#ffb4b4}
+.f-filter{margin:2.4em 0 0;padding-top:1.4em;border-top:1px solid var(--line);
+font-size:.85rem;line-height:1.7;color:var(--muted)}
+@media (min-width:860px){.f-submit{width:auto;min-width:16em;padding-inline:2em}}
 /* 本文。段落と、改行で並べる行と、言い切りの一行を混ぜて組む */
 .bd{margin:2.4em 0 0}
 .bd p{margin:0 0 1.7em;font-size:.95rem;line-height:1.55}
@@ -562,6 +579,31 @@ D_JS = """
     var spy=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('cur',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-40% 0px -55% 0px'});
     secs.forEach(function(s){spy.observe(s)});
   }
+  /* お問い合わせフォーム */
+  var cf=document.getElementById('cform');
+  if(cf){
+    var t=document.getElementById('f-t'); if(t){t.value=String(Date.now())}
+    var st=cf.querySelector('.f-status'), btn=cf.querySelector('.f-submit');
+    cf.addEventListener('submit',function(ev){
+      ev.preventDefault();
+      st.className='f-status'; st.textContent='';
+      /* 必須の空欄を先に知らせる。ブラウザ任せにすると画面外で止まることがある */
+      var bad=null;
+      cf.querySelectorAll('[required]').forEach(function(el){
+        var ng=!el.value.trim()||(el.type==='email'&&el.value.indexOf('@')<1);
+        el.setAttribute('aria-invalid',ng?'true':'false');
+        if(ng&&!bad){bad=el}
+      });
+      if(bad){st.className='f-status ng';st.textContent='赤い枠の欄をご確認ください。';bad.focus();return}
+      btn.disabled=true; st.textContent='送信しています…';
+      var d={}; new FormData(cf).forEach(function(v,k){d[k]=v});
+      fetch(cf.getAttribute('action'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})
+        .then(function(r){if(!r.ok){throw 0}return r})
+        .then(function(){cf.querySelectorAll('input,textarea,button').forEach(function(el){el.disabled=true});
+                         st.textContent=cf.getAttribute('data-ok')})
+        .catch(function(){btn.disabled=false;st.className='f-status ng';st.textContent=cf.getAttribute('data-ng')});
+    });
+  }
 })();
 """
 
@@ -591,6 +633,41 @@ def _body_block(items, cls="bd"):
             P.append(f'<p class="big">{esc(content)}</p>')
         else:
             P.append(f'<p>{esc(content)}</p>')
+    P.append('</div>')
+    return P
+
+
+def _form_block(f, prefix=""):
+    """お問い合わせフォーム。送り先は /api/contact（Vercel の受け口）"""
+    P = ['<div class="form">']
+    if f.get("intro"):
+        P.append(f'<p class="f-intro">{esc(f["intro"])}</p>')
+    P.append(f'<form class="cform" id="cform" method="post" action="{prefix}api/contact" novalidate'
+             f' data-ok="{esc(f.get("ok", "送信しました。"))}"'
+             f' data-ng="{esc(f.get("ng", "うまく送れませんでした。"))}">')
+    for name, label, kind, need, hint in f["fields"]:
+        req = ' <span class="req">必須</span>' if need else ''
+        P.append(f'<div class="f-row"><label for="f-{name}">{esc(label)}{req}</label>')
+        if hint:
+            P.append(f'<span class="f-hint">{esc(hint)}</span>')
+        attr = ' required' if need else ''
+        if kind == "textarea":
+            P.append(f'<textarea id="f-{name}" name="{name}" rows="6"{attr}></textarea>')
+        else:
+            P.append(f'<input id="f-{name}" name="{name}" type="{kind}"{attr}>')
+        P.append('</div>')
+    # 人には見えない欄。自動送信の道具はここを埋めるので、埋まっていたら捨てる
+    P.append('<div class="f-hp" aria-hidden="true">'
+             '<label>この欄は入力しないでください'
+             '<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>')
+    P.append('<input type="hidden" name="t" id="f-t" value="">')
+    if f.get("privacy"):
+        P.append(f'<p class="f-privacy">{esc(f["privacy"])}</p>')
+    P.append(f'<button type="submit" class="f-submit">{esc(f.get("submit", "送信する"))}</button>')
+    P.append('<p class="f-status" role="status" aria-live="polite"></p>')
+    P.append('</form>')
+    if f.get("filter"):
+        P.append(f'<p class="f-filter">{esc(f["filter"])}</p>')
     P.append('</div>')
     return P
 
@@ -653,21 +730,7 @@ def d_body_parts(s_, prefix=""):
         inner = "".join(f'<span>{esc(t)}</span>' for t in s_["close"])
         P.append(f'<p class="close">{inner}</p>')
     if s_.get("form"):
-        # 問い合わせ。届け先が決まるまでは、書いていただきたいことだけ置く
-        f = s_["form"]
-        P.append('<div class="form">')
-        if f.get("intro"):
-            P.append(f'<p class="f-intro">{esc(f["intro"])}</p>')
-        if f.get("items"):
-            P.append('<ul class="f-items">')
-            for it in f["items"]:
-                P.append(f'<li>{esc(it)}</li>')
-            P.append('</ul>')
-        if f.get("filter"):
-            P.append(f'<p class="f-filter">{esc(f["filter"])}</p>')
-        if f.get("note"):
-            P.append(f'<p class="f-note">{esc(f["note"])}</p>')
-        P.append('</div>')
+        P.extend(_form_block(s_["form"], prefix))
     if s_.get("note"):
         P.append(f'<p class="note">{esc(s_["note"])}</p>')
     if s_.get("checks"):
