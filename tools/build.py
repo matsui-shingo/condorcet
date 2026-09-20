@@ -424,6 +424,7 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
   section + section{padding-top:0}
   section + section .w{padding-top:112px}
   h2{font-size:2rem;line-height:1.4}
+  h2.speech{font-size:2rem}
   .in.narrow{max-width:720px}
   /* 表: 1列で縦に並べる（2×2はやめた 2026-09-19） */
   #service .in{max-width:820px}
@@ -457,12 +458,18 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .checks li{position:relative;padding:.55em 0 .55em 1.6em;border-top:1px solid var(--line);font-size:1.02rem;line-height:1.8}
 .checks li:last-child{border-bottom:1px solid var(--line)}
 .checks li::before{content:"";position:absolute;left:.15em;top:1.05em;width:.7em;height:.7em;border:1.5px solid var(--accent);border-radius:2px}
-/* 経営者のセリフ。かぎ括弧はここで付ける（本文には書かない） */
+/* 台詞の見出し（話し手 → 改行位置を決め打ちした二行） */
+.speaker{font-size:.8rem;letter-spacing:.25em;color:var(--muted);font-weight:700;margin:0 0 .9em}
+h2.speech{font-size:min(1.75rem,5.6vw)}
+h2.speech .ln{display:block}
+h2.speech .i{padding-left:1em}
+/* 場面 → 経営者のセリフ。かぎ括弧はここで付ける（本文には書かない） */
 .voices{list-style:none;margin:0;padding:0}
-.voices li{position:relative;padding:0 0 0 18px;margin-bottom:1.6em}
-.voices li::before{content:"";position:absolute;left:0;top:.45em;bottom:.45em;width:2px;background:var(--line)}
+.voices li{position:relative;padding:0 0 0 18px;margin-bottom:2.2em}
+.voices li::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:1px;background:var(--muted);opacity:.5}
+.voices .scene{font-size:.85rem;line-height:1.7;color:var(--muted);margin:0 0 .35em}
 .voices q{quotes:"「" "」";font-family:var(--head);font-weight:500;font-size:1.1rem;line-height:1.85;display:block;text-wrap:pretty}
-@media (max-width:859px){.voices q{font-size:1.02rem;line-height:1.8}.voices li{margin-bottom:1.3em}}
+@media (max-width:859px){.voices q{font-size:1.02rem;line-height:1.8}.voices li{margin-bottom:1.9em}}
 .warm{margin:0 0 2em}
 .warm .big{font-family:var(--head);font-size:1.3rem;font-weight:500;line-height:1.9;margin:0 0 1em}
 .warm p{margin:0 0 1.2em;font-size:1.02rem;line-height:2.05}
@@ -576,10 +583,10 @@ def d_body_parts(s_, prefix=""):
             P.append(f'<li>{esc(line)}</li>')
         P.append('</ul>')
     if s_.get("voices"):
-        # 経営者のセリフ。かぎ括弧は CSS で付ける（本文には書かない）
+        # 場面 → 経営者のセリフ。かぎ括弧は CSS で付ける（本文には書かない）
         P.append('<ul class="voices">')
-        for line in s_["voices"]:
-            P.append(f'<li><q>{esc(line)}</q></li>')
+        for scene, line in s_["voices"]:
+            P.append(f'<li><p class="scene">{esc(scene)}</p><q>{esc(line)}</q></li>')
         P.append('</ul>')
     if s_.get("warm"):
         P.append('<div class="warm">')
@@ -648,7 +655,16 @@ def render_body_d():
         P.append(f'<section id="{s_["id"]}"><div class="w"><div class="in {lay} rv">')
         if s_.get("lbl"):
             P.append(f'<p class="lbl">{esc(s_["lbl"])}</p>')
-        P.append(f'<h2>{esc(s_["title"])}</h2>')
+        if s_.get("speaker"):
+            P.append(f'<p class="speaker">{esc(s_["speaker"])}</p>')
+        if s_.get("title_lines"):
+            # 台詞の見出し。改行位置を決め打ちする（2行目は一字下げ）
+            lines = "".join(
+                f'<span class="ln{" i" if i else ""}">{esc(t)}</span>'
+                for i, t in enumerate(s_["title_lines"]))
+            P.append(f'<h2 class="speech">{lines}</h2>')
+        else:
+            P.append(f'<h2>{esc(s_["title"])}</h2>')
         P.append('<div class="body">')
         P.extend(d_body_parts(s_))
         P.append('</div></div></div></section>')
