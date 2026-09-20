@@ -583,6 +583,12 @@ def d_footer(prefix="", note=True):
 def d_body_parts(s_, prefix=""):
     """節の中身（見出しの下）を組む。トップと別ページで共用"""
     P = []
+    if s_.get("lead"):
+        # リードは、文字列なら1行。リストなら、項目ごとに改行して一つの段落にする
+        lead = s_["lead"]
+        lead = [lead] if isinstance(lead, str) else lead
+        inner = "".join(f'<span>{esc(t)}</span>' for t in lead)
+        P.append(f'<p class="lead">{inner}</p>')
     if s_.get("decl"):
         # 言い切りの文。かたまりごとに間を空け、かたまりの中は改行だけ
         P.append('<div class="decl">')
@@ -590,12 +596,6 @@ def d_body_parts(s_, prefix=""):
             inner = "".join(f'<span>{esc(t)}</span>' for t in group)
             P.append(f'<p>{inner}</p>')
         P.append('</div>')
-    if s_.get("lead"):
-        # リードは、文字列なら1行。リストなら、項目ごとに改行して一つの段落にする
-        lead = s_["lead"]
-        lead = [lead] if isinstance(lead, str) else lead
-        inner = "".join(f'<span>{esc(t)}</span>' for t in lead)
-        P.append(f'<p class="lead">{inner}</p>')
     if s_.get("note"):
         P.append(f'<p class="note">{esc(s_["note"])}</p>')
     if s_.get("checks"):
