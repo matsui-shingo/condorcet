@@ -353,8 +353,11 @@ main,footer{position:relative;z-index:1}
 .hero-img{order:0;flex:1 0 auto;min-height:72vw;
 background:linear-gradient(to bottom,rgba(15,31,61,.55) 0%,rgba(15,31,61,0) 22%),linear-gradient(to top,var(--deep) 0%,rgba(15,31,61,0) 28%),url(hero.webp) 86% 62%/cover no-repeat,var(--deep)}
 section{padding:96px 0;scroll-margin-top:calc(60px + env(safe-area-inset-top,0px))}
-section + section .w{border-top:1px solid var(--line);padding-top:96px}
-section + section{padding-top:0}
+/* 節の背景は、コンドルセブルーと薄い青が交互（2026-09-20 松井）。
+   色が変わることが節の区切りになるので、仕切り線は引かない */
+section.dark{background:var(--deep);color:#fff;
+--ink:#ffffff;--ink2:rgba(255,255,255,.82);--muted:rgba(255,255,255,.62);
+--line:rgba(255,255,255,.22);--accent:#8fb3ff;--paper:rgba(255,255,255,.07)}
 section.paper{background:var(--bg)} /* いったん白の節をなくして全部同じ青に（2026-09-19） */
 .lbl{font-size:.75rem;letter-spacing:.25em;color:var(--accent);font-weight:700;margin:0 0 1.6em}
 h2{font-family:var(--head);font-size:1.75rem;font-weight:700;line-height:1.35;letter-spacing:.03em;margin:0 0 1.4em;text-wrap:pretty;font-feature-settings:"palt"}
@@ -663,9 +666,12 @@ def render_body_d():
              + "".join(f'<p class="sub">{esc(p)}</p>' for p in C.HERO_SUB)
              + '<div class="cue" aria-hidden="true"></div>'
              '</div><div class="hero-img" role="img" aria-label="夜の机。職人の手が置かれた手書きのノートから光の線が伸び、スマホとノートPCへつながっている"></div></div>')
-    for s_ in C.TOP:
+    for i, s_ in enumerate(C.TOP):
         lay = s_.get("layout", "narrow")
-        P.append(f'<section id="{s_["id"]}"><div class="w"><div class="in {lay} rv">')
+        # 背景はコンドルセブルーと薄い青が交互。1つめ（薄い青）から数える
+        dark = " dark" if i % 2 else ""
+        P.append(f'<section id="{s_["id"]}" class="sec{dark}">'
+                 f'<div class="w"><div class="in {lay} rv">')
         if s_.get("lbl"):
             P.append(f'<p class="lbl">{esc(s_["lbl"])}</p>')
         if s_.get("speaker"):
