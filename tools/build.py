@@ -335,7 +335,7 @@ main,footer{position:relative;z-index:1}
 .hero{background:var(--deep);color:#fff;padding:calc(60px + env(safe-area-inset-top,0px) + 88px) 0 64px}
 .hero .catch{font-family:var(--head);font-size:2.2rem;font-weight:700;line-height:1.5;letter-spacing:.02em;margin:0;text-wrap:pretty;font-feature-settings:"palt"}
 .hero .catch em{font-style:normal;color:var(--deep-em);white-space:nowrap}
-.hero .sub{margin:2em 0 0;font-family:var(--head);font-weight:500;font-size:1.06rem;color:rgba(255,255,255,.88);line-height:2.1;max-width:34em;letter-spacing:.04em;font-feature-settings:"palt";text-wrap:pretty}
+.hero .sub{margin:2em 0 0;font-family:var(--head);font-weight:500;font-size:.98rem;color:rgba(255,255,255,.88);line-height:1.55;max-width:34em;letter-spacing:.04em;font-feature-settings:"palt";text-wrap:pretty}
 /* 2段落目（名乗り）は、1段落目との間を詰めて一続きに読ませる */
 .hero .sub + .sub{margin-top:1.3em;color:#fff}
 .cue{margin-top:64px;font-size:.75rem;letter-spacing:.2em;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:12px}
@@ -346,7 +346,7 @@ main,footer{position:relative;z-index:1}
 .hero{position:relative;overflow:hidden;display:flex;flex-direction:column;padding:0;min-height:100vh;min-height:100svh}
 .hero .w{position:relative;z-index:1;order:1;padding-top:20px;padding-bottom:32px}
 .hero .catch{font-size:1.55rem;line-height:1.5}
-.hero .sub{margin-top:1.1em;font-size:.88rem;line-height:1.85}
+.hero .sub{margin-top:1.1em;font-size:.82rem;line-height:1.45}
 .hero .cue{margin-top:24px}
 .hero .cue::after{height:28px}
 .hero-img{order:0;flex:1 0 auto;min-height:72vw;
@@ -408,13 +408,13 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
   .mn nav{left:auto;right:48px;top:calc(72px + env(safe-area-inset-top,0px));width:280px;border:1px solid var(--line);padding:10px 24px 16px}
   .hero{padding:calc(72px + env(safe-area-inset-top,0px) + 120px) 0 96px}
   .hero .catch{font-size:clamp(2.6rem,4.4vw,4rem);line-height:1.3;letter-spacing:0;max-width:20em}
-  .hero .sub{font-size:1.05rem;max-width:40em}
+  .hero .sub{font-size:.98rem;max-width:40em}
   /* ヒーローの写真: PCでは右に高さいっぱいで置き、左の文字側を濃紺でなじませる */
   .hero-img{flex:none;min-height:0}
   .hero{min-height:clamp(640px,92vh,960px);flex-direction:row;align-items:center;padding:calc(72px + env(safe-area-inset-top,0px) + 120px) 0 96px}
   .hero .w{width:100%;padding-top:0;padding-bottom:0}
   .hero .catch{font-size:clamp(2.4rem,3.4vw,3.2rem);line-height:1.3;max-width:11.5em}
-  .hero .sub{margin-top:2em;font-size:1.05rem;line-height:2;max-width:24em}
+  .hero .sub{margin-top:2em;font-size:.98rem;line-height:1.5;max-width:24em}
   .hero .cue{margin-top:64px}
   .hero .cue::after{height:40px}
   .hero-img{position:absolute;inset:0;height:auto;max-height:none;margin:0;
@@ -575,8 +575,7 @@ def d_body_parts(s_, prefix=""):
             P.append(f'<p{cls}>{esc(para)}</p>')
         P.append('</div>')
     if s_.get("entry"):
-        P.append(f'<p class="entry">{esc(s_["entry"])} '
-                 f'<a class="tel" href="tel:{C.TEL.replace("-", "")}">{esc(C.TEL)}</a></p>')
+        P.append(f'<p class="entry">{esc(s_["entry"])}</p>')
     if s_.get("points"):
         P.append('<ul class="points">')
         for h, body in s_["points"]:
@@ -613,7 +612,7 @@ def d_body_parts(s_, prefix=""):
         P.append('</div>')
     if s_.get("contact"):
         P.append('<div class="contact"><p class="big">お問い合わせ</p>'
-                 f'<p>電話：<a class="tel" href="tel:{C.TEL.replace("-", "")}">{esc(C.TEL)}</a>（仮）／メール：（準備中）</p>'
+                 '<p>連絡先は準備中です。</p>'
                  '<p>会社名・業種・従業員数・いま一番手間のかかっている事務・ご紹介者のお名前を書いていただけると、話が早いです。</p></div>')
     if s_.get("price"):
         P.append('</div>')  # .price-wrap
