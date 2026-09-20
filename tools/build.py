@@ -427,7 +427,7 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
   section + section{padding-top:0}
   section + section .w{padding-top:112px}
   h2{font-size:2rem;line-height:1.3}
-  h2.speech{font-size:2rem}
+  h2.ml{font-size:min(2rem,var(--tp))}
   .in.narrow{max-width:720px}
   /* 表: 1列で縦に並べる（2×2はやめた 2026-09-19） */
   #service .in{max-width:820px}
@@ -463,9 +463,9 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .checks li::before{content:"";position:absolute;left:.15em;top:1.05em;width:.7em;height:.7em;border:1.5px solid var(--accent);border-radius:2px}
 /* 台詞の見出し（話し手 → 改行位置を決め打ちした二行） */
 .speaker{font-size:.8rem;letter-spacing:.25em;color:var(--muted);font-weight:700;margin:0 0 .9em}
-h2.speech{font-size:min(1.75rem,5.4vw)}
-h2.speech .ln{display:block}
-h2.speech .i{padding-left:.75em}
+h2.ml{font-size:min(1.75rem,var(--tw))}
+h2.ml .ln{display:block}
+h2.ml .i{padding-left:.75em}
 /* 言い切りの文。最後の一行だけ太く */
 .decl{font-family:var(--head);font-weight:500;font-size:1.3rem;line-height:1.6;letter-spacing:.02em;text-wrap:pretty;font-feature-settings:"palt"}
 .decl p{margin:0 0 1.8em}
@@ -561,6 +561,11 @@ def d_menu():
     return [("#" + s["id"], s["menu"]) for s in C.TOP if s.get("menu")]
 
 
+def _line_w(t):
+    """見出し1行の幅を、全角を1とした数で見積もる"""
+    return sum(0.55 if ord(c) < 0x80 else 1 for c in t)
+
+
 def d_header(prefix=""):
     """prefix: トップは ""、別ページは "../" """
     # ロゴ画像は C.LOGO にファイル名を入れると出る（d/ に置く）。無ければ文字だけ
@@ -650,8 +655,12 @@ def d_body_parts(s_, prefix=""):
             P.append(f'<li><h3>{esc(h)}</h3><p>{esc(body)}</p></li>')
         P.append('</ul>')
     if s_.get("facts"):
+        # True なら全部。項目名のリストを渡すと、その行だけ出す
+        only = s_["facts"] if isinstance(s_["facts"], (list, tuple)) else None
         P.append('<ul class="facts">')
-        for i, (k, v) in enumerate(C.SUMMARY):
+        for k, v in C.SUMMARY:
+            if only is not None and k not in only:
+                continue
             P.append(f'<li><span class="k">{esc(k)}</span><p>{esc(v)}</p></li>')
         P.append('</ul>')
     if s_.get("timeline"):
@@ -709,11 +718,15 @@ def render_body_d():
         if s_.get("speaker"):
             P.append(f'<p class="speaker">{esc(s_["speaker"])}</p>')
         if s_.get("title_lines"):
-            # 台詞の見出し。改行位置を決め打ちする（2行目は一字下げ）
+            # 改行位置を決め打ちする見出し（2行目から一字下げ）。
+            # いちばん長い行の幅から文字の大きさを決めるので、どの画面幅でも折り返さない
+            w = max(_line_w(t) + (0.75 if i else 0)
+                    for i, t in enumerate(s_["title_lines"]))
             lines = "".join(
                 f'<span class="ln{" i" if i else ""}">{esc(t)}</span>'
                 for i, t in enumerate(s_["title_lines"]))
-            P.append(f'<h2 class="speech">{lines}</h2>')
+            P.append(f'<h2 class="ml" style="--tw:{78 / w:.2f}vw;'
+                     f'--tp:{560 / w:.1f}px">{lines}</h2>')
         else:
             P.append(f'<h2>{esc(s_["title"])}</h2>')
         P.append('<div class="body">')
