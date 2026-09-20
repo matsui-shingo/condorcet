@@ -457,6 +457,12 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .checks li{position:relative;padding:.55em 0 .55em 1.6em;border-top:1px solid var(--line);font-size:1.02rem;line-height:1.8}
 .checks li:last-child{border-bottom:1px solid var(--line)}
 .checks li::before{content:"";position:absolute;left:.15em;top:1.05em;width:.7em;height:.7em;border:1.5px solid var(--accent);border-radius:2px}
+/* 経営者のセリフ。かぎ括弧はここで付ける（本文には書かない） */
+.voices{list-style:none;margin:0;padding:0}
+.voices li{position:relative;padding:0 0 0 18px;margin-bottom:1.6em}
+.voices li::before{content:"";position:absolute;left:0;top:.45em;bottom:.45em;width:2px;background:var(--line)}
+.voices q{quotes:"「" "」";font-family:var(--head);font-weight:500;font-size:1.1rem;line-height:1.85;display:block;text-wrap:pretty}
+@media (max-width:859px){.voices q{font-size:1.02rem;line-height:1.8}.voices li{margin-bottom:1.3em}}
 .warm{margin:0 0 2em}
 .warm .big{font-family:var(--head);font-size:1.3rem;font-weight:500;line-height:1.9;margin:0 0 1em}
 .warm p{margin:0 0 1.2em;font-size:1.02rem;line-height:2.05}
@@ -568,6 +574,12 @@ def d_body_parts(s_, prefix=""):
         P.append('<ul class="checks">')
         for line in s_["checks"]:
             P.append(f'<li>{esc(line)}</li>')
+        P.append('</ul>')
+    if s_.get("voices"):
+        # 経営者のセリフ。かぎ括弧は CSS で付ける（本文には書かない）
+        P.append('<ul class="voices">')
+        for line in s_["voices"]:
+            P.append(f'<li><q>{esc(line)}</q></li>')
         P.append('</ul>')
     if s_.get("warm"):
         P.append('<div class="warm">')

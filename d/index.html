@@ -159,6 +159,12 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .checks li{position:relative;padding:.55em 0 .55em 1.6em;border-top:1px solid var(--line);font-size:1.02rem;line-height:1.8}
 .checks li:last-child{border-bottom:1px solid var(--line)}
 .checks li::before{content:"";position:absolute;left:.15em;top:1.05em;width:.7em;height:.7em;border:1.5px solid var(--accent);border-radius:2px}
+/* 経営者のセリフ。かぎ括弧はここで付ける（本文には書かない） */
+.voices{list-style:none;margin:0;padding:0}
+.voices li{position:relative;padding:0 0 0 18px;margin-bottom:1.6em}
+.voices li::before{content:"";position:absolute;left:0;top:.45em;bottom:.45em;width:2px;background:var(--line)}
+.voices q{quotes:"「" "」";font-family:var(--head);font-weight:500;font-size:1.1rem;line-height:1.85;display:block;text-wrap:pretty}
+@media (max-width:859px){.voices q{font-size:1.02rem;line-height:1.8}.voices li{margin-bottom:1.3em}}
 .warm{margin:0 0 2em}
 .warm .big{font-family:var(--head);font-size:1.3rem;font-weight:500;line-height:1.9;margin:0 0 1em}
 .warm p{margin:0 0 1.2em;font-size:1.02rem;line-height:2.05}
@@ -195,7 +201,7 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 </head>
 <body>
 <header class="hd"><div class="w bar"><a class="logo" href="#top"><span class="wm">Condorcet</span></a><div class="rt"><a class="cta" href="contact/">お問い合わせ</a><details class="mn"><summary aria-label="メニュー"></summary><nav>
-<a href="#checks">何から手を出せばいいか</a>
+<a href="#checks">よくある声</a>
 <a href="#ima">AIは、ここまで来た</a>
 <a href="#nani">机の上の一枚から</a>
 <a href="#ichinichi">一日目を、一緒に</a>
@@ -207,16 +213,15 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 <main id="top">
 <div class="hero"><div class="w"><h1 class="catch">AI経営の最先端まで<br><em>登り詰める8日間</em></h1><p class="sub">AI時代に突入した企業経営。時代の変化に適応するため、AIを経営に導入したい。だが、チャットツールに相談するだけではらちが明かない。従業員にAIを使うよう勧める。だが、中身のない日報が、速く書けるようになっただけだ。このままでは効率化の面で、いずれ経営に致命的な遅れが出かねない。それでもきっと、どこかにAIを使った革命的な経営のやり方がありそうだ、あるはずだ。</p><p class="sub">そのような経営者の探求に応える、自ら会社をシステム化できるAI導入支援。8日間のAI強化訓練プログラム。それが、Condorcet。</p><div class="cue" aria-hidden="true"></div></div><div class="hero-img" role="img" aria-label="夜の机。職人の手が置かれた手書きのノートから光の線が伸び、スマホとノートPCへつながっている"></div></div>
 <section id="checks"><div class="w"><div class="in narrow rv">
-<h2>何から手を出せばいいか、分からない。</h2>
+<h2>AIを試した。だが、使いどころ、本当にあるのか？ これ。</h2>
 <div class="body">
-<p class="lead">ニュースでは毎日見る。でも、明日の朝、自分の会社で何をすればいいかは、どこにも書いていない。</p>
-<ul class="checks">
-<li>何を契約すればいいか、分からない。</li>
-<li>何を入れればいいか、分からない。</li>
-<li>最初に何と言えばいいか、分からない。</li>
-<li>どこまで任せて、どこで止めればいいか、分からない。</li>
-<li>壊したら戻せるのか、分からない。</li>
-<li>誰に聞けばいいか、分からない。</li>
+<p class="lead">導入の仕方が悪かったのでも、AIが使えないのでもありません。AIを試した会社に多い、たとえばこんな声です。</p>
+<ul class="voices">
+<li><q>そりゃ一般論ではそうだろうよ。うちのこの案件では、そっちじゃねえんだよ</q></li>
+<li><q>日報を書かせて終わりか。もっと使えるはずだろう</q></li>
+<li><q>音声で自動案内？　いや、そういうことじゃなくてだな……</q></li>
+<li><q>売り込みは多いが、どれもチャットのお悩み相談どまりじゃないか</q></li>
+<li><q>カタカナばかりで中身が分からん。暴走しても、気づけんだろう</q></li>
 </ul>
 </div></div></div></section>
 <section id="ima"><div class="w"><div class="in cols3 rv">
@@ -299,7 +304,7 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 <footer><div class="w"><div><a class="logo" href="#top">Condorcet</a>
 <p class="note" style="margin-top:2em">この素案では、最初の画面と表は決定済み、それ以外の各節は下書きです。<br>この案：D 文字と余白　<a href="../" style="color:inherit">ほかの案を見る</a></p>
 </div><nav>
-<a href="#checks">何から手を出せばいいか</a>
+<a href="#checks">よくある声</a>
 <a href="#ima">AIは、ここまで来た</a>
 <a href="#nani">机の上の一枚から</a>
 <a href="#ichinichi">一日目を、一緒に</a>
