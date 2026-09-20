@@ -485,6 +485,7 @@ h2.speech .i{padding-left:.75em}
 .entry{font-family:var(--head);font-size:1.15rem;font-weight:500;margin:0}
 .entry .tel{font-family:var(--latin);font-weight:700;color:var(--accent);text-decoration:none;margin-left:.4em}
 .lead{font-size:1.05rem;line-height:1.65;margin:0 0 2em;max-width:36em}
+.lead span{display:block}
 .points{list-style:none;margin:0;padding:0}
 .points li{padding:24px 0;border-top:1px solid var(--line)}
 .points li:last-child{border-bottom:1px solid var(--line)}
@@ -590,7 +591,11 @@ def d_body_parts(s_, prefix=""):
             P.append(f'<p>{inner}</p>')
         P.append('</div>')
     if s_.get("lead"):
-        P.append(f'<p class="lead">{esc(s_["lead"])}</p>')
+        # リードは、文字列なら1行。リストなら、項目ごとに改行して一つの段落にする
+        lead = s_["lead"]
+        lead = [lead] if isinstance(lead, str) else lead
+        inner = "".join(f'<span>{esc(t)}</span>' for t in lead)
+        P.append(f'<p class="lead">{inner}</p>')
     if s_.get("note"):
         P.append(f'<p class="note">{esc(s_["note"])}</p>')
     if s_.get("checks"):
