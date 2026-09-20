@@ -448,6 +448,36 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
   footer .w{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
   footer nav{margin-top:0;flex-direction:column;gap:.3em}
 }
+
+/* ---- 2026-09-20 トップ組み直し用 ---- */
+.hd .tel{font-family:var(--latin);font-weight:700;font-size:.95rem;color:inherit;text-decoration:none;letter-spacing:.02em;white-space:nowrap}
+.lead{font-size:1.05rem;line-height:2;margin:0 0 2em;max-width:36em}
+.points{list-style:none;margin:0;padding:0}
+.points li{padding:24px 0;border-top:1px solid var(--line)}
+.points li:last-child{border-bottom:1px solid var(--line)}
+.points h3{font-family:var(--head);font-size:1.2rem;font-weight:700;margin:0 0 .5em;letter-spacing:.03em;line-height:1.5}
+.points p{margin:0;font-size:.98rem;line-height:1.95}
+.cases{list-style:none;margin:0;padding:0}
+.cases li{padding:24px 0;border-top:1px solid var(--line)}
+.cases li:last-child{border-bottom:1px solid var(--line)}
+.cases h3{font-family:var(--head);font-size:1.15rem;margin:0 0 .4em}
+.cases p{margin:0;font-size:.98rem}
+.contact{margin-top:2em;padding-top:1.6em;border-top:1px solid var(--line)}
+.contact .big{margin:0 0 .4em}
+.contact p{margin:0 0 .6em;font-size:.98rem}
+.more{margin-right:1.5em}
+@media (min-width:860px){
+  .cols3 .points{display:grid;grid-template-columns:repeat(3,1fr);gap:0 48px;align-items:start}
+  .cols3 .points li{border-top:1px solid var(--line);border-bottom:0;padding:28px 0 0}
+  .in.facts{max-width:820px}
+  .price-wrap{display:grid;grid-template-columns:1fr 1fr;gap:0 56px;align-items:start}
+  .price-wrap .price{grid-column:1/-1}
+  .contact{grid-column:1/-1}
+  .sub-sec{margin-bottom:64px}
+}
+.sub-sec{margin-bottom:56px}
+.sub-sec:last-child{margin-bottom:0}
+.sub-sec h2{font-size:1.4rem;margin-bottom:1em}
 """
 
 D_JS = """
@@ -475,113 +505,115 @@ D_JS = """
 def d_catch():
     c = esc(C.CATCH)
     if "、" in c:
-        a, b = c.rsplit("、", 1)
-        # 「AIを、」の途中で改行させない（…任せられる／AIを、一日で。）
-        if a.endswith("AIを"):
-            return f'{a[:-3]}<span style="white-space:nowrap">AIを、</span><em>{b}</em>'
+        a, bb = c.rsplit("、", 1)
+        bb = bb.rstrip("。")  # 句点も表示しない（2026-09-19 博彰）
         # 「、」の位置で改行する。改行するので読点は表示しない（2026-09-19 博彰）
-        b = b.rstrip("。")  # 句点も表示しない（2026-09-19 博彰）
-        return f"{a}<br><em>{b}</em>"
+        return f"{a}<br><em>{bb}</em>"
     return c
 
 
-LAYOUT = {"hachinichi": "wide", "tsukureru": "split", "junbi": "narrow", "ai": "cols3",
-          "jirei": "narrow", "ryokin": "price", "okotowari": "narrow", "shokai": "narrow", "toiawase": "cols2"}
+def d_menu():
+    return [("#" + s["id"], s["menu"]) for s in C.TOP if s.get("menu")]
+
+
+def d_header(prefix=""):
+    """prefix: トップは ""、別ページは "../" """
+    P = ['<header class="hd"><div class="w bar">'
+         f'<a class="logo" href="{prefix or "#top"}">{C.SITE_NAME}<span class="kana">{C.SITE_KANA}</span></a>'
+         f'<div class="rt"><a class="tel" href="tel:{C.TEL.replace("-", "")}">{esc(C.TEL)}</a>'
+         f'<a class="cta" href="{prefix}contact/">お問い合わせ</a>'
+         '<details class="mn"><summary aria-label="メニュー"></summary><nav>']
+    for href, label in d_menu():
+        P.append(f'<a href="{prefix}{href}">{esc(label)}</a>')
+    P.append('</nav></details></div></div></header>')
+    return "\n".join(P)
+
+
+def d_footer(prefix="", note=True):
+    P = ['<footer><div class="w"><div>'
+         f'<a class="logo" href="{prefix or "#top"}">{C.SITE_NAME}</a>']
+    if note:
+        P.append(f'<p class="note" style="margin-top:2em">{esc(C.FOOTER_NOTE)}<br>この案：D 文字と余白　'
+                 f'<a href="{prefix}../" style="color:inherit">ほかの案を見る</a></p>')
+    P.append('</div><nav>')
+    for href, label in d_menu():
+        P.append(f'<a href="{prefix}{href}">{esc(label)}</a>')
+    for sp in C.SUBPAGES:
+        P.append(f'<a href="{prefix}{sp["slug"]}/">{esc(sp["title"])}</a>')
+    P.append('</nav></div></footer>')
+    return "\n".join(P)
+
+
+def d_body_parts(s_, prefix=""):
+    """節の中身（見出しの下）を組む。トップと別ページで共用"""
+    P = []
+    if s_.get("lead"):
+        P.append(f'<p class="lead">{esc(s_["lead"])}</p>')
+    if s_.get("note"):
+        P.append(f'<p class="note">{esc(s_["note"])}</p>')
+    if s_.get("points"):
+        P.append('<ul class="points">')
+        for h, body in s_["points"]:
+            P.append(f'<li><h3>{esc(h)}</h3><p>{esc(body)}</p></li>')
+        P.append('</ul>')
+    if s_.get("facts"):
+        P.append('<ul class="facts">')
+        for i, (k, v) in enumerate(C.SUMMARY):
+            P.append(f'<li><span class="k">{esc(k)}</span><p>{esc(v)}</p></li>')
+        P.append('</ul>')
+    if s_.get("timeline"):
+        P.append('<div class="tl-blk">')
+        if s_.get("timeline_intro"):
+            P.append(f'<p class="intro">{esc(s_["timeline_intro"])}</p>')
+        P.append('<ol class="tl">')
+        for t, line in s_["timeline"]:
+            P.append(f'<li><span class="t">{esc(t)}</span><p>{esc(line)}</p></li>')
+        P.append('</ol></div>')
+    if s_.get("cases"):
+        P.append('<ul class="cases">')
+        for h, body in s_["cases"]:
+            P.append(f'<li><h3>{esc(h)}</h3><p>{esc(body)}</p></li>')
+        P.append('</ul>')
+    if s_.get("price"):
+        P.append('<div class="price-wrap"><div class="price">')
+        for item, amt, cond in s_["price"]:
+            P.append(f'<div class="row"><span class="item">{esc(item)}</span>'
+                     f'<span class="amt">{esc(amt)}</span><span class="cond">{esc(cond)}</span></div>')
+        P.append('</div>')
+    if s_.get("paras"):
+        P.append('<div class="paras">')
+        for para in s_["paras"]:
+            P.append(f'<p>{esc(para)}</p>')
+        P.append('</div>')
+    if s_.get("contact"):
+        P.append('<div class="contact"><p class="big">お問い合わせ</p>'
+                 f'<p>電話：<a class="tel" href="tel:{C.TEL.replace("-", "")}">{esc(C.TEL)}</a>（仮）／メール：（準備中）</p>'
+                 '<p>会社名・業種・従業員数・いま一番手間のかかっている事務・ご紹介者のお名前を書いていただけると、話が早いです。</p></div>')
+    if s_.get("price"):
+        P.append('</div>')  # .price-wrap
+    if s_.get("more"):
+        label, href = s_["more"]
+        P.append(f'<a class="more" href="{prefix}{href}">{esc(label)} →</a>')
+    return P
 
 
 def render_body_d():
-    P = []
-    P.append('<header class="hd"><div class="w bar">'
-             f'<a class="logo" href="#top">{C.SITE_NAME}<span class="kana">{C.SITE_KANA}</span></a>'
-             '<div class="rt"><a class="cta" href="#toiawase">お問い合わせ</a>'
-             '<details class="mn"><summary aria-label="メニュー"></summary><nav>')
-    for href, label in menu_items():
-        P.append(f'<a href="{href}">{esc(label)}</a>')
-    P.append('</nav></details></div></div></header>')
-
+    P = [d_header()]
     P.append('<main id="top">')
     P.append('<div class="hero"><div class="w">'
              f'<h1 class="catch">{d_catch()}</h1>'
              f'<p class="sub">{esc(C.HERO_SUB)}</p>'
              '<div class="cue">スクロール</div>'
              '</div><div class="hero-img" role="img" aria-label="夜の机。職人の手が置かれた手書きのノートから光の線が伸び、スマホとノートPCへつながっている"></div></div>')
-    # ③ 表: 内容は全幅、残りは2×2
-    P.append('<section id="service" class="paper"><div class="w"><div class="in rv">'
-             '<p class="lbl">コンドルセとは</p><ul class="facts">')
-    for i, (k, v) in enumerate(C.SUMMARY):
-        full = ' class="full"' if i == 0 else ''
-        P.append(f'<li{full}><span class="k">{esc(k)}</span><p>{esc(v)}</p></li>')
-    P.append('</ul></div></div></section>')
-    # ④ 長文: 幅を絞る
-    P.append('<section id="essay" class="essay"><div class="w"><div class="in narrow rv">'
-             f'<p class="lbl">コンドルセの考え</p><h2>{esc(C.ESSAY_TITLE)}</h2><div class="body">')
-    for p in C.ESSAY:
-        P.append(f'<p>{esc(p)}</p>')
-    P.append('<div class="closing">')
-    for p in C.ESSAY_CLOSING:
-        P.append(f'<p>{esc(p)}</p>')
-    P.append('</div></div></div></div></section>')
-    # ⑤〜: 節ごとの型
-    for i, s_ in enumerate(C.SECTIONS):
-        cls = "paper" if i % 2 == 0 else ""
-        lay = LAYOUT.get(s_["id"], "narrow")
-        P.append(f'<section id="{s_["id"]}" class="{cls}"><div class="w"><div class="in {lay} rv">')
+    for s_ in C.TOP:
+        lay = s_.get("layout", "narrow")
+        P.append(f'<section id="{s_["id"]}"><div class="w"><div class="in {lay} rv">')
         P.append(f'<h2>{esc(s_["title"])}</h2>')
-        if s_.get("note"):
-            P.append(f'<p class="note">{esc(s_["note"])}</p>')
         P.append('<div class="body">')
-        if lay == "split":
-            P.append('<div>')
-        blocks = s_.get("blocks", [])
-        if s_.get("timeline"):
-            P.append('<div class="flow"><div class="tl-blk">'
-                     f'<h3>{esc(s_["timeline_title"])}</h3>'
-                     f'<p class="intro">{esc(s_["timeline_intro"])}</p><ol class="tl">')
-            for t, line in s_["timeline"]:
-                P.append(f'<li><span class="t">{esc(t)}</span><p>{esc(line)}</p></li>')
-            P.append('</ol></div><div class="rest">')
-            for h, body in blocks:
-                P.append(f'<div class="blk"><h3>{esc(h)}</h3><p>{esc(body)}</p></div>')
-            P.append('</div></div>')
-            blocks = []
-        if blocks:
-            P.append('<div class="blks">')
-            for h, body in blocks:
-                P.append(f'<div class="blk"><h3>{esc(h)}</h3><p>{esc(body)}</p></div>')
-            P.append('</div>')
-        if s_.get("price"):
-            P.append('<div class="price">')
-            for item, amt, cond in s_["price"]:
-                P.append(f'<div class="row"><span class="item">{esc(item)}</span>'
-                         f'<span class="amt">{esc(amt)}</span><span class="cond">{esc(cond)}</span></div>')
-            P.append('</div>')
-        paras = s_.get("paras", [])
-        if paras:
-            pcls = "paras pricenote" if lay == "price" else "paras"
-            P.append(f'<div class="{pcls}">')
-            for j, p in enumerate(paras):
-                big = ' class="big"' if (s_["id"] in ("junbi", "okotowari") and j == 0) else ''
-                P.append(f'<p{big}>{esc(p)}</p>')
-            P.append('</div>')
-        if lay == "split":
-            P.append('</div>')
-        if s_.get("figure"):
-            P.append(f'<div class="fig">{esc(s_["figure"])}</div>')
-        P.append('</div>')
-        if s_.get("more"):
-            P.append(f'<span class="more">{esc(s_["more"])} →（別ページ・準備中）</span>')
-        P.append('</div></div></section>')
+        P.extend(d_body_parts(s_))
+        P.append('</div></div></div></section>')
     P.append('</main>')
-
-    P.append('<footer><div class="w"><div>'
-             f'<a class="logo" href="#top">{C.SITE_NAME}</a>'
-             f'<p class="note" style="margin-top:2em">{esc(C.FOOTER_NOTE)}<br>この案：D 文字と余白　'
-             '<a href="../" style="color:inherit">ほかの案を見る</a></p></div><nav>')
-    for href, label in menu_items():
-        P.append(f'<a href="{href}">{esc(label)}</a>')
-    for sp in C.SUBPAGES:
-        P.append(f'<a href="{sp["slug"]}/">{esc(sp["title"])}</a>')
-    P.append('</nav></div></footer>')
+    P.append(d_footer())
     P.append(f'<script>{D_JS}</script>')
     return "\n".join(P)
 
@@ -591,8 +623,9 @@ SUB_CSS = """
 .sub-hd h1{font-family:var(--head);font-size:1.9rem;font-weight:700;line-height:1.5;margin:0;letter-spacing:.03em}
 .sub-hd .lead{margin:1em 0 0;color:rgba(255,255,255,.82);font-size:.98rem}
 .sub-body{padding:64px 0 96px}
-.sub-body .in{max-width:720px}
-.sub-body p{font-size:1.02rem;line-height:2.1;margin-bottom:1.6em}
+.sub-body .in{max-width:760px}
+.sub-body .essay-body p{font-size:1.02rem;line-height:2.15;margin-bottom:1.8em}
+.sub-body .closing{margin-top:3em;padding-left:18px;border-left:2px solid var(--accent)}
 .back{display:inline-block;margin-top:2.5em;color:var(--accent);font-weight:500;text-decoration:none}
 @media (min-width:860px){.sub-hd{padding:calc(72px + env(safe-area-inset-top,0px) + 72px) 0 64px}.sub-hd h1{font-size:2.4rem}.sub-body{padding:88px 0 120px}}
 """
@@ -600,32 +633,30 @@ SUB_CSS = """
 
 def render_subpage_d(sp):
     """別ページ。ヘッダー・フッターはトップと同じ。リンクは ../ でトップへ"""
-    P = []
-    P.append('<header class="hd on"><div class="w bar">'
-             f'<a class="logo" href="../">{C.SITE_NAME}</a>'
-             '<div class="rt"><a class="cta" href="../#toiawase">お問い合わせ</a>'
-             '<details class="mn"><summary aria-label="メニュー"></summary><nav>')
-    for href, label in menu_items():
-        P.append(f'<a href="../{href}">{esc(label)}</a>')
-    P.append('</nav></details></div></div></header>')
+    P = [d_header("../").replace('<header class="hd">', '<header class="hd on">')]
     P.append('<main id="top">')
     P.append(f'<div class="sub-hd"><div class="w"><h1>{esc(sp["title"])}</h1>')
     if sp.get("lead"):
         P.append(f'<p class="lead">{esc(sp["lead"])}</p>')
     P.append('</div></div>')
     P.append('<div class="sub-body"><div class="w"><div class="in">')
-    for para in sp.get("paras", []):
-        P.append(f'<p>{esc(para)}</p>')
+    if sp.get("essay"):
+        P.append('<div class="essay-body">')
+        for para in C.ESSAY:
+            P.append(f'<p>{esc(para)}</p>')
+        P.append('<div class="closing">')
+        for para in C.ESSAY_CLOSING:
+            P.append(f'<p>{esc(para)}</p>')
+        P.append('</div></div>')
+    for sec in sp.get("sections", []):
+        P.append('<div class="sub-sec">')
+        if sec.get("title"):
+            P.append(f'<h2>{esc(sec["title"])}</h2>')
+        P.extend(d_body_parts(sec, prefix="../"))
+        P.append('</div>')
     P.append('<a class="back" href="../">← トップへ戻る</a>')
     P.append('</div></div></div></main>')
-    P.append('<footer><div class="w"><div>'
-             f'<a class="logo" href="../">{C.SITE_NAME}</a></div><nav>')
-    for href, label in menu_items():
-        P.append(f'<a href="../{href}">{esc(label)}</a>')
-    for other in C.SUBPAGES:
-        P.append(f'<a href="../{other["slug"]}/">{esc(other["title"])}</a>')
-    P.append('</nav></div></footer>')
-    # 別ページでは上のバーを最初から地の色にする（.on を付けたまま、スクロール判定はしない）
+    P.append(d_footer("../", note=False))
     P.append('<script>document.documentElement.classList.add("js");'
              'document.querySelectorAll(".rv").forEach(function(e){e.classList.add("in")});</script>')
     return "\n".join(P)
