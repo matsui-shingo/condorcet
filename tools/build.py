@@ -460,9 +460,9 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .checks li::before{content:"";position:absolute;left:.15em;top:1.05em;width:.7em;height:.7em;border:1.5px solid var(--accent);border-radius:2px}
 /* 台詞の見出し（話し手 → 改行位置を決め打ちした二行） */
 .speaker{font-size:.8rem;letter-spacing:.25em;color:var(--muted);font-weight:700;margin:0 0 .9em}
-h2.speech{font-size:min(1.75rem,5.6vw)}
+h2.speech{font-size:min(1.75rem,5.4vw)}
 h2.speech .ln{display:block}
-h2.speech .i{padding-left:1em}
+h2.speech .i{padding-left:.75em}
 /* 場面 → 経営者のセリフ。かぎ括弧はここで付ける（本文には書かない） */
 .voices{list-style:none;margin:0;padding:0}
 .voices li{position:relative;padding:0 0 0 18px;margin-bottom:2.2em}
