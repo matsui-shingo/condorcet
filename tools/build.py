@@ -450,6 +450,15 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 }
 
 /* ---- 2026-09-20 トップ組み直し用 ---- */
+.checks{list-style:none;margin:0 0 2.4em;padding:0}
+.checks li{position:relative;padding:.55em 0 .55em 1.6em;border-top:1px solid var(--line);font-size:1.02rem;line-height:1.8}
+.checks li:last-child{border-bottom:1px solid var(--line)}
+.checks li::before{content:"";position:absolute;left:.15em;top:1.05em;width:.7em;height:.7em;border:1.5px solid var(--accent);border-radius:2px}
+.warm{margin:0 0 2em}
+.warm .big{font-family:var(--head);font-size:1.3rem;font-weight:500;line-height:1.9;margin:0 0 1em}
+.warm p{margin:0 0 1.2em;font-size:1.02rem;line-height:2.05}
+.entry{font-family:var(--head);font-size:1.15rem;font-weight:500;margin:0}
+.entry .tel{font-family:var(--latin);font-weight:700;color:var(--accent);text-decoration:none;margin-left:.4em}
 .hd .tel{font-family:var(--latin);font-weight:700;font-size:.95rem;color:inherit;text-decoration:none;letter-spacing:.02em;white-space:nowrap}
 .lead{font-size:1.05rem;line-height:2;margin:0 0 2em;max-width:36em}
 .points{list-style:none;margin:0;padding:0}
@@ -551,6 +560,20 @@ def d_body_parts(s_, prefix=""):
         P.append(f'<p class="lead">{esc(s_["lead"])}</p>')
     if s_.get("note"):
         P.append(f'<p class="note">{esc(s_["note"])}</p>')
+    if s_.get("checks"):
+        P.append('<ul class="checks">')
+        for line in s_["checks"]:
+            P.append(f'<li>{esc(line)}</li>')
+        P.append('</ul>')
+    if s_.get("warm"):
+        P.append('<div class="warm">')
+        for j, para in enumerate(s_["warm"]):
+            cls = ' class="big"' if j == 0 else ''
+            P.append(f'<p{cls}>{esc(para)}</p>')
+        P.append('</div>')
+    if s_.get("entry"):
+        P.append(f'<p class="entry">{esc(s_["entry"])} '
+                 f'<a class="tel" href="tel:{C.TEL.replace("-", "")}">{esc(C.TEL)}</a></p>')
     if s_.get("points"):
         P.append('<ul class="points">')
         for h, body in s_["points"]:
