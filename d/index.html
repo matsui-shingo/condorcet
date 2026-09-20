@@ -176,7 +176,7 @@ h2.speech .i{padding-left:.75em}
 @media (max-width:859px){.decl{font-size:1.12rem}.decl p{margin-bottom:1.5em}}
 /* 本文。段落と、改行で並べる行と、言い切りの一行を混ぜて組む */
 .bd{margin:2.4em 0 0}
-.bd p{margin:0 0 1.7em;line-height:1.85}
+.bd p{margin:0 0 1.7em;font-size:.95rem;line-height:1.55}
 .bd p:last-child{margin-bottom:0}
 .bd .lines span{display:block}
 .bd .big{font-family:var(--head);font-size:1.22rem;font-weight:700;line-height:1.55;margin:2em 0;text-wrap:pretty;font-feature-settings:"palt"}
@@ -184,7 +184,7 @@ h2.speech .i{padding-left:.75em}
 .close{font-family:var(--head);font-weight:500;font-size:1.12rem;line-height:1.6;margin:2.8em 0 0;text-wrap:pretty;font-feature-settings:"palt"}
 .close span{display:block}
 .close span:last-child{font-weight:700;font-size:1.35rem;margin-top:.9em}
-@media (max-width:859px){.bd .big{font-size:1.1rem}.close span:last-child{font-size:1.2rem}}
+@media (max-width:859px){.bd p{font-size:.9rem}.bd .big{font-size:1.1rem}.close span:last-child{font-size:1.2rem}}
 /* 場面 → 経営者のセリフ。かぎ括弧はここで付ける（本文には書かない） */
 .voices{list-style:none;margin:0;padding:0}
 .voices li{position:relative;padding:0 0 0 18px;margin-bottom:2.2em}
@@ -258,15 +258,13 @@ h2.speech .i{padding-left:.75em}
 <h2 class="speech"><span class="ln">「そうか！ AIの使いどころは、</span><span class="ln i">会社の全部、だ。」</span></h2>
 <div class="body">
 <p class="lead"><span>細切れの業務だけをAIに任せても、しっくりこない。</span><span>会社という枠ごと、イチから作り変える。AIで。</span></p>
-<div class="decl">
-<p><span>朝から、晩まで。</span><span>社長から、パートまで。</span><span>顧客から、現場まで。</span></p>
-</div>
 <div class="bd">
 <p class="lines"><span>見込み客との連絡、見積書の発行、メールのやり取り、納品書の整理。</span><span>訪問スケジュール、電話応対、資材管理、生産原価。</span><span>採用面接、シフト管理、勤怠の集計、労務管理。</span><span>財務、銀行、税務……</span></p>
 <p class="lines"><span>無限に思える会社の業務の、一つひとつを少し楽にしようとしても、AIが応えてくれることは、ほとんどありません。</span><span>それは、AIが会社のことを知らず、社長のことも知らず、そして何より、仕事と仕事のつながりを知らないからです。</span></p>
 <p class="big">そう、仕事と仕事のあいだ。そこをつなぐのが、システムです。</p>
 <p class="lines"><span>受注が入れば、生産指示書が従業員の手元へ。</span><span>資材が足りなければ、発注の下書きが上がってくる。</span><span>現場が終われば、写真と作業時間が、そのまま日報になる。</span><span>日報は原価に積み上がり、次の見積の単価に返ってくる。</span><span>納品すれば請求書が出て、入金があれば消し込まれ、残ったものだけが手元に見える。</span><span>そして月が終われば、試算表を出し、振込のスケジュールを設定する。</span></p>
-<p>もちろん、ご存じのとおり、このような仕組みは、これまで大企業だけのものでした。何千万円という投資ができる会社にしか手が届かない、経営の「贅沢品」だったのです。</p>
+<p>もちろん、ご存じのとおり、このような仕組みは、これまで大企業だけのものでした。何千万円という投資ができる会社にしか、手が届かない。</p>
+<p class="big">経営の「贅沢品」だったのです。</p>
 <p class="big">しかし、いま、AIがこのシステムを作れるようになりました。</p>
 <p>イチから設計する、完全に自社のためのシステムを、自分で、作れる時代がやってきました。可能にしたのは、生成AI（聞けば答えてくれるAI）と、AIエージェント（頼めば自分で手を動かすAI）。そして、AIが使うことを前提に作られたツールとサービスです。</p>
 <p>業務のことを一番分かっている社長が、自分自身で、システムの細かいところを作り、調整し、使い勝手を良くしていく。従業員に使わせる。従業員からの反応を得る。またさらに良くする。</p>
