@@ -523,7 +523,8 @@ a.more + a.more{margin-left:1.6em}
 .cases{list-style:none;margin:0;padding:0}
 .cases li{padding:24px 0;border-top:1px solid var(--line)}
 .cases li:last-child{border-bottom:1px solid var(--line)}
-.cases h3{font-family:var(--head);font-size:1.15rem;margin:0 0 .4em}
+.cases h3{font-family:var(--head);font-size:1.15rem;margin:0 0 .8em}
+.cases .lbl2{margin:0 0 .3em;font-size:.8rem;font-weight:700;letter-spacing:.08em;color:var(--accent)}
 .cases p{margin:0;font-size:.98rem}
 .contact{margin-top:2em;padding-top:1.6em;border-top:1px solid var(--line)}
 .contact .big{margin:0 0 .4em}
@@ -711,9 +712,11 @@ def d_body_parts(s_, prefix=""):
             P.append(f'<li><span class="t">{esc(t)}</span><p>{esc(line)}</p></li>')
         P.append('</ol></div>')
     if s_.get("cases"):
+        # (業種・規模, 小見出し, 中身)
         P.append('<ul class="cases">')
-        for h, body in s_["cases"]:
-            P.append(f'<li><h3>{esc(h)}</h3><p>{esc(body)}</p></li>')
+        for h, lbl, body in s_["cases"]:
+            P.append(f'<li><h3>{esc(h)}</h3>'
+                     f'<p class="lbl2">{esc(lbl)}</p><p>{esc(body)}</p></li>')
         P.append('</ul>')
     if s_.get("price"):
         P.append('<div class="price-wrap"><div class="price">')
