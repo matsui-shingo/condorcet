@@ -338,7 +338,8 @@ main,footer{position:relative;z-index:1}
 .hero .sub{margin:2em 0 0;font-family:var(--head);font-weight:500;font-size:.98rem;color:rgba(255,255,255,.88);line-height:1.55;max-width:34em;letter-spacing:.04em;font-feature-settings:"palt";text-wrap:pretty}
 /* 2段落目（名乗り）は、1段落目との間を詰めて一続きに読ませる */
 .hero .sub + .sub{margin-top:1.3em;color:#fff}
-.cue{margin-top:64px;font-size:.75rem;letter-spacing:.2em;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:12px}
+/* 下に続きがあることを示す、伸び縮みする縦線。文字は置かない（2026-09-20 松井） */
+.cue{margin-top:64px;display:flex;align-items:center}
 .cue::after{content:"";width:1px;height:40px;background:rgba(255,255,255,.6);animation:cue 1.8s ease-in-out infinite;transform-origin:top}
 @keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}
 @media (prefers-reduced-motion:reduce){.cue::after{animation:none}}
@@ -628,7 +629,7 @@ def render_body_d():
     P.append('<div class="hero"><div class="w">'
              f'<h1 class="catch">{d_catch()}</h1>'
              + "".join(f'<p class="sub">{esc(p)}</p>' for p in C.HERO_SUB)
-             + '<div class="cue">スクロール</div>'
+             + '<div class="cue" aria-hidden="true"></div>'
              '</div><div class="hero-img" role="img" aria-label="夜の机。職人の手が置かれた手書きのノートから光の線が伸び、スマホとノートPCへつながっている"></div></div>')
     for s_ in C.TOP:
         lay = s_.get("layout", "narrow")

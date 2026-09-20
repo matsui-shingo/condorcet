@@ -40,7 +40,8 @@ main,footer{position:relative;z-index:1}
 .hero .sub{margin:2em 0 0;font-family:var(--head);font-weight:500;font-size:.98rem;color:rgba(255,255,255,.88);line-height:1.55;max-width:34em;letter-spacing:.04em;font-feature-settings:"palt";text-wrap:pretty}
 /* 2段落目（名乗り）は、1段落目との間を詰めて一続きに読ませる */
 .hero .sub + .sub{margin-top:1.3em;color:#fff}
-.cue{margin-top:64px;font-size:.75rem;letter-spacing:.2em;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:12px}
+/* 下に続きがあることを示す、伸び縮みする縦線。文字は置かない（2026-09-20 松井） */
+.cue{margin-top:64px;display:flex;align-items:center}
 .cue::after{content:"";width:1px;height:40px;background:rgba(255,255,255,.6);animation:cue 1.8s ease-in-out infinite;transform-origin:top}
 @keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}
 @media (prefers-reduced-motion:reduce){.cue::after{animation:none}}
@@ -204,7 +205,7 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 <a href="#ryokin">料金・お問い合わせ</a>
 </nav></details></div></div></header>
 <main id="top">
-<div class="hero"><div class="w"><h1 class="catch">AI経営の最先端まで<br><em>登り詰める8日間</em></h1><p class="sub">AI時代に突入した企業経営。時代の変化に適応するため、AIを経営に導入したい。だが、チャットツールに相談するだけではらちが明かない。従業員にAIを使うよう勧める。だが、中身のない日報が、速く書けるようになっただけだ。このままでは効率化の面で、いずれ経営に致命的な遅れが出かねない。それでもきっと、どこかにAIを使った革命的な経営のやり方がありそうだ、あるはずだ。</p><p class="sub">そのような経営者の探求に応える、自ら会社をシステム化できるAI導入支援。8日間のAI強化訓練プログラム。それが、Condorcet。</p><div class="cue">スクロール</div></div><div class="hero-img" role="img" aria-label="夜の机。職人の手が置かれた手書きのノートから光の線が伸び、スマホとノートPCへつながっている"></div></div>
+<div class="hero"><div class="w"><h1 class="catch">AI経営の最先端まで<br><em>登り詰める8日間</em></h1><p class="sub">AI時代に突入した企業経営。時代の変化に適応するため、AIを経営に導入したい。だが、チャットツールに相談するだけではらちが明かない。従業員にAIを使うよう勧める。だが、中身のない日報が、速く書けるようになっただけだ。このままでは効率化の面で、いずれ経営に致命的な遅れが出かねない。それでもきっと、どこかにAIを使った革命的な経営のやり方がありそうだ、あるはずだ。</p><p class="sub">そのような経営者の探求に応える、自ら会社をシステム化できるAI導入支援。8日間のAI強化訓練プログラム。それが、Condorcet。</p><div class="cue" aria-hidden="true"></div></div><div class="hero-img" role="img" aria-label="夜の机。職人の手が置かれた手書きのノートから光の線が伸び、スマホとノートPCへつながっている"></div></div>
 <section id="checks"><div class="w"><div class="in narrow rv">
 <h2>何から手を出せばいいか、分からない。</h2>
 <div class="body">
