@@ -463,6 +463,12 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 h2.speech{font-size:min(1.75rem,5.4vw)}
 h2.speech .ln{display:block}
 h2.speech .i{padding-left:.75em}
+/* 言い切りの文。最後の一行だけ太く */
+.decl{font-family:var(--head);font-weight:500;font-size:1.3rem;line-height:1.6;letter-spacing:.02em;text-wrap:pretty;font-feature-settings:"palt"}
+.decl p{margin:0 0 1.8em}
+.decl p:last-child{margin-bottom:0;font-weight:700}
+.decl span{display:block}
+@media (max-width:859px){.decl{font-size:1.12rem}.decl p{margin-bottom:1.5em}}
 /* 場面 → 経営者のセリフ。かぎ括弧はここで付ける（本文には書かない） */
 .voices{list-style:none;margin:0;padding:0}
 .voices li{position:relative;padding:0 0 0 18px;margin-bottom:2.2em}
@@ -582,6 +588,13 @@ def d_body_parts(s_, prefix=""):
         for line in s_["checks"]:
             P.append(f'<li>{esc(line)}</li>')
         P.append('</ul>')
+    if s_.get("decl"):
+        # 言い切りの文。かたまりごとに間を空け、かたまりの中は改行だけ
+        P.append('<div class="decl">')
+        for group in s_["decl"]:
+            inner = "".join(f'<span>{esc(t)}</span>' for t in group)
+            P.append(f'<p>{inner}</p>')
+        P.append('</div>')
     if s_.get("voices"):
         # 場面 → 経営者のセリフ。かぎ括弧は CSS で付ける（本文には書かない）
         P.append('<ul class="voices">')
