@@ -582,6 +582,13 @@ def d_footer(prefix="", note=True):
 def d_body_parts(s_, prefix=""):
     """節の中身（見出しの下）を組む。トップと別ページで共用"""
     P = []
+    if s_.get("decl"):
+        # 言い切りの文。かたまりごとに間を空け、かたまりの中は改行だけ
+        P.append('<div class="decl">')
+        for group in s_["decl"]:
+            inner = "".join(f'<span>{esc(t)}</span>' for t in group)
+            P.append(f'<p>{inner}</p>')
+        P.append('</div>')
     if s_.get("lead"):
         P.append(f'<p class="lead">{esc(s_["lead"])}</p>')
     if s_.get("note"):
@@ -591,13 +598,6 @@ def d_body_parts(s_, prefix=""):
         for line in s_["checks"]:
             P.append(f'<li>{esc(line)}</li>')
         P.append('</ul>')
-    if s_.get("decl"):
-        # 言い切りの文。かたまりごとに間を空け、かたまりの中は改行だけ
-        P.append('<div class="decl">')
-        for group in s_["decl"]:
-            inner = "".join(f'<span>{esc(t)}</span>' for t in group)
-            P.append(f'<p>{inner}</p>')
-        P.append('</div>')
     if s_.get("voices"):
         # 場面 → 経営者のセリフ。かぎ括弧は CSS で付ける（本文には書かない）
         P.append('<ul class="voices">')
