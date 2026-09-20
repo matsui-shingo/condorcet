@@ -472,6 +472,15 @@ h2.ml .i{padding-left:.75em}
 .decl p:last-child{margin-bottom:0;font-weight:700}
 .decl span{display:block}
 @media (max-width:859px){.decl{font-size:1.12rem}.decl p{margin-bottom:1.5em}}
+/* お問い合わせ */
+.form{margin:2.4em 0 0}
+.f-intro{margin:0 0 1em;font-size:1rem}
+.f-items{list-style:none;margin:0 0 2em;padding:0}
+.f-items li{position:relative;padding:.5em 0 .5em 1.3em;border-top:1px solid var(--line);font-size:.98rem;line-height:1.6}
+.f-items li:last-child{border-bottom:1px solid var(--line)}
+.f-items li::before{content:"";position:absolute;left:.15em;top:1.15em;width:.45em;height:.45em;border-radius:50%;background:var(--accent)}
+.f-filter{margin:0 0 1.6em;font-size:.9rem;line-height:1.7;color:var(--muted)}
+.f-note{margin:0;font-size:.95rem;font-weight:700}
 /* 本文。段落と、改行で並べる行と、言い切りの一行を混ぜて組む */
 .bd{margin:2.4em 0 0}
 .bd p{margin:0 0 1.7em;font-size:.95rem;line-height:1.55}
@@ -628,6 +637,22 @@ def d_body_parts(s_, prefix=""):
         # 節の締め。最後の一行がいちばん大きい
         inner = "".join(f'<span>{esc(t)}</span>' for t in s_["close"])
         P.append(f'<p class="close">{inner}</p>')
+    if s_.get("form"):
+        # 問い合わせ。届け先が決まるまでは、書いていただきたいことだけ置く
+        f = s_["form"]
+        P.append('<div class="form">')
+        if f.get("intro"):
+            P.append(f'<p class="f-intro">{esc(f["intro"])}</p>')
+        if f.get("items"):
+            P.append('<ul class="f-items">')
+            for it in f["items"]:
+                P.append(f'<li>{esc(it)}</li>')
+            P.append('</ul>')
+        if f.get("filter"):
+            P.append(f'<p class="f-filter">{esc(f["filter"])}</p>')
+        if f.get("note"):
+            P.append(f'<p class="f-note">{esc(f["note"])}</p>')
+        P.append('</div>')
     if s_.get("note"):
         P.append(f'<p class="note">{esc(s_["note"])}</p>')
     if s_.get("checks"):
