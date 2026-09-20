@@ -472,6 +472,17 @@ h2.speech .i{padding-left:.75em}
 .decl p:last-child{margin-bottom:0;font-weight:700}
 .decl span{display:block}
 @media (max-width:859px){.decl{font-size:1.12rem}.decl p{margin-bottom:1.5em}}
+/* 本文。段落と、改行で並べる行と、言い切りの一行を混ぜて組む */
+.bd{margin:2.4em 0 0}
+.bd p{margin:0 0 1.7em;line-height:1.85}
+.bd p:last-child{margin-bottom:0}
+.bd .lines span{display:block}
+.bd .big{font-family:var(--head);font-size:1.22rem;font-weight:700;line-height:1.55;margin:2em 0;text-wrap:pretty;font-feature-settings:"palt"}
+/* 節の締め。最後の一行がいちばん大きい */
+.close{font-family:var(--head);font-weight:500;font-size:1.12rem;line-height:1.6;margin:2.8em 0 0;text-wrap:pretty;font-feature-settings:"palt"}
+.close span{display:block}
+.close span:last-child{font-weight:700;font-size:1.35rem;margin-top:.9em}
+@media (max-width:859px){.bd .big{font-size:1.1rem}.close span:last-child{font-size:1.2rem}}
 /* 場面 → 経営者のセリフ。かぎ括弧はここで付ける（本文には書かない） */
 .voices{list-style:none;margin:0;padding:0}
 .voices li{position:relative;padding:0 0 0 18px;margin-bottom:2.2em}
@@ -596,6 +607,22 @@ def d_body_parts(s_, prefix=""):
             inner = "".join(f'<span>{esc(t)}</span>' for t in group)
             P.append(f'<p>{inner}</p>')
         P.append('</div>')
+    if s_.get("body"):
+        # 本文。("p" 段落 / "lines" 改行で並べる / "big" 言い切りの一行) を混ぜて組む
+        P.append('<div class="bd">')
+        for kind, content in s_["body"]:
+            if kind == "lines":
+                inner = "".join(f'<span>{esc(t)}</span>' for t in content)
+                P.append(f'<p class="lines">{inner}</p>')
+            elif kind == "big":
+                P.append(f'<p class="big">{esc(content)}</p>')
+            else:
+                P.append(f'<p>{esc(content)}</p>')
+        P.append('</div>')
+    if s_.get("close"):
+        # 節の締め。最後の一行がいちばん大きい
+        inner = "".join(f'<span>{esc(t)}</span>' for t in s_["close"])
+        P.append(f'<p class="close">{inner}</p>')
     if s_.get("note"):
         P.append(f'<p class="note">{esc(s_["note"])}</p>')
     if s_.get("checks"):
