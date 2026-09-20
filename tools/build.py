@@ -608,6 +608,8 @@ def render_body_d():
     for s_ in C.TOP:
         lay = s_.get("layout", "narrow")
         P.append(f'<section id="{s_["id"]}"><div class="w"><div class="in {lay} rv">')
+        if s_.get("lbl"):
+            P.append(f'<p class="lbl">{esc(s_["lbl"])}</p>')
         P.append(f'<h2>{esc(s_["title"])}</h2>')
         P.append('<div class="body">')
         P.extend(d_body_parts(s_))
