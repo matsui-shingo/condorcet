@@ -364,11 +364,11 @@ h2{font-family:var(--head);font-size:1.75rem;font-weight:700;line-height:1.35;le
 h3{font-family:var(--head);font-size:1.15rem;font-weight:700;margin:0 0 .5em;letter-spacing:.03em}
 p{margin:0 0 1.4em}
 p:last-child{margin-bottom:0}
-.facts{list-style:none;margin:0;padding:0}
-.facts li{display:grid;grid-template-columns:4.5em 1fr;gap:0 12px;padding:22px 0;border-top:1px solid var(--line)}
-.facts li:last-child{border-bottom:1px solid var(--line)}
-.facts .k{font-size:.85rem;font-weight:700;color:var(--accent);letter-spacing:.1em;padding-top:.35em}
-.facts p{margin:0;font-size:.98rem;line-height:1.95}
+ul.facts{list-style:none;margin:0;padding:0}
+ul.facts li{display:grid;grid-template-columns:4.5em 1fr;gap:0 12px;padding:22px 0;border-top:1px solid var(--line)}
+ul.facts li:last-child{border-bottom:1px solid var(--line)}
+ul.facts .k{font-size:.85rem;font-weight:700;color:var(--accent);letter-spacing:.1em;padding-top:.35em}
+ul.facts p{margin:0;font-size:.98rem;line-height:1.95}
 .essay .body p{font-size:1.02rem;line-height:2.15;margin-bottom:1.8em}
 .essay .closing{margin-top:3em;padding-left:18px;border-left:2px solid var(--accent)}
 .essay .closing p{color:var(--ink);font-weight:600}
@@ -431,8 +431,8 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
   .in.narrow{max-width:720px}
   /* 表: 1列で縦に並べる（2×2はやめた 2026-09-19） */
   #service .in{max-width:820px}
-  .facts li{grid-template-columns:6em 1fr;gap:0 28px;padding:28px 0}
-  .facts p{font-size:1.02rem}
+  ul.facts li{grid-template-columns:6em 1fr;gap:0 28px;padding:28px 0}
+  ul.facts p{font-size:1.02rem}
   /* サービスの流れ: 左にタイムライン、右に2〜8日目とその後 */
   .flow{display:grid;grid-template-columns:7fr 5fr;gap:0 64px;align-items:start}
   .flow .rest .blk:first-child{border-top:0;padding-top:0}
