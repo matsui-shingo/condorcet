@@ -472,6 +472,15 @@ h2.ml .i{padding-left:.75em}
 .decl p:last-child{margin-bottom:0;font-weight:700}
 .decl span{display:block}
 @media (max-width:859px){.decl{font-size:1.12rem}.decl p{margin-bottom:1.5em}}
+/* 注記（お断りしていること）。小さく、目立たせない */
+.okotowari{margin:3em 0 0;padding:20px 0 0;border-top:1px solid var(--line)}
+.okotowari .k{margin:0 0 .8em;font-size:.85rem;font-weight:700;letter-spacing:.1em;color:var(--muted)}
+.okotowari ul{list-style:none;margin:0;padding:0}
+.okotowari li{font-size:.85rem;line-height:1.7;color:var(--muted);margin-bottom:.5em;padding-left:1em;text-indent:-1em}
+.okotowari li::before{content:"・"}
+.okotowari .n{margin:1em 0 0;font-size:.85rem;line-height:1.7;color:var(--muted)}
+/* リンクが2本並ぶときの間隔 */
+a.more + a.more{margin-left:1.6em}
 /* お問い合わせ */
 .form{margin:2.4em 0 0}
 .f-intro{margin:0 0 1em;font-size:1rem}
@@ -570,6 +579,21 @@ def d_menu():
     return [("#" + s["id"], s["menu"]) for s in C.TOP if s.get("menu")]
 
 
+def _body_block(items, cls="bd"):
+    """本文。("p" 段落 / "lines" 改行で並べる / "big" 言い切りの一行) を混ぜて組む"""
+    P = [f'<div class="{cls}">']
+    for kind, content in items:
+        if kind == "lines":
+            inner = "".join(f'<span>{esc(t)}</span>' for t in content)
+            P.append(f'<p class="lines">{inner}</p>')
+        elif kind == "big":
+            P.append(f'<p class="big">{esc(content)}</p>')
+        else:
+            P.append(f'<p>{esc(content)}</p>')
+    P.append('</div>')
+    return P
+
+
 def _line_w(t):
     """見出し1行の幅を、全角を1とした数で見積もる"""
     return sum(0.55 if ord(c) < 0x80 else 1 for c in t)
@@ -622,17 +646,7 @@ def d_body_parts(s_, prefix=""):
             P.append(f'<p>{inner}</p>')
         P.append('</div>')
     if s_.get("body"):
-        # 本文。("p" 段落 / "lines" 改行で並べる / "big" 言い切りの一行) を混ぜて組む
-        P.append('<div class="bd">')
-        for kind, content in s_["body"]:
-            if kind == "lines":
-                inner = "".join(f'<span>{esc(t)}</span>' for t in content)
-                P.append(f'<p class="lines">{inner}</p>')
-            elif kind == "big":
-                P.append(f'<p class="big">{esc(content)}</p>')
-            else:
-                P.append(f'<p>{esc(content)}</p>')
-        P.append('</div>')
+        P.extend(_body_block(s_["body"]))
     if s_.get("close"):
         # 節の締め。最後の一行がいちばん大きい
         inner = "".join(f'<span>{esc(t)}</span>' for t in s_["close"])
@@ -718,9 +732,27 @@ def d_body_parts(s_, prefix=""):
                  '<p>会社名・業種・従業員数・いま一番手間のかかっている事務・ご紹介者のお名前を書いていただけると、話が早いです。</p></div>')
     if s_.get("price"):
         P.append('</div>')  # .price-wrap
+    if s_.get("after"):
+        # 価格表のあとに置く本文
+        P.extend(_body_block(s_["after"]))
+    if s_.get("okotowari"):
+        # 注記。禁止事項は商品説明ではなく、料金のところに小さく置く
+        o = s_["okotowari"]
+        P.append('<div class="okotowari">')
+        P.append(f'<p class="k">{esc(o["title"])}</p>')
+        P.append('<ul>')
+        for it in o["items"]:
+            P.append(f'<li>{esc(it)}</li>')
+        P.append('</ul>')
+        if o.get("note"):
+            P.append(f'<p class="n">{esc(o["note"])}</p>')
+        P.append('</div>')
     if s_.get("more"):
-        label, href = s_["more"]
-        P.append(f'<a class="more" href="{prefix}{href}">{esc(label)} →</a>')
+        # (見出し, 行き先) 一つでも、そのリストでもよい
+        more = s_["more"]
+        more = [more] if isinstance(more[0], str) else more
+        for label, href in more:
+            P.append(f'<a class="more" href="{prefix}{href}">{esc(label)} →</a>')
     return P
 
 
