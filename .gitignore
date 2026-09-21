@@ -18,3 +18,6 @@ _private/
 Thumbs.db
 .obsidian/
 .vscode/
+
+# Python
+__pycache__/
