@@ -642,7 +642,7 @@ def _form_block(f, prefix=""):
     P = ['<div class="form">']
     if f.get("intro"):
         P.append(f'<p class="f-intro">{esc(f["intro"])}</p>')
-    P.append(f'<form class="cform" id="cform" method="post" action="{prefix}api/contact" novalidate'
+    P.append(f'<form class="cform" id="cform" method="post" action="/api/contact" novalidate'
              f' data-ok="{esc(f.get("ok", "送信しました。"))}"'
              f' data-ng="{esc(f.get("ng", "うまく送れませんでした。"))}">')
     for name, label, kind, need, hint in f["fields"]:

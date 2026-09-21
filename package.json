@@ -1,0 +1,8 @@
+{
+  "name": "condorcet",
+  "private": true,
+  "description": "Condorcet のホームページ。ページは tools/build.py が書き出す静的なHTML。ここにあるのは api/ の受け口が使う部品だけ",
+  "dependencies": {
+    "nodemailer": "^7.0.9"
+  }
+}
