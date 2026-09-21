@@ -20,7 +20,12 @@ COMPANY_INFO = [
 ]
 CONTACT_MAIL = "info@condorcet.jp"
 # フッターに残すリンク。節が増えても、ここに書いたものだけ出る
-FOOTER_LINKS = [("料金", "#ryokin")]
+FOOTER_LINKS = [
+    ("トップ", "#top"),
+    ("事例", "#jirei"),
+    ("料金", "#ryokin"),
+    ("お問い合わせ", "#toiawase"),
+]
 
 # ② キャッチコピー（2026-09-19 決定）
 CATCH = "AI経営の最先端まで、昇り詰める8日間"  # 「昇」は博彰案（2026-09-20 松井決定）
