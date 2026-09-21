@@ -174,6 +174,13 @@ h2.ml .i{padding-left:.75em}
 .decl p:last-child{margin-bottom:0;font-weight:700}
 .decl span{display:block}
 @media (max-width:859px){.decl{font-size:1.12rem}.decl p{margin-bottom:1.5em}}
+/* 節の中の小見出しと箇条書き */
+.bd .sub{font-family:var(--head);font-size:1.15rem;font-weight:700;line-height:1.5;
+margin:2.8em 0 1em;padding-bottom:.5em;border-bottom:1px solid var(--line);letter-spacing:.04em}
+.bd .sub:first-child{margin-top:0}
+.bd .dots{list-style:none;margin:0 0 1.7em;padding:0}
+.bd .dots li{position:relative;padding:0 0 0 1.1em;margin-bottom:.7em;font-size:.95rem;line-height:1.55}
+.bd .dots li::before{content:"";position:absolute;left:.1em;top:.6em;width:.4em;height:.4em;border-radius:50%;background:var(--accent)}
 /* 注記（お断りしていること）。小さく、目立たせない */
 .okotowari{margin:3em 0 0;padding:20px 0 0;border-top:1px solid var(--line)}
 .okotowari .k{margin:0 0 .8em;font-size:.85rem;font-weight:700;letter-spacing:.1em;color:var(--muted)}
@@ -336,33 +343,27 @@ font-size:.85rem;line-height:1.7;color:var(--muted)}
 <h2>料金</h2>
 <div class="body">
 <div class="price-wrap"><div class="price">
-<div class="row"><span class="item">訪問日（8時間）＋フォロー（7日間）</span><span class="amt">20万円</span><span class="cond">交通費・宿泊費は別途実費</span></div>
-<div class="row"><span class="item">スポット相談</span><span class="amt">1時間1万円から</span><span class="cond">オンライン可。設定を元に戻す相談は無料</span></div>
-</div>
-<div class="paras">
-<p>都度払いです。月々いただくお金はありません。別に、AIなどの月額（目安 約2.3万円）は、各社へ直接お支払いいただきます。</p>
+<div class="row"><span class="item">訪問日（8時間）＋フォロー（7日間）</span><span class="amt">20万円</span><span class="cond">交通費・宿泊費（必要な場合）は別途実費</span></div>
+<div class="row"><span class="item">スポット相談</span><span class="amt">1時間1万円から</span><span class="cond">オンライン可。設定を元に戻すための相談などは無料</span></div>
 </div>
 </div>
 <div class="bd">
-<p class="big">なぜ、月々いただかないのか。</p>
-<p>月額をいただく形にすると、頼り続けていただくことが、私たちの利益になります。それは、社長がご自分でできるようになることと、逆を向きます。</p>
-<p class="big">社長が私たちを必要としなくなることが、このサービスの完成です。</p>
-<p>困ったときだけ、1時間からのご相談を。</p>
-<p class="big">AIは、間違えます。</p>
-<p>だから、間違えない形ではなく、間違えても取り返しがつく形でお渡しします。元のデータには触らせません。お金が動くこと、会社の外に出ること、他人に届くことは、AIが独りで進められない設定にします。</p>
-</div>
-<div class="okotowari">
-<p class="k">お断りしていること</p>
-<ul>
-<li>代わりに作ること。「全部お任せ」。</li>
-<li>アカウントやパスワードをお預かりすること。代わりにご契約すること。</li>
-<li>補助金の申請を、代わりに出すこと。制度のご案内まではします。</li>
-<li>給与の査定、お金の貸し借りの判断、法律や医療にかかわる判断を、AIに任せる形で作ること。</li>
+<h3 class="sub">料金について</h3>
+<p>他に必要な費用として、AIサービスやツール類などの月額利用料（目安 約2.3万円）は、各社へ直接お支払いいただきます。</p>
+<p>企業に対するコンサルティングサービス（広い意味で Condorcet はコンサルティングサービスです）では通常、月額を定めた顧問契約のようなものが主流です。しかし、Condorcet のようにAIを活用するためのサービスでは、最初にAIを完璧に使えるようにできるのであれば、その後はAIに聞いてもらうのが一番の顧客の利益だと言えます。</p>
+<p class="big">その文脈で言うと、「社長が私たちを必要としなくなる」ことこそが、このサービスの完成だといえます。</p>
+<p>AIが活用できるようになってしまえば、私たちよりもはるかに、AIのほうが強力に有用になるべきです。であるがゆえに、真摯に、最初の8日間だけで結果を出し、その後に社長ご自身がAIを使える状態を目標といたしました。そのための一回限りの料金設定です。</p>
+<p>ただ、本当に困ったときだけ、1時間からのご相談を準備しました。</p>
+<h3 class="sub">安全性について</h3>
+<p>AIは、間違えることがあります。Condorcetでは、AIが間違えない形ではなく、間違えても取り返しがつく形で運用できるように準備・研究いたしました。AIに元のデータを変更しないように設定する。お金が動くことや、会社の外部に連絡したり働きかけるようなことを、AIが単独で進められないような設定にしております。</p>
+<h3 class="sub">サービスについて</h3>
+<p>上記のように、「社長がご自身で」AIを活用できるようになっていただくためのサービスです。そのため、</p>
+<ul class="dots">
+<li>初期設定を除き、AIの操作や入力を、当社または当社の担当者にお任せいただくことはありません。</li>
+<li>アカウントやパスワードをお預かりすることはありません。また、サービスなどを社長に代わって契約することもありません。</li>
 </ul>
-<p class="n">ご自身でできるようになりたい方のための、サービスです。</p>
+<p>ご自身でできるようになりたい方のためのサービスです。</p>
 </div>
-<a class="more" href="ai/">AIとの付き合い方 →</a>
-<a class="more" href="price/">料金をくわしく →</a>
 </div></div></div></section>
 <section id="toiawase" class="sec dark"><div class="w"><div class="in narrow rv">
 <h2>お問い合わせ</h2>

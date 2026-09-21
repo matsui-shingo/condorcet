@@ -470,6 +470,13 @@ h2.ml .i{padding-left:.75em}
 .decl p:last-child{margin-bottom:0;font-weight:700}
 .decl span{display:block}
 @media (max-width:859px){.decl{font-size:1.12rem}.decl p{margin-bottom:1.5em}}
+/* 節の中の小見出しと箇条書き */
+.bd .sub{font-family:var(--head);font-size:1.15rem;font-weight:700;line-height:1.5;
+margin:2.8em 0 1em;padding-bottom:.5em;border-bottom:1px solid var(--line);letter-spacing:.04em}
+.bd .sub:first-child{margin-top:0}
+.bd .dots{list-style:none;margin:0 0 1.7em;padding:0}
+.bd .dots li{position:relative;padding:0 0 0 1.1em;margin-bottom:.7em;font-size:.95rem;line-height:1.55}
+.bd .dots li::before{content:"";position:absolute;left:.1em;top:.6em;width:.4em;height:.4em;border-radius:50%;background:var(--accent)}
 /* 注記（お断りしていること）。小さく、目立たせない */
 .okotowari{margin:3em 0 0;padding:20px 0 0;border-top:1px solid var(--line)}
 .okotowari .k{margin:0 0 .8em;font-size:.85rem;font-weight:700;letter-spacing:.1em;color:var(--muted)}
@@ -631,6 +638,13 @@ def _body_block(items, cls="bd"):
             P.append(f'<p class="lines">{inner}</p>')
         elif kind == "big":
             P.append(f'<p class="big">{esc(content)}</p>')
+        elif kind == "h":          # 節の中の小見出し
+            P.append(f'<h3 class="sub">{esc(content)}</h3>')
+        elif kind == "ul":         # 箇条書き
+            P.append('<ul class="dots">')
+            for it in content:
+                P.append(f'<li>{esc(it)}</li>')
+            P.append('</ul>')
         else:
             P.append(f'<p>{esc(content)}</p>')
     P.append('</div>')
