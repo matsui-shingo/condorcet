@@ -394,7 +394,10 @@ ul.facts p{margin:0;font-size:.98rem;line-height:1.95}
 .big{font-family:var(--head);font-size:1.3rem;font-weight:500;line-height:1.9}
 footer{padding:64px 0 72px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
 footer .logo{display:inline-block;margin-bottom:.6em}
-footer .co{color:var(--ink);font-weight:700;font-size:1rem;margin-bottom:.3em}
+footer .co{color:var(--ink);font-weight:700;font-size:1rem;margin:0 0 .6em}
+footer .addr{font-style:normal;line-height:1.85}
+footer .addr span{display:block}
+footer .addr a{color:var(--accent);text-decoration:none}
 footer nav{margin-top:2em;display:flex;flex-wrap:wrap;gap:.2em 1.4em}
 footer nav a{color:var(--muted);text-decoration:none}
 a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
@@ -717,18 +720,19 @@ def d_header(prefix=""):
 
 
 def d_footer(prefix="", note=True):
+    """フッター。会社情報と、必要最小限のリンクだけ"""
     P = ['<footer><div class="w"><div>'
-         f'<a class="logo" href="{prefix or "#top"}">{C.SITE_NAME}</a>']
-    if note:
-        P.append(f'<p class="note" style="margin-top:2em">{esc(C.FOOTER_NOTE)}<br>この案：D 文字と余白　'
-                 f'<a href="{prefix}../" style="color:inherit">ほかの案を見る</a></p>')
-    P.append('</div><nav>')
-    for href, label in d_menu():
-        P.append(f'<a href="{prefix}{href}">{esc(label)}</a>')
-    for sp in C.SUBPAGES:
-        if sp.get("draft"):
-            continue
-        P.append(f'<a href="{prefix}{sp["slug"]}/">{esc(sp["title"])}</a>')
+         f'<a class="logo" href="{prefix or "#top"}">{C.SITE_NAME}</a>'
+         f'<p class="co">{esc(C.COMPANY)}</p>'
+         '<address class="addr">']
+    for line in C.COMPANY_INFO:
+        P.append(f'<span>{esc(line)}</span>')
+    P.append(f'<span>お問い合わせ：<a href="mailto:{C.CONTACT_MAIL}">{C.CONTACT_MAIL}</a></span>')
+    P.append('</address></div><nav>')
+    for label, href in C.FOOTER_LINKS:
+        # ページ内リンク（#…）は、別ページからはトップへ戻ってから飛ばす
+        target = f'{prefix}{href}' if href.startswith('#') else f'{prefix}{href}'
+        P.append(f'<a href="{target}">{esc(label)}</a>')
     P.append('</nav></div></footer>')
     return "\n".join(P)
 
