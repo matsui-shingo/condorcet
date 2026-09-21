@@ -502,6 +502,7 @@ border:1px solid var(--line);border-radius:6px;padding:.75em .8em;-webkit-appear
 .f-submit{display:block;width:100%;min-height:54px;font-family:var(--head);font-size:1.05rem;font-weight:700;
 letter-spacing:.08em;color:var(--deep);background:var(--accent);border:0;border-radius:6px;cursor:pointer}
 .f-submit:disabled{opacity:.5;cursor:default}
+.f-submit.done{opacity:1;background:#fff;color:var(--deep)}
 .f-status{margin:1.2em 0 0;font-size:.95rem;line-height:1.7;font-weight:700;min-height:1.7em}
 .f-status.ng{color:#ffb4b4}
 .f-filter{margin:2.4em 0 0;padding-top:1.4em;border-top:1px solid var(--line);
@@ -600,6 +601,7 @@ D_JS = """
       fetch(cf.getAttribute('action'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})
         .then(function(r){if(!r.ok){throw 0}return r})
         .then(function(){cf.querySelectorAll('input,textarea,button').forEach(function(el){el.disabled=true});
+                         btn.textContent=cf.getAttribute('data-okbtn');btn.classList.add('done');
                          st.textContent=cf.getAttribute('data-ok')})
         .catch(function(){btn.disabled=false;st.className='f-status ng';st.textContent=cf.getAttribute('data-ng')});
     });
@@ -644,7 +646,8 @@ def _form_block(f, prefix=""):
         P.append(f'<p class="f-intro">{esc(f["intro"])}</p>')
     P.append(f'<form class="cform" id="cform" method="post" action="/api/contact" novalidate'
              f' data-ok="{esc(f.get("ok", "送信しました。"))}"'
-             f' data-ng="{esc(f.get("ng", "うまく送れませんでした。"))}">')
+             f' data-ng="{esc(f.get("ng", "うまく送れませんでした。"))}"'
+             f' data-okbtn="{esc(f.get("ok_btn", "送信しました"))}">')
     for name, label, kind, need, hint in f["fields"]:
         req = ' <span class="req">必須</span>' if need else ''
         P.append(f'<div class="f-row"><label for="f-{name}">{esc(label)}{req}</label>')
