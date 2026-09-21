@@ -318,10 +318,7 @@ main,footer{position:relative;z-index:1}
 .hd:not(.on) .logo,.hd:not(.on) .cta{color:#fff;border-color:rgba(255,255,255,.7)}
 .hd:not(.on) .mn summary::before,.hd:not(.on) .mn summary::after{background:#fff}
 .hd .bar{display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{display:inline-flex;align-items:center;line-height:1;text-decoration:none}
-.logo .mark{height:26px;width:auto;display:block;flex:none}
-/* スクロールで背景が入れ替わるので、ロゴも差し替える */
-.hd:not(.on) .mark.n,.hd.on .mark.w{display:none}
+.logo{font-family:var(--latin);font-weight:700;font-size:1.25rem;letter-spacing:-.02em;color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;line-height:1.1}
 .hd .rt{display:flex;align-items:center;gap:16px}
 .hd .cta{font-size:.8rem;font-weight:500;color:var(--ink);text-decoration:none;border:1px solid var(--ink);border-radius:999px;padding:.35em 1em;white-space:nowrap}
 .mn{position:relative}
@@ -397,7 +394,6 @@ ul.facts p{margin:0;font-size:.98rem;line-height:1.95}
 .big{font-family:var(--head);font-size:1.3rem;font-weight:500;line-height:1.9}
 footer{padding:64px 0 72px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
 footer .logo{display:inline-block;margin-bottom:.6em}
-footer .logo .mark{height:26px;width:auto;display:block}
 footer .co{color:var(--ink);font-weight:700;font-size:1rem;margin-bottom:.3em}
 footer nav{margin-top:2em;display:flex;flex-wrap:wrap;gap:.2em 1.4em}
 footer nav a{color:var(--muted);text-decoration:none}
@@ -410,7 +406,7 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 @media (min-width:860px){
   .w{max-width:1120px;padding-inline:48px}
   .hd .bar{height:72px}
-  .logo .mark{height:30px}
+  .logo{font-size:1.4rem}
   .mn nav{left:auto;right:48px;top:calc(72px + env(safe-area-inset-top,0px));width:280px;border:1px solid var(--line);padding:10px 24px 16px}
   .hero{padding:calc(72px + env(safe-area-inset-top,0px) + 120px) 0 96px}
   .hero .catch{font-size:clamp(2.6rem,4.4vw,4rem);line-height:1.3;letter-spacing:0;max-width:20em}
@@ -693,11 +689,10 @@ NOINDEX = '<meta name="robots" content="noindex,nofollow">'
 
 def d_header(prefix=""):
     """prefix: トップは ""、別ページは "../" """
-    # ロゴは2枚。スクロールで背景が入れ替わるので、CSS でどちらか一方だけを出す
-    mark = (f'<img class="mark w" src="{prefix}{C.LOGO_WHITE}" alt="{C.SITE_NAME}" decoding="async">'
-            f'<img class="mark n" src="{prefix}{C.LOGO_NAVY}" alt="{C.SITE_NAME}" decoding="async">')
+    # ロゴ画像は取りやめ、文字に戻した（2026-09-21 松井。2枚の入れ替えで位置がずれるため）。
+    # 画像は logo-white.png / logo-navy.png として残してある
     P = ['<header class="hd"><div class="w bar">'
-         f'<a class="logo" href="{prefix or "#top"}">{mark}</a>'
+         f'<a class="logo" href="{prefix or "#top"}">{C.SITE_NAME}</a>'
          f'<div class="rt">'
          f'<a class="cta" href="{prefix}contact/">お問い合わせ</a>'
          '<details class="mn"><summary aria-label="メニュー"></summary><nav>']
@@ -709,8 +704,7 @@ def d_header(prefix=""):
 
 def d_footer(prefix="", note=True):
     P = ['<footer><div class="w"><div>'
-         f'<a class="logo" href="{prefix or "#top"}">'
-         f'<img class="mark" src="{prefix}{C.LOGO_NAVY}" alt="{C.SITE_NAME}" decoding="async"></a>']
+         f'<a class="logo" href="{prefix or "#top"}">{C.SITE_NAME}</a>']
     if note:
         P.append(f'<p class="note" style="margin-top:2em">{esc(C.FOOTER_NOTE)}<br>この案：D 文字と余白　'
                  f'<a href="{prefix}../" style="color:inherit">ほかの案を見る</a></p>')
