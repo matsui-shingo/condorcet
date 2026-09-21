@@ -291,7 +291,7 @@ def full_page(theme_key):
     title, link, style = head_parts(theme_key)
     return ("<!doctype html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"utf-8\">\n"
             "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,viewport-fit=cover\">\n"
-            f"{title}\n{link}\n{style}\n</head>\n<body>\n{render_body(theme_key)}\n</body>\n</html>\n")
+            f"{NOINDEX}\n{title}\n{link}\n{style}\n</head>\n<body>\n{render_body(theme_key)}\n</body>\n</html>\n")
 
 
 def fragment(theme_key):
@@ -685,6 +685,10 @@ def _line_w(t):
 # タブと iOS ホーム画面のアイコン。絶対パスなので / からも /d/ からも同じものを指す
 ICONS = ('<link rel="icon" href="/favicon.ico" sizes="any">'
          '<link rel="apple-touch-icon" href="/apple-touch-icon.png">')
+# 検索結果に出る一行
+DESC = f'<meta name="description" content="{C.TAGLINE}。8日間のAI強化訓練プログラム。">'
+# 比較用の下書き（drafts/）は検索に出さない
+NOINDEX = '<meta name="robots" content="noindex,nofollow">'
 
 
 def d_header(prefix=""):
@@ -714,6 +718,8 @@ def d_footer(prefix="", note=True):
     for href, label in d_menu():
         P.append(f'<a href="{prefix}{href}">{esc(label)}</a>')
     for sp in C.SUBPAGES:
+        if sp.get("draft"):
+            continue
         P.append(f'<a href="{prefix}{sp["slug"]}/">{esc(sp["title"])}</a>')
     P.append('</nav></div></footer>')
     return "\n".join(P)
@@ -868,7 +874,7 @@ def render_body_d():
         P.extend(d_body_parts(s_))
         P.append('</div></div></div></section>')
     P.append('</main>')
-    P.append(d_footer())
+    P.append(d_footer(note=False))
     P.append(f'<script>{D_JS}</script>')
     return "\n".join(P)
 
@@ -925,7 +931,7 @@ def full_subpage_d(sp):
     style = f"<style>{D_CSS}{SUB_CSS}</style>"
     return ("<!doctype html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"utf-8\">\n"
             "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,viewport-fit=cover\">\n"
-            f"{title}\n{ICONS}\n{link}\n{style}\n</head>\n<body>\n{render_subpage_d(sp)}\n</body>\n</html>\n")
+            f"{title}\n{DESC}\n{ICONS}\n{link}\n{style}\n</head>\n<body>\n{render_subpage_d(sp)}\n</body>\n</html>\n")
 
 
 def d_head():
@@ -940,7 +946,7 @@ def full_page_d():
     title, link, style = d_head()
     return ("<!doctype html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"utf-8\">\n"
             "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,viewport-fit=cover\">\n"
-            f"{title}\n{ICONS}\n{link}\n{style}\n</head>\n<body>\n{render_body_d()}\n</body>\n</html>\n")
+            f"{title}\n{DESC}\n{ICONS}\n{link}\n{style}\n</head>\n<body>\n{render_body_d()}\n</body>\n</html>\n")
 
 
 def fragment_d():
@@ -968,7 +974,7 @@ def index_page(fragment_mode=False):
             '<p class="sub">同じ文章で、雰囲気の違う3案。スマホで開いて比べてください。</p>']
     for k, t in THEMES.items():
         body.append(f'<a class="card" href="{k}/"><b>{esc(t["name"])}</b><span>{esc(t["mood"])}</span></a>')
-    body.append('<a class="card" href="d/"><b>D 文字と余白</b><span>採用サイトの型。薄い灰の地に文字だけ、青は強調したい語にだけ。PCでは節ごとに横幅の使い方を変える（長文は絞る・8日間は3列・料金は2列）。ロゴだけ英字</span></a>')
+    body.append('<a class="card" href="../"><b>D 文字と余白</b><span>採用サイトの型。薄い灰の地に文字だけ、青は強調したい語にだけ。PCでは節ごとに横幅の使い方を変える（長文は絞る・8日間は3列・料金は2列）。ロゴだけ英字</span></a>')
     body.append("<h2>この素案で確定しているもの</h2><ul>"
                 "<li>事業名・キャッチコピー・事業情報の表（内容／対象／日数／料金／誰が）</li>"
                 "<li>長文（博彰の清書。一字も変えていません）</li></ul>")
@@ -987,7 +993,7 @@ def index_page(fragment_mode=False):
         return f"{title}\n{style}\n{inner}\n"
     return ("<!doctype html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"utf-8\">\n"
             "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,viewport-fit=cover\">\n"
-            f"{title}\n{style}\n</head>\n<body>\n{inner}\n</body>\n</html>\n")
+            f"{NOINDEX}\n{title}\n{style}\n</head>\n<body>\n{inner}\n</body>\n</html>\n")
 
 
 def write(path, text):
@@ -1005,12 +1011,16 @@ def main():
         write(os.path.join(out, "d", "index.html"), fragment_d())
         print("fragments ->", out)
         return
-    write(os.path.join(ROOT, "index.html"), index_page())
-    for k in THEMES:
-        write(os.path.join(ROOT, k, "index.html"), full_page(k))
-    write(os.path.join(ROOT, "d", "index.html"), full_page_d())
+    # 公開するのは案D。トップは直下に置く（condorcet.jp を開いたら、これが出る）
+    write(os.path.join(ROOT, "index.html"), full_page_d())
     for sp in C.SUBPAGES:
-        write(os.path.join(ROOT, "d", sp["slug"], "index.html"), full_subpage_d(sp))
+        if sp.get("draft"):
+            continue  # 中身が未完成のページは書き出さない
+        write(os.path.join(ROOT, sp["slug"], "index.html"), full_subpage_d(sp))
+    # 案A〜Cの比較は drafts/ に残す（消さない。検索には出さない）
+    write(os.path.join(ROOT, "drafts", "index.html"), index_page())
+    for k in THEMES:
+        write(os.path.join(ROOT, "drafts", k, "index.html"), full_page(k))
     print("written:", ROOT)
 
 

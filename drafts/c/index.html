@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
 <title>Condorcet（コンドルセ）— AI経営の最先端まで、昇り詰める8日間</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;900&family=Noto+Sans+JP:wght@400;700&display=swap">
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:light}
@@ -58,48 +59,23 @@ footer nav{margin-top:1.2em;display:flex;flex-wrap:wrap;gap:.3em 1.2em}
 footer nav a{color:var(--muted);text-decoration:none}
 a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-:root{--bg:#ffffff;--fg:#0f1b33;--accent:#1e40c8;--deep:#0b2a6b;--line:#dbe1ee;--muted:#5b6780;--soft:#eef2fb;
---display:'Noto Sans JP','Hiragino Sans',sans-serif;--body:'Noto Sans JP','Hiragino Sans',sans-serif;--fs:17px}
-header.top{border-bottom:1px solid var(--line)}
-header.top .brand{font-weight:900;font-size:1.3rem;color:var(--accent);letter-spacing:-.01em}
-header.top .right{display:flex;align-items:center;gap:14px}
-.cta{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;font-size:.85rem;padding:.45em 1.1em;border-radius:999px}
-.menu summary{border:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--fg)}
-.menu summary .ico{display:block;width:26px;height:18px;position:relative}
-.menu summary .ico::before,.menu summary .ico::after,.menu summary .ico i{content:"";position:absolute;left:0;right:0;height:2px;background:var(--fg);border-radius:2px}
-.menu summary .ico::before{top:0}.menu summary .ico i{top:8px}.menu summary .ico::after{bottom:0}
-.menu summary .lbl{font-size:.62rem;letter-spacing:.05em}
-.menu nav{border-radius:14px;border:0;box-shadow:0 12px 32px rgba(11,42,107,.18);padding:.6em 0;min-width:240px}
-.menu nav a{font-weight:500;padding:.65em 1.4em}
-.hero{background:var(--deep);color:#fff;padding-block:64px 96px}
-.hero .name{font-weight:900;font-size:2.9rem;letter-spacing:-.02em;line-height:1.1}
-.hero .kana{font-size:.9rem;letter-spacing:.35em;opacity:.8;margin-top:.5em}
-.hero .catch{font-weight:900;font-size:1.7rem;line-height:1.45;margin-top:1.6em;text-wrap:pretty}
-#service{border-top:0;padding-top:0;background:linear-gradient(var(--deep) 0,var(--deep) 56px,var(--bg) 56px)}
-#service dl.summary{background:#fff;border-radius:18px;padding:28px 22px;box-shadow:0 18px 44px rgba(11,42,107,.14)}
-dl.summary dt{color:var(--accent);font-weight:900;font-size:.9rem;display:flex;align-items:center;gap:.5em}
-dl.summary dt::before{content:"";width:10px;height:10px;background:var(--accent);border-radius:2px}
-dl.summary dd{padding-left:1.35em}
-section{border-top:0;padding-block:56px}
-main > section:nth-of-type(odd):not(#service){background:var(--soft)}
-h2{font-weight:900;font-size:1.5rem;letter-spacing:-.01em}
-h2::before{content:"";display:block;width:32px;height:5px;background:var(--accent);border-radius:3px;margin-bottom:.8em}
-.essay p{line-height:2}
-.essay .closing{border-top:0;background:var(--soft);border-radius:14px;padding:20px 18px;margin-top:2em}
-main > section:nth-of-type(odd) .essay .closing{background:#fff}
-.block{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px}
-main > section:nth-of-type(even) .block{background:var(--soft);border:0}
-.block h3{color:var(--accent);font-weight:900;font-size:1rem}
-.more{color:var(--accent);border-bottom:0;font-weight:700}
-.figure{border:2px dashed var(--line);border-radius:14px;background:#fff}
-.price .row{border-bottom:1px solid var(--line)}
-.price .row:first-child{border-top:0}
-.price .amt{color:var(--accent);font-weight:900;font-size:1.6rem}
-footer{background:var(--deep);color:rgba(255,255,255,.75);border-top:0;padding-block:40px 56px}
-footer .co{color:#fff}
-footer nav a{color:rgba(255,255,255,.75)}
-footer .note{color:rgba(255,255,255,.6)}
-footer a{color:#fff}
+:root{--bg:#ffffff;--fg:#111111;--accent:#111111;--line:#111111;--muted:#555555;--soft:#fff7d6;--mark:#f2b705;
+--display:'Zen Kaku Gothic New','Hiragino Sans',sans-serif;--body:'Noto Sans JP','Hiragino Sans',sans-serif;--fs:17px}
+header.top{background:#111;color:#fff;border-bottom:4px solid var(--mark)}
+header.top .brand{color:#fff}
+.menu summary{color:#fff;border-color:#fff}
+.hero .name{font-family:var(--display);font-weight:900;font-size:2.7rem;letter-spacing:-.01em}
+.hero .kana{font-weight:700;font-size:.9rem;letter-spacing:.2em}
+.hero .catch{font-family:var(--display);font-weight:900;font-size:1.6rem;line-height:1.5;margin-top:1.2em;
+background:linear-gradient(transparent 62%,var(--mark) 62%);display:inline;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.hero .catchwrap{margin-top:1.2em}
+section{border-top:2px solid var(--line)}
+h2{font-family:var(--display);font-weight:900;font-size:1.5rem}
+h2::after{content:"";display:block;width:2.5em;height:6px;background:var(--mark);margin-top:.3em}
+dl.summary dt{font-family:var(--display);font-weight:900;font-size:.95rem;background:var(--mark);display:inline-block;padding:0 .5em}
+.block h3{font-family:var(--display);font-weight:900}
+.price .amt{font-family:var(--display);font-weight:900;background:linear-gradient(transparent 60%,var(--mark) 60%)}
+.figure{border:2px dashed var(--line)}
 </style>
 </head>
 <body>
@@ -201,7 +177,7 @@ footer a{color:#fff}
 <a href="#jirei">事例</a>
 <a href="#ryokin">料金</a>
 <a href="#toiawase">お問い合わせ</a>
-</nav><p class="note" style="margin-top:1.4em">この素案では、最初の画面と表は決定済み、それ以外の各節は下書きです。<br>この案：A 白と青　<a href="../" style="color:inherit">ほかの案を見る</a></p></div></footer>
+</nav><p class="note" style="margin-top:1.4em">この素案では、最初の画面と表は決定済み、それ以外の各節は下書きです。<br>この案：C 白・黒・山吹　<a href="../" style="color:inherit">ほかの案を見る</a></p></div></footer>
 <script>
 document.querySelectorAll('.menu nav a').forEach(function(a){
   a.addEventListener('click',function(){var d=a.closest('details');if(d){d.open=false;}});

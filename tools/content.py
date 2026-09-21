@@ -466,6 +466,7 @@ SUBPAGES = [
     },
     {
         "slug": "contact",
+        "draft": True,  # 公開しない: トップのお問い合わせと重複
         "title": "お問い合わせ",
         "lead": "ご紹介を受けた方、支援機関の方は、こちらへ。",
         "sections": [
@@ -481,12 +482,14 @@ SUBPAGES = [
     },
     {
         "slug": "thought",
+        "draft": True,  # 公開しない: 本文が旧い射程（事務に閉じている）のまま
         "title": "コンドルセの考え",
         "lead": ESSAY_TITLE,
         "essay": True,
     },
     {
         "slug": "name",
+        "draft": True,  # 公開しない: 文章が未執筆
         "title": "名前について",
         "lead": "Condorcet（コンドルセ）という名前の由来。",
         "sections": [{"title": "", "paras": ["（文章は準備中です。博彰が書きます）"]}],
