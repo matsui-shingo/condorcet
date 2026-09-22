@@ -302,13 +302,13 @@ def fragment(theme_key):
 
 # ---------------------------------------------------------------- 案D（採用サイト型・文字だけ）
 # 書体: 見出しは Zen Old Mincho、本文は端末の書体（ヒラギノ／游ゴシック／メイリオ）。ロゴ（Condorcet）だけ英字の Manrope
-D_FONTS = "Zen+Old+Mincho:wght@400;500;700&family=Manrope:wght@600;700"
+D_FONTS = "Zen+Old+Mincho:wght@400;500;700"
 D_CSS = """
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:light}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 :root{--bg:#e6edf7;--paper:#ffffff;--ink:#141c2b;--ink2:#3f4a5e;--muted:#6f7b90;--accent:#1b57d6;--line:#c5d1e4;--deep:#0f1f3d;--deep-em:#8fb3ff;
---font:'Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic','游ゴシック',YuGothic,Meiryo,'Noto Sans JP',sans-serif;--head:'Zen Old Mincho','Hiragino Mincho ProN','Yu Mincho',serif;--latin:'Manrope','Helvetica Neue',Arial,sans-serif}
+--mincho:'Zen Old Mincho','Hiragino Mincho ProN','Yu Mincho',YuMincho,'MS PMincho',serif;--font:var(--mincho);--head:var(--mincho);--latin:var(--mincho)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;font-weight:500;line-height:2;overflow-wrap:anywhere}
 body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 main,footer{position:relative;z-index:1}
