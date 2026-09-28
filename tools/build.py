@@ -321,7 +321,7 @@ main,footer{position:relative;z-index:1}
 .logo{display:inline-flex;align-items:center;text-decoration:none;
 font-family:var(--head);font-weight:700;font-size:1.25rem;color:var(--ink);line-height:1.1}
 /* ロゴ2枚。白を基準に置き、濃紺をその真上に重ねて、透明度だけで入れ替える。
-   ※クラス名に1文字を使わないこと。以前 class="mark w" が本文幅の .w と衝突し、
+   ※クラス名に1文字を使わないこと。以前ロゴに付けていた 1文字のクラスが本文幅の .w と衝突し、
      白いロゴだけ左右に24pxずつ余白が付いて、切り替わるたびに位置がずれていた */
 .logo .lw{position:relative;display:block;height:30px}
 .logo .mark{height:100%;width:auto;display:block;transition:opacity .25s}
