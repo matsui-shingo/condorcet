@@ -320,12 +320,14 @@ main,footer{position:relative;z-index:1}
 .hd .bar{display:flex;align-items:center;justify-content:space-between;height:60px}
 .logo{display:inline-flex;align-items:center;text-decoration:none;
 font-family:var(--head);font-weight:700;font-size:1.25rem;color:var(--ink);line-height:1.1}
-/* ロゴ2枚。白を基準に置き、濃紺をその真上に重ねて、透明度だけで入れ替える */
+/* ロゴ2枚。白を基準に置き、濃紺をその真上に重ねて、透明度だけで入れ替える。
+   ※クラス名に1文字を使わないこと。以前 class="mark w" が本文幅の .w と衝突し、
+     白いロゴだけ左右に24pxずつ余白が付いて、切り替わるたびに位置がずれていた */
 .logo .lw{position:relative;display:block;height:30px}
 .logo .mark{height:100%;width:auto;display:block;transition:opacity .25s}
-.logo .mark.n{position:absolute;inset:0;height:100%;opacity:0}
-.hd.on .mark.w{opacity:0}
-.hd.on .mark.n{opacity:1}
+.logo .mark-n{position:absolute;inset:0;height:100%;opacity:0}
+.hd.on .mark-w{opacity:0}
+.hd.on .mark-n{opacity:1}
 @media (prefers-reduced-motion:reduce){.logo .mark{transition:none}}
 .hd .rt{display:flex;align-items:center;gap:16px}
 .hd .cta{font-size:.8rem;font-weight:500;color:var(--ink);text-decoration:none;border:1px solid var(--ink);border-radius:999px;padding:.35em 1em;white-space:nowrap}
@@ -719,8 +721,8 @@ def d_header(prefix=""):
     # 表示・非表示で入れ替えると場所が動くので、片方を絶対配置で真上に重ねる。
     # 2枚は同じ原本から生成していて、形は1ピクセルも違わない
     mark = (f'<span class="lw">'
-            f'<img class="mark w" src="{prefix}{C.LOGO_WHITE}" alt="{C.SITE_NAME}" decoding="async">'
-            f'<img class="mark n" src="{prefix}{C.LOGO_NAVY}" alt="" aria-hidden="true" decoding="async">'
+            f'<img class="mark mark-w" src="{prefix}{C.LOGO_WHITE}" alt="{C.SITE_NAME}" decoding="async">'
+            f'<img class="mark mark-n" src="{prefix}{C.LOGO_NAVY}" alt="" aria-hidden="true" decoding="async">'
             f'</span>')
     P = ['<header class="hd"><div class="w bar">'
          f'<a class="logo" href="{prefix or "#top"}">{mark}</a>'
