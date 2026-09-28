@@ -722,7 +722,7 @@ def d_header(prefix=""):
 def d_footer(prefix="", note=True):
     """フッター。会社情報と、必要最小限のリンクだけ"""
     P = ['<footer><div class="w"><div>'
-         f'<a class="logo" href="{prefix or "#top"}">{C.SITE_NAME}</a>'
+         f'<a class="logo" href="{prefix or "#top"}">{esc(C.FOOTER_NAME)}</a>'
          f'<p class="co">{esc(C.COMPANY)}</p>'
          '<address class="addr">']
     for line in C.COMPANY_INFO:

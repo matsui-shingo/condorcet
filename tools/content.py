@@ -12,11 +12,11 @@ SITE_KANA = "コンドルセ"  # ページの題（ブラウザのタブ・検�
 # 原本は assets-src/。透過と縮小は tools で加工済み（背景を抜かないと四角い板が乗る）
 LOGO_WHITE = "logo-white.png"  # 濃紺の上（ヒーロー・フッター）
 LOGO_NAVY = "logo-navy.png"    # 薄い青の上（スクロール後のヘッダー）
-COMPANY = "株式会社インスフィアファーム"
-# フッターの会社情報（2026-09-21 松井）
+# フッターに出す名前（2026-09-28 松井）。ヘッダーのロゴは SITE_NAME のまま
+FOOTER_NAME = "Condorcet Epoch Partner"
+COMPANY = "コンドルセ・エポック・パートナー"
 COMPANY_INFO = [
-    "福井本社：福井県坂井市三国町北本町4-1-11",
-    "東京事務所：東京都新宿区中落合3-9-20",
+    "東京都新宿区中落合3-9-20",
 ]
 CONTACT_MAIL = "info@condorcet.jp"
 # フッターに残すリンク。節が増えても、ここに書いたものだけ出る
