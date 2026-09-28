@@ -318,7 +318,15 @@ main,footer{position:relative;z-index:1}
 .hd:not(.on) .logo,.hd:not(.on) .cta{color:#fff;border-color:rgba(255,255,255,.7)}
 .hd:not(.on) .mn summary::before,.hd:not(.on) .mn summary::after{background:#fff}
 .hd .bar{display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{font-family:var(--latin);font-weight:700;font-size:1.25rem;letter-spacing:-.02em;color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;line-height:1.1}
+.logo{display:inline-flex;align-items:center;text-decoration:none;
+font-family:var(--head);font-weight:700;font-size:1.25rem;color:var(--ink);line-height:1.1}
+/* ロゴ2枚。白を基準に置き、濃紺をその真上に重ねて、透明度だけで入れ替える */
+.logo .lw{position:relative;display:block;height:30px}
+.logo .mark{height:100%;width:auto;display:block;transition:opacity .25s}
+.logo .mark.n{position:absolute;inset:0;height:100%;opacity:0}
+.hd.on .mark.w{opacity:0}
+.hd.on .mark.n{opacity:1}
+@media (prefers-reduced-motion:reduce){.logo .mark{transition:none}}
 .hd .rt{display:flex;align-items:center;gap:16px}
 .hd .cta{font-size:.8rem;font-weight:500;color:var(--ink);text-decoration:none;border:1px solid var(--ink);border-radius:999px;padding:.35em 1em;white-space:nowrap}
 .mn{position:relative}
@@ -410,6 +418,7 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
   .w{max-width:1120px;padding-inline:48px}
   .hd .bar{height:72px}
   .logo{font-size:1.4rem}
+  .logo .lw{height:34px}
   .mn nav{left:auto;right:48px;top:calc(72px + env(safe-area-inset-top,0px));width:280px;border:1px solid var(--line);padding:10px 24px 16px}
   .hero{padding:calc(72px + env(safe-area-inset-top,0px) + 120px) 0 96px}
   .hero .catch{font-size:clamp(2.6rem,4.4vw,4rem);line-height:1.3;letter-spacing:0;max-width:20em}
@@ -706,10 +715,15 @@ NOINDEX = '<meta name="robots" content="noindex,nofollow">'
 
 def d_header(prefix=""):
     """prefix: トップは ""、別ページは "../" """
-    # ロゴ画像は取りやめ、文字に戻した（2026-09-21 松井。2枚の入れ替えで位置がずれるため）。
-    # 画像は logo-white.png / logo-navy.png として残してある
+    # ロゴは2枚を重ねて置き、透明度だけで切り替える（2026-09-28）。
+    # 表示・非表示で入れ替えると場所が動くので、片方を絶対配置で真上に重ねる。
+    # 2枚は同じ原本から生成していて、形は1ピクセルも違わない
+    mark = (f'<span class="lw">'
+            f'<img class="mark w" src="{prefix}{C.LOGO_WHITE}" alt="{C.SITE_NAME}" decoding="async">'
+            f'<img class="mark n" src="{prefix}{C.LOGO_NAVY}" alt="" aria-hidden="true" decoding="async">'
+            f'</span>')
     P = ['<header class="hd"><div class="w bar">'
-         f'<a class="logo" href="{prefix or "#top"}">{C.SITE_NAME}</a>'
+         f'<a class="logo" href="{prefix or "#top"}">{mark}</a>'
          f'<div class="rt">'
          f'<a class="cta" href="{prefix}contact/">お問い合わせ</a>'
          '<details class="mn"><summary aria-label="メニュー"></summary><nav>']
